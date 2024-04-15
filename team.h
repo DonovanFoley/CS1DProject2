@@ -8,7 +8,9 @@ class Team
 {
 public:
     Team();
-
+    Team(QString teamName, QString stadiumName, int seatingCapacity, QString location, QString playingSurface,
+         QString league, int dateOpened, int distanceToField, QString typology, QString rooftype,
+         QMap<QString, double> souvenirList);
 
 
     //Accessors
@@ -38,8 +40,8 @@ private:
     QString _typology;
     QString _rooftype;
     QMap<QString, double> _souvenirList;
-    bool _isInTrip;
-    bool _isStartingTeam;
+    bool _isInTrip = false;
+    bool _isStartingTeam = false;
 };
 
 #endif // TEAM_H

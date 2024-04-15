@@ -18,6 +18,8 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void displayTeamInfo();
+
 private:
     Ui::MainWindow *ui;
 };
