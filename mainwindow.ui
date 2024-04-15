@@ -13,14 +13,85 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QListWidget" name="listWidget_teamList">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>150</y>
+      <width>291</width>
+      <height>351</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_sort">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>110</y>
+      <width>141</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Team Name</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Stadium Name</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Park Typology</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Date Opened</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QComboBox" name="comboBox_exclude">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>110</y>
+      <width>141</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>All</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>American League</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>National League</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Open Roof</string>
+     </property>
+    </item>
+   </widget>
+  </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>36</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>
