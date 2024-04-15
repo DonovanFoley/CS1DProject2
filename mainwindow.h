@@ -18,10 +18,14 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void displayTeamInfo();
+private slots:
+    void on_listWidget_teamList_currentTextChanged(const QString &currentText);
 
 private:
     Ui::MainWindow *ui;
+
+    //QVector<Team> _teams;
+    QMap<QString, Team> _teams;
 };
 #endif // MAINWINDOW_H
 //test
