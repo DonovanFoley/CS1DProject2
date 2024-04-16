@@ -2,7 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <team.h>
+#include "team.h"
+#include "map.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -21,11 +22,15 @@ public:
 private slots:
     void on_listWidget_teamList_currentTextChanged(const QString &currentText);
 
+    void on_comboBox_sort_currentTextChanged(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
 
     //QVector<Team> _teams;
-    QMap<QString, Team> _teams;
+    //QMap<QString, Team> _teams;
+    Map _teams;
+
 };
 #endif // MAINWINDOW_H
 //test
