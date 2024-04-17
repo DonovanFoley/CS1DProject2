@@ -6,7 +6,13 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    //loginDialog = new LoginDialog;
     ui->tableWidget_teamInfo->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
+
+    //Set up toolbar
+    //loginMenu = menuBar()->addMenu("&Login");
+    //loginMenu->addAction(loginAct);
+    //connect(loginAct, &QAction::triggered, this, &MainWindow::login);
 
     //Dummy teams for testing purposes
     QMap<QString, double> s;
@@ -74,6 +80,11 @@ void MainWindow::displayTeamNames()
     }
 }
 
+void MainWindow::login()
+{
+    //loginDialog->exec();
+}
+
 //-----------------------------BEGINNING OF GO TO SLOT FUNCTIONS------------------------------------
 
 //Update display info when a team is clicked
@@ -111,12 +122,6 @@ void MainWindow::on_comboBox_sort_currentTextChanged(const QString &arg1)
 void MainWindow::on_comboBox_exclude_currentTextChanged(const QString &arg1)
 {
     ui->listWidget_teamList->clear();
-
-    onlyAmerican = false;
-    onlyNational = false;
-    onlyOpenRoof = false;
-    onlyGreatestDistance = false;
-    onlySmallestDistance = false;
 
     onlyAmerican = (arg1 == "American League");
     onlyNational = (arg1 == "National League");
