@@ -37,6 +37,9 @@ private:
     //QMap<QString, Team> _teams;
     bool onlyNational;
     bool onlyAmerican;
+    bool onlyOpenRoof;
+    bool onlyGreatestDistance;
+    bool onlySmallestDistance;
 
     Map _teams;
     QMap<QString, Property> propertyMap;

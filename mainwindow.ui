@@ -52,6 +52,16 @@
          <string>Open Roof</string>
         </property>
        </item>
+       <item>
+        <property name="text">
+         <string>Greatest Distance</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Smallest Distance</string>
+        </property>
+       </item>
       </widget>
      </item>
      <item row="0" column="0">

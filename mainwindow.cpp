@@ -23,8 +23,6 @@ MainWindow::MainWindow(QWidget *parent)
     propertyMap["Seating Capacity"] = seatingCapacity;
 
     displayTeamNames();
-
-
 }
 
 MainWindow::~MainWindow()
@@ -34,6 +32,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::displayTeamNames()
 {
+    int max = INT_MIN;
+    int min = INT_MAX;
+
     for (int i = 0; i < _teams.size(); i++)
     {
         if (onlyAmerican)
@@ -43,6 +44,28 @@ void MainWindow::displayTeamNames()
         else if (onlyNational)
         {
             if (_teams(i).league() == "National") ui->listWidget_teamList->addItem(_teams(i).teamName());
+        }
+        else if (onlyOpenRoof)
+        {
+            if (_teams(i).rooftype() == "Open") ui->listWidget_teamList->addItem(_teams(i).teamName());
+        }
+        else if (onlyGreatestDistance)
+        {
+            if (_teams(i).distanceToField() > max)
+            {
+                ui->listWidget_teamList->clear();
+                ui->listWidget_teamList->addItem(_teams(i).teamName());
+                max = _teams(i).distanceToField();
+            }
+        }
+        else if (onlySmallestDistance)
+        {
+            if (_teams(i).distanceToField() < min)
+            {
+                ui->listWidget_teamList->clear();
+                ui->listWidget_teamList->addItem(_teams(i).teamName());
+                min = _teams(i).distanceToField();
+            }
         }
         else
         {
@@ -91,9 +114,15 @@ void MainWindow::on_comboBox_exclude_currentTextChanged(const QString &arg1)
 
     onlyAmerican = false;
     onlyNational = false;
+    onlyOpenRoof = false;
+    onlyGreatestDistance = false;
+    onlySmallestDistance = false;
 
     onlyAmerican = (arg1 == "American League");
     onlyNational = (arg1 == "National League");
+    onlyOpenRoof = (arg1 == "Open Roof");
+    onlyGreatestDistance = (arg1 == "Greatest Distance");
+    onlySmallestDistance = (arg1 == "Smallest Distance");
 
     displayTeamNames();
 }

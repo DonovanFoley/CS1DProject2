@@ -23,11 +23,4 @@ private:
     QVector<Team> _teamsVector;
 };
 
-/*
-template <typename T> T Map::compare(T p1, T p2)
-{
-    if (p1 > p2) return p1;
-    return p2;
-}*/
-
 #endif // MAP_H

@@ -59,6 +59,8 @@ public:
         comboBox_exclude->addItem(QString());
         comboBox_exclude->addItem(QString());
         comboBox_exclude->addItem(QString());
+        comboBox_exclude->addItem(QString());
+        comboBox_exclude->addItem(QString());
         comboBox_exclude->setObjectName("comboBox_exclude");
 
         gridLayout->addWidget(comboBox_exclude, 0, 1, 1, 1);
@@ -156,6 +158,8 @@ public:
         comboBox_exclude->setItemText(1, QCoreApplication::translate("MainWindow", "American League", nullptr));
         comboBox_exclude->setItemText(2, QCoreApplication::translate("MainWindow", "National League", nullptr));
         comboBox_exclude->setItemText(3, QCoreApplication::translate("MainWindow", "Open Roof", nullptr));
+        comboBox_exclude->setItemText(4, QCoreApplication::translate("MainWindow", "Greatest Distance", nullptr));
+        comboBox_exclude->setItemText(5, QCoreApplication::translate("MainWindow", "Smallest Distance", nullptr));
 
         comboBox_sort->setItemText(0, QCoreApplication::translate("MainWindow", "Team Name", nullptr));
         comboBox_sort->setItemText(1, QCoreApplication::translate("MainWindow", "Stadium Name", nullptr));
