@@ -23,6 +23,8 @@ MainWindow::MainWindow(QWidget *parent)
     propertyMap["Seating Capacity"] = seatingCapacity;
 
     displayTeamNames();
+
+    //Hi
 }
 
 MainWindow::~MainWindow()
