@@ -19,6 +19,8 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void displayTeamNames();
+
 private slots:
     void on_listWidget_teamList_currentTextChanged(const QString &currentText);
 
@@ -26,11 +28,16 @@ private slots:
 
     //void on_comboBox_sort_currentIndexChanged(int index);
 
+    void on_comboBox_exclude_currentTextChanged(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
 
     //QVector<Team> _teams;
     //QMap<QString, Team> _teams;
+    bool onlyNational;
+    bool onlyAmerican;
+
     Map _teams;
     QMap<QString, Property> propertyMap;
 

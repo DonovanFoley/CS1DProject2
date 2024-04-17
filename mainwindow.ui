@@ -76,6 +76,11 @@
          <string>Date Opened</string>
         </property>
        </item>
+       <item>
+        <property name="text">
+         <string>Seating Capacity</string>
+        </property>
+       </item>
       </widget>
      </item>
     </layout>

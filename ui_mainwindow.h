@@ -68,6 +68,7 @@ public:
         comboBox_sort->addItem(QString());
         comboBox_sort->addItem(QString());
         comboBox_sort->addItem(QString());
+        comboBox_sort->addItem(QString());
         comboBox_sort->setObjectName("comboBox_sort");
 
         gridLayout->addWidget(comboBox_sort, 0, 0, 1, 1);
@@ -160,6 +161,7 @@ public:
         comboBox_sort->setItemText(1, QCoreApplication::translate("MainWindow", "Stadium Name", nullptr));
         comboBox_sort->setItemText(2, QCoreApplication::translate("MainWindow", "Park Typology", nullptr));
         comboBox_sort->setItemText(3, QCoreApplication::translate("MainWindow", "Date Opened", nullptr));
+        comboBox_sort->setItemText(4, QCoreApplication::translate("MainWindow", "Seating Capacity", nullptr));
 
         QTableWidgetItem *___qtablewidgetitem = tableWidget_teamInfo->verticalHeaderItem(0);
         ___qtablewidgetitem->setText(QCoreApplication::translate("MainWindow", "Team Name", nullptr));

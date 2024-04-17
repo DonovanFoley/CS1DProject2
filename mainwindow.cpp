@@ -18,9 +18,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     propertyMap["Team Name"] = teamName;
     propertyMap["Stadium Name"] = stadiumName;
+    propertyMap["Park Typology"] = typology;
+    propertyMap["Date Opened"] = dateOpened;
+    propertyMap["Seating Capacity"] = seatingCapacity;
 
-    for (int i = 0; i < _teams.size(); i++)
-        ui->listWidget_teamList->addItem(_teams(i).teamName());
+    displayTeamNames();
 
 
 }
@@ -28,6 +30,25 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::displayTeamNames()
+{
+    for (int i = 0; i < _teams.size(); i++)
+    {
+        if (onlyAmerican)
+        {
+            if (_teams(i).league() == "American") ui->listWidget_teamList->addItem(_teams(i).teamName());
+        }
+        else if (onlyNational)
+        {
+            if (_teams(i).league() == "National") ui->listWidget_teamList->addItem(_teams(i).teamName());
+        }
+        else
+        {
+            ui->listWidget_teamList->addItem(_teams(i).teamName());
+        }
+    }
 }
 
 //-----------------------------BEGINNING OF GO TO SLOT FUNCTIONS------------------------------------
@@ -38,7 +59,7 @@ void MainWindow::on_listWidget_teamList_currentTextChanged(const QString &curren
     //If the user deselects a team
     if (currentText == "")
     {
-        ui->tableWidget_teamInfo->clear();
+        //ui->tableWidget_teamInfo->clear();
         return;
     }
     ui->tableWidget_teamInfo->setItem(0, 0, new QTableWidgetItem(_teams[currentText].teamName()));
@@ -60,6 +81,20 @@ void MainWindow::on_comboBox_sort_currentTextChanged(const QString &arg1)
     ui->listWidget_teamList->clear();
     _teams.sort(propertyMap[arg1]);
 
-    for (int i = 0; i < _teams.size(); i++)
-        ui->listWidget_teamList->addItem(_teams(i).teamName());
+    displayTeamNames();
 }
+
+//Exclusion box changed
+void MainWindow::on_comboBox_exclude_currentTextChanged(const QString &arg1)
+{
+    ui->listWidget_teamList->clear();
+
+    onlyAmerican = false;
+    onlyNational = false;
+
+    onlyAmerican = (arg1 == "American League");
+    onlyNational = (arg1 == "National League");
+
+    displayTeamNames();
+}
+
