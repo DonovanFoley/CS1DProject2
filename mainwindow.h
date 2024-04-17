@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QAction>
+#include <QMenu>
 #include "team.h"
 #include "map.h"
 #include "logindialog.h"

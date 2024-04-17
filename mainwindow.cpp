@@ -6,13 +6,16 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    //loginDialog = new LoginDialog;
+    loginDialog = new LoginDialog;
     ui->tableWidget_teamInfo->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
 
+    //Set up actions
+    loginAct = new QAction("Login to Admin", this);
+
     //Set up toolbar
-    //loginMenu = menuBar()->addMenu("&Login");
-    //loginMenu->addAction(loginAct);
-    //connect(loginAct, &QAction::triggered, this, &MainWindow::login);
+    loginMenu = menuBar()->addMenu("&Login");
+    loginMenu->addAction(loginAct);
+    connect(loginAct, &QAction::triggered, this, &MainWindow::login);
 
     //Dummy teams for testing purposes
     QMap<QString, double> s;
@@ -82,7 +85,7 @@ void MainWindow::displayTeamNames()
 
 void MainWindow::login()
 {
-    //loginDialog->exec();
+    loginDialog->exec();
 }
 
 //-----------------------------BEGINNING OF GO TO SLOT FUNCTIONS------------------------------------
