@@ -12,15 +12,20 @@ void Map::sort(Property property)
 {
     int index = -1;
     Team copy;
-
-    switch (property)
-    {
-    case teamNameh:
         for (int i = 0; i < _teamsVector.size(); i++)
         {
             for (int x = i; x < _teamsVector.size(); x++)
             {
-                if (_teamsVector[i].teamName() < _teamsVector[x].teamName()) index = x;
+                switch (property)
+                {
+                    case 0:
+                        if (_teamsVector[i].teamName() > _teamsVector[x].teamName()) index = x;
+                        //qInfo("Team name");
+                        break;
+                    case 1:
+                        if (_teamsVector[i].stadiumName() > _teamsVector[x].stadiumName()) index = x;
+                        break;
+                }
             }
             if (index != -1)
             {
@@ -29,10 +34,7 @@ void Map::sort(Property property)
                 _teamsVector[index] = copy;
             }
             index = -1;
-        }
-        break;
-    case stadiumName:
-        break;
+
     }
 }
 

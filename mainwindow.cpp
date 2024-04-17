@@ -10,21 +10,19 @@ MainWindow::MainWindow(QWidget *parent)
 
     //Dummy teams for testing purposes
     QMap<QString, double> s;
-    //_teams.insert("First team", Team("First Team", "adfsdfg", 222, "hjhgf", "ertyu", "asdcxz", 1222, 11123, "hgfd", "zzc", s));
-    //_teams.insert("HII", Team("HHH", "SDSD", 123, "F", "f", "a", 12, 2, "g", "2", s));
 
-    //Add all team names to the UI list
-    //for (auto i = _teams.cbegin(), end = _teams.cend(); i != end; ++i)
-        //ui->listWidget_teamList->addItem(i.key());
+    _teams.insert(Team("Arizona Diamondbacks", "Chase Field", 48686, "Phoenix, Arizona", "Grass", "National", 1998, 407, "Retro Modern", "Retractable", s));
+    _teams.insert(Team("Atlanta Braves", "SunTrust Park", 41149, "Cumberland, Georgia", "Grass", "National", 2017, 400, "Retro Modern", "Open", s));
+    _teams.insert(Team("Baltimore Orioles", "Oriole Park at Camden Yards", 45971, "Baltimore, Maryland", "Grass", "American", 1992, 410, "Retro Classic", "Open", s));
+    _teams.insert(Team("Chicago Cubs", "Wrigley Field", 41268, "Chicago, Illinois", "Grass", "National", 1914, 400, "Jewel Box", "Open", s));
 
-    //Map myMap;
-    _teams.insert(Team("ZZZ", "52225", 123, "dddF", "faaa", "a22i8uyt5r4ewdfgh", 12, 2, "g", "2v cx!!!ax", s));
-    _teams.insert(Team("First Team", "adfsdfg", 222, "hjhgf", "ertyu", "asdcxz", 1222, 11123, "hgfd", "zzc", s));
-    _teams.insert(Team("HHH", "SDSD", 123, "F", "f", "a", 12, 2, "g", "2", s));
-    _teams.insert(Team("AAA", "55555", 123, "ddddddF", "faaaaa", "a22222", 12, 2, "ghhgfds", "2v cxx", s));
+    propertyMap["Team Name"] = teamName;
+    propertyMap["Stadium Name"] = stadiumName;
 
     for (int i = 0; i < _teams.size(); i++)
         ui->listWidget_teamList->addItem(_teams(i).teamName());
+
+
 }
 
 MainWindow::~MainWindow()
@@ -40,7 +38,7 @@ void MainWindow::on_listWidget_teamList_currentTextChanged(const QString &curren
     //If the user deselects a team
     if (currentText == "")
     {
-        //ui->tableWidget_teamInfo->clear();
+        ui->tableWidget_teamInfo->clear();
         return;
     }
     ui->tableWidget_teamInfo->setItem(0, 0, new QTableWidgetItem(_teams[currentText].teamName()));
@@ -55,12 +53,13 @@ void MainWindow::on_listWidget_teamList_currentTextChanged(const QString &curren
     ui->tableWidget_teamInfo->setItem(0, 9, new QTableWidgetItem(_teams[currentText].rooftype()));
 }
 
+
 //Sorting box changed
 void MainWindow::on_comboBox_sort_currentTextChanged(const QString &arg1)
 {
     ui->listWidget_teamList->clear();
-    _teams.sort(teamNameh);
+    _teams.sort(propertyMap[arg1]);
+
     for (int i = 0; i < _teams.size(); i++)
         ui->listWidget_teamList->addItem(_teams(i).teamName());
 }
-

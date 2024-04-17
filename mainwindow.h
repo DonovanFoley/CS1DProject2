@@ -24,12 +24,15 @@ private slots:
 
     void on_comboBox_sort_currentTextChanged(const QString &arg1);
 
+    //void on_comboBox_sort_currentIndexChanged(int index);
+
 private:
     Ui::MainWindow *ui;
 
     //QVector<Team> _teams;
     //QMap<QString, Team> _teams;
     Map _teams;
+    QMap<QString, Property> propertyMap;
 
 };
 #endif // MAINWINDOW_H

@@ -4,7 +4,7 @@
 #include <QVector>
 #include "team.h"
 
-enum Property {teamNameh, stadiumName, rooftype};
+enum Property {teamName, stadiumName, rooftype};
 
 class Map
 {
