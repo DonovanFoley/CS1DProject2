@@ -11,10 +11,12 @@ CONFIG += c++17
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
+    map.cpp \
     team.cpp
 
 HEADERS += \
     mainwindow.h \
+    map.h \
     team.h
 
 FORMS += \
