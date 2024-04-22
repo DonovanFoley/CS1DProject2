@@ -2,8 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QAction>
+#include <QMenu>
 #include "team.h"
 #include "map.h"
+#include "logindialog.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -20,14 +23,11 @@ public:
     ~MainWindow();
 
     void displayTeamNames();
+    void login();
 
 private slots:
     void on_listWidget_teamList_currentTextChanged(const QString &currentText);
-
     void on_comboBox_sort_currentTextChanged(const QString &arg1);
-
-    //void on_comboBox_sort_currentIndexChanged(int index);
-
     void on_comboBox_exclude_currentTextChanged(const QString &arg1);
 
 private:
@@ -35,14 +35,18 @@ private:
 
     //QVector<Team> _teams;
     //QMap<QString, Team> _teams;
-    bool onlyNational;
-    bool onlyAmerican;
-    bool onlyOpenRoof;
-    bool onlyGreatestDistance;
-    bool onlySmallestDistance;
+    bool onlyNational = false;
+    bool onlyAmerican = false;
+    bool onlyOpenRoof = false;
+    bool onlyGreatestDistance = false;
+    bool onlySmallestDistance = false;
 
     Map _teams;
     QMap<QString, Property> propertyMap;
+
+    LoginDialog *loginDialog;
+    QMenu *loginMenu;
+    QAction *loginAct;
 
 };
 #endif // MAINWINDOW_H
