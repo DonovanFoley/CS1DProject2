@@ -19,8 +19,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     //Dummy teams for testing purposes
     QMap<QString, double> s;
+    s.insert("Souvenir item", 15.59);
+    s.insert("Second Souvenir item", 10.05);
 
     _teams.insert(Team("Arizona Diamondbacks", "Chase Field", 48686, "Phoenix, Arizona", "Grass", "National", 1998, 407, "Retro Modern", "Retractable", s));
+    s.insert("Third souvenir item", 6.00);
     _teams.insert(Team("Atlanta Braves", "SunTrust Park", 41149, "Cumberland, Georgia", "Grass", "National", 2017, 400, "Retro Modern", "Open", s));
     _teams.insert(Team("Baltimore Orioles", "Oriole Park at Camden Yards", 45971, "Baltimore, Maryland", "Grass", "American", 1992, 410, "Retro Classic", "Open", s));
     _teams.insert(Team("Chicago Cubs", "Wrigley Field", 41268, "Chicago, Illinois", "Grass", "National", 1914, 400, "Jewel Box", "Open", s));
@@ -109,6 +112,17 @@ void MainWindow::on_listWidget_teamList_currentTextChanged(const QString &curren
     ui->tableWidget_teamInfo->setItem(0, 7, new QTableWidgetItem(QString::number(_teams[currentText].distanceToField())));
     ui->tableWidget_teamInfo->setItem(0, 8, new QTableWidgetItem(_teams[currentText].typology()));
     ui->tableWidget_teamInfo->setItem(0, 9, new QTableWidgetItem(_teams[currentText].rooftype()));
+
+    //Souvenir list
+    ui->listWidget_souvenirList->clear();
+    QMapIterator<QString, double> it(_teams[currentText].souvenirList());
+
+    while (it.hasNext()) {
+        it.next();
+        QString souvenir;
+        souvenir = it.key() + " - $" + QString::number(it.value(), 'f', 2);
+        ui->listWidget_souvenirList->addItem(souvenir);
+    }
 }
 
 
