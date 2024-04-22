@@ -17,6 +17,7 @@ public:
 
     bool ok();
     QString password();
+    void reset();
 
 private slots:
     void on_pushButton_cancel_clicked();

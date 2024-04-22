@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>600</height>
+    <height>660</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
       <x>10</x>
       <y>20</y>
       <width>311</width>
-      <height>521</height>
+      <height>541</height>
      </rect>
     </property>
     <property name="title">
@@ -101,14 +101,51 @@
       <x>340</x>
       <y>20</y>
       <width>441</width>
-      <height>521</height>
+      <height>541</height>
      </rect>
     </property>
     <property name="title">
      <string>Team Info</string>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
+    <layout class="QGridLayout" name="gridLayout_3">
+     <item row="3" column="0">
+      <widget class="QPushButton" name="pushButton_add">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Add</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="QPushButton" name="pushButton_delete">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Delete</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QPushButton" name="pushButton_edit">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Edit</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" colspan="3">
+      <widget class="QListWidget" name="listWidget_souvenirList">
+       <property name="sortingEnabled">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" colspan="3">
       <widget class="QTableWidget" name="tableWidget_teamInfo">
        <property name="enabled">
         <bool>true</bool>
@@ -277,13 +314,6 @@
          <string/>
         </property>
        </item>
-      </widget>
-     </item>
-     <item>
-      <widget class="QListWidget" name="listWidget_souvenirList">
-       <property name="sortingEnabled">
-        <bool>false</bool>
-       </property>
       </widget>
      </item>
     </layout>

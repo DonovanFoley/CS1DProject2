@@ -18,9 +18,9 @@
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableWidget>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -35,9 +35,12 @@ public:
     QComboBox *comboBox_exclude;
     QComboBox *comboBox_sort;
     QGroupBox *groupBox_2;
-    QVBoxLayout *verticalLayout;
-    QTableWidget *tableWidget_teamInfo;
+    QGridLayout *gridLayout_3;
+    QPushButton *pushButton_add;
+    QPushButton *pushButton_delete;
+    QPushButton *pushButton_edit;
     QListWidget *listWidget_souvenirList;
+    QTableWidget *tableWidget_teamInfo;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -45,12 +48,12 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(800, 600);
+        MainWindow->resize(800, 660);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
         groupBox = new QGroupBox(centralwidget);
         groupBox->setObjectName("groupBox");
-        groupBox->setGeometry(QRect(10, 20, 311, 521));
+        groupBox->setGeometry(QRect(10, 20, 311, 541));
         gridLayout = new QGridLayout(groupBox);
         gridLayout->setObjectName("gridLayout");
         listWidget_teamList = new QListWidget(groupBox);
@@ -81,9 +84,33 @@ public:
 
         groupBox_2 = new QGroupBox(centralwidget);
         groupBox_2->setObjectName("groupBox_2");
-        groupBox_2->setGeometry(QRect(340, 20, 441, 521));
-        verticalLayout = new QVBoxLayout(groupBox_2);
-        verticalLayout->setObjectName("verticalLayout");
+        groupBox_2->setGeometry(QRect(340, 20, 441, 541));
+        gridLayout_3 = new QGridLayout(groupBox_2);
+        gridLayout_3->setObjectName("gridLayout_3");
+        pushButton_add = new QPushButton(groupBox_2);
+        pushButton_add->setObjectName("pushButton_add");
+        pushButton_add->setEnabled(false);
+
+        gridLayout_3->addWidget(pushButton_add, 3, 0, 1, 1);
+
+        pushButton_delete = new QPushButton(groupBox_2);
+        pushButton_delete->setObjectName("pushButton_delete");
+        pushButton_delete->setEnabled(false);
+
+        gridLayout_3->addWidget(pushButton_delete, 3, 2, 1, 1);
+
+        pushButton_edit = new QPushButton(groupBox_2);
+        pushButton_edit->setObjectName("pushButton_edit");
+        pushButton_edit->setEnabled(false);
+
+        gridLayout_3->addWidget(pushButton_edit, 3, 1, 1, 1);
+
+        listWidget_souvenirList = new QListWidget(groupBox_2);
+        listWidget_souvenirList->setObjectName("listWidget_souvenirList");
+        listWidget_souvenirList->setSortingEnabled(false);
+
+        gridLayout_3->addWidget(listWidget_souvenirList, 1, 0, 1, 3);
+
         tableWidget_teamInfo = new QTableWidget(groupBox_2);
         if (tableWidget_teamInfo->columnCount() < 1)
             tableWidget_teamInfo->setColumnCount(1);
@@ -146,13 +173,7 @@ public:
         tableWidget_teamInfo->horizontalHeader()->setDefaultSectionSize(280);
         tableWidget_teamInfo->verticalHeader()->setMinimumSectionSize(10);
 
-        verticalLayout->addWidget(tableWidget_teamInfo);
-
-        listWidget_souvenirList = new QListWidget(groupBox_2);
-        listWidget_souvenirList->setObjectName("listWidget_souvenirList");
-        listWidget_souvenirList->setSortingEnabled(false);
-
-        verticalLayout->addWidget(listWidget_souvenirList);
+        gridLayout_3->addWidget(tableWidget_teamInfo, 0, 0, 1, 3);
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
@@ -186,6 +207,9 @@ public:
         comboBox_sort->setItemText(4, QCoreApplication::translate("MainWindow", "Seating Capacity", nullptr));
 
         groupBox_2->setTitle(QCoreApplication::translate("MainWindow", "Team Info", nullptr));
+        pushButton_add->setText(QCoreApplication::translate("MainWindow", "Add", nullptr));
+        pushButton_delete->setText(QCoreApplication::translate("MainWindow", "Delete", nullptr));
+        pushButton_edit->setText(QCoreApplication::translate("MainWindow", "Edit", nullptr));
         QTableWidgetItem *___qtablewidgetitem = tableWidget_teamInfo->verticalHeaderItem(0);
         ___qtablewidgetitem->setText(QCoreApplication::translate("MainWindow", "Team Name", nullptr));
         QTableWidgetItem *___qtablewidgetitem1 = tableWidget_teamInfo->verticalHeaderItem(1);

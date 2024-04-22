@@ -89,6 +89,14 @@ void MainWindow::displayTeamNames()
 void MainWindow::login()
 {
     loginDialog->exec();
+    if (loginDialog->ok() && loginDialog->password() == "*Saddleback")
+    {
+        ui->pushButton_add->setEnabled(true);
+        ui->pushButton_edit->setEnabled(true);
+        ui->pushButton_delete->setEnabled(true);
+        ui->tableWidget_teamInfo->setEditTriggers(QAbstractItemView::DoubleClicked);
+    }
+    loginDialog->reset();
 }
 
 //-----------------------------BEGINNING OF GO TO SLOT FUNCTIONS------------------------------------

@@ -20,7 +20,6 @@ void LoginDialog::on_pushButton_cancel_clicked()
 {
     _ok = false;
     close();
-    ui->lineEdit_password->clear();
 }
 
 
@@ -29,6 +28,11 @@ void LoginDialog::on_pushButton_ok_clicked()
     _password = ui->lineEdit_password->text();
     _ok = true;
     close();
-    ui->lineEdit_password->clear();
 }
 
+void LoginDialog::reset()
+{
+    _ok = false;
+    _password = "";
+    ui->lineEdit_password->clear();
+}
