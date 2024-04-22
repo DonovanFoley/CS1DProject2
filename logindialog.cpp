@@ -12,3 +12,23 @@ LoginDialog::~LoginDialog()
 {
     delete ui;
 }
+
+bool LoginDialog::ok() { return _ok; }
+QString LoginDialog::password() { return _password; }
+
+void LoginDialog::on_pushButton_cancel_clicked()
+{
+    _ok = false;
+    close();
+    ui->lineEdit_password->clear();
+}
+
+
+void LoginDialog::on_pushButton_ok_clicked()
+{
+    _password = ui->lineEdit_password->text();
+    _ok = true;
+    close();
+    ui->lineEdit_password->clear();
+}
+
