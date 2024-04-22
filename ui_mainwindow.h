@@ -20,6 +20,7 @@
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableWidget>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -33,7 +34,10 @@ public:
     QListWidget *listWidget_teamList;
     QComboBox *comboBox_exclude;
     QComboBox *comboBox_sort;
+    QGroupBox *groupBox_2;
+    QVBoxLayout *verticalLayout;
     QTableWidget *tableWidget_teamInfo;
+    QListWidget *listWidget_souvenirList;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -75,7 +79,12 @@ public:
 
         gridLayout->addWidget(comboBox_sort, 0, 0, 1, 1);
 
-        tableWidget_teamInfo = new QTableWidget(centralwidget);
+        groupBox_2 = new QGroupBox(centralwidget);
+        groupBox_2->setObjectName("groupBox_2");
+        groupBox_2->setGeometry(QRect(340, 20, 441, 521));
+        verticalLayout = new QVBoxLayout(groupBox_2);
+        verticalLayout->setObjectName("verticalLayout");
+        tableWidget_teamInfo = new QTableWidget(groupBox_2);
         if (tableWidget_teamInfo->columnCount() < 1)
             tableWidget_teamInfo->setColumnCount(1);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
@@ -124,7 +133,7 @@ public:
         tableWidget_teamInfo->setItem(3, 0, __qtablewidgetitem14);
         tableWidget_teamInfo->setObjectName("tableWidget_teamInfo");
         tableWidget_teamInfo->setEnabled(true);
-        tableWidget_teamInfo->setGeometry(QRect(370, 20, 331, 304));
+        tableWidget_teamInfo->setMinimumSize(QSize(0, 304));
         tableWidget_teamInfo->setInputMethodHints(Qt::ImhNone);
         tableWidget_teamInfo->setFrameShape(QFrame::Box);
         tableWidget_teamInfo->setFrameShadow(QFrame::Sunken);
@@ -136,6 +145,15 @@ public:
         tableWidget_teamInfo->horizontalHeader()->setCascadingSectionResizes(false);
         tableWidget_teamInfo->horizontalHeader()->setDefaultSectionSize(280);
         tableWidget_teamInfo->verticalHeader()->setMinimumSectionSize(10);
+
+        verticalLayout->addWidget(tableWidget_teamInfo);
+
+        listWidget_souvenirList = new QListWidget(groupBox_2);
+        listWidget_souvenirList->setObjectName("listWidget_souvenirList");
+        listWidget_souvenirList->setSortingEnabled(false);
+
+        verticalLayout->addWidget(listWidget_souvenirList);
+
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
@@ -167,6 +185,7 @@ public:
         comboBox_sort->setItemText(3, QCoreApplication::translate("MainWindow", "Date Opened", nullptr));
         comboBox_sort->setItemText(4, QCoreApplication::translate("MainWindow", "Seating Capacity", nullptr));
 
+        groupBox_2->setTitle(QCoreApplication::translate("MainWindow", "Team Info", nullptr));
         QTableWidgetItem *___qtablewidgetitem = tableWidget_teamInfo->verticalHeaderItem(0);
         ___qtablewidgetitem->setText(QCoreApplication::translate("MainWindow", "Team Name", nullptr));
         QTableWidgetItem *___qtablewidgetitem1 = tableWidget_teamInfo->verticalHeaderItem(1);
