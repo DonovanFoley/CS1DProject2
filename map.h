@@ -16,8 +16,8 @@ public:
     //template <typename T> T compare(T p1, T p2);
     int size();
 
-    Team& operator[](QString teamName);
-    Team& operator()(int index);
+    Team* operator[](QString teamName);
+    Team* operator()(int index);
 
 private:
     QVector<Team> _teamsVector;

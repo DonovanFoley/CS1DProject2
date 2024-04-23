@@ -44,16 +44,16 @@ void Map::sort(Property property)
 
 int Map::size() { return _teamsVector.size(); }
 
-Team& Map::operator[](QString teamName)
+Team* Map::operator[](QString teamName)
 {
     for (int i = 0; i < _teamsVector.size(); i++)
     {
-        if (_teamsVector[i].teamName() == teamName) return _teamsVector[i];
+        if (_teamsVector[i].teamName() == teamName) return &_teamsVector[i];
     }
     //return;
 }
 
-Team& Map::operator()(int index)
+Team* Map::operator()(int index)
 {
-    return _teamsVector[index];
+    return &_teamsVector[index];
 }

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>762</width>
+    <height>660</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
       <x>10</x>
       <y>20</y>
       <width>311</width>
-      <height>521</height>
+      <height>541</height>
      </rect>
     </property>
     <property name="title">
@@ -100,15 +100,15 @@
      <rect>
       <x>340</x>
       <y>20</y>
-      <width>441</width>
-      <height>521</height>
+      <width>401</width>
+      <height>541</height>
      </rect>
     </property>
     <property name="title">
      <string>Team Info</string>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
+    <layout class="QGridLayout" name="gridLayout_3">
+     <item row="0" column="0" colspan="2">
       <widget class="QTableWidget" name="tableWidget_teamInfo">
        <property name="enabled">
         <bool>true</bool>
@@ -150,7 +150,7 @@
         <number>280</number>
        </attribute>
        <attribute name="verticalHeaderMinimumSectionSize">
-        <number>10</number>
+        <number>20</number>
        </attribute>
        <row>
         <property name="text">
@@ -279,11 +279,91 @@
        </item>
       </widget>
      </item>
-     <item>
-      <widget class="QListWidget" name="listWidget_souvenirList">
-       <property name="sortingEnabled">
+     <item row="1" column="0" colspan="2">
+      <widget class="QTableWidget" name="tableWidget_souvenirInfo">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="inputMethodHints">
+        <set>Qt::ImhNone</set>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Box</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Sunken</enum>
+       </property>
+       <property name="lineWidth">
+        <number>1</number>
+       </property>
+       <property name="editTriggers">
+        <set>QAbstractItemView::NoEditTriggers</set>
+       </property>
+       <property name="tabKeyNavigation">
+        <bool>true</bool>
+       </property>
+       <property name="alternatingRowColors">
         <bool>false</bool>
        </property>
+       <property name="rowCount">
+        <number>0</number>
+       </property>
+       <attribute name="horizontalHeaderVisible">
+        <bool>true</bool>
+       </attribute>
+       <attribute name="horizontalHeaderCascadingSectionResizes">
+        <bool>false</bool>
+       </attribute>
+       <attribute name="horizontalHeaderDefaultSectionSize">
+        <number>188</number>
+       </attribute>
+       <attribute name="horizontalHeaderHighlightSections">
+        <bool>true</bool>
+       </attribute>
+       <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+        <bool>false</bool>
+       </attribute>
+       <attribute name="verticalHeaderVisible">
+        <bool>false</bool>
+       </attribute>
+       <attribute name="verticalHeaderMinimumSectionSize">
+        <number>10</number>
+       </attribute>
+       <attribute name="verticalHeaderHighlightSections">
+        <bool>true</bool>
+       </attribute>
+       <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+        <bool>false</bool>
+       </attribute>
+       <attribute name="verticalHeaderStretchLastSection">
+        <bool>false</bool>
+       </attribute>
+       <column>
+        <property name="text">
+         <string>Souvenir</string>
+        </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Price</string>
+        </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+       </column>
       </widget>
      </item>
     </layout>
@@ -294,7 +374,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>762</width>
      <height>26</height>
     </rect>
    </property>
