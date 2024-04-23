@@ -7,6 +7,8 @@
 #include "team.h"
 #include "map.h"
 #include "logindialog.h"
+#include <QTableWidgetItem>
+#include <QListWidgetItem>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -26,9 +28,13 @@ public:
     void login();
 
 private slots:
-    void on_listWidget_teamList_currentTextChanged(const QString &currentText);
+    //void on_listWidget_teamList_currentTextChanged(const QString &currentText);
     void on_comboBox_sort_currentTextChanged(const QString &arg1);
     void on_comboBox_exclude_currentTextChanged(const QString &arg1);
+
+    void on_listWidget_teamList_itemClicked(QListWidgetItem *item);
+
+    void on_tableWidget_teamInfo_itemChanged(QTableWidgetItem *item);
 
 private:
     Ui::MainWindow *ui;
@@ -47,6 +53,8 @@ private:
     LoginDialog *loginDialog;
     QMenu *loginMenu;
     QAction *loginAct;
+    //Team *currentTeam = nullptr;
+    int currentTeamIndex = 0;
 
 };
 #endif // MAINWINDOW_H

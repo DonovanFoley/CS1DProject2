@@ -102,8 +102,10 @@ void MainWindow::login()
 //-----------------------------BEGINNING OF GO TO SLOT FUNCTIONS------------------------------------
 
 //Update display info when a team is clicked
+/*
 void MainWindow::on_listWidget_teamList_currentTextChanged(const QString &currentText)
 {
+    currentTeam = &_teams[currentText];
     //If the user deselects a team
     if (currentText == "")
     {
@@ -131,7 +133,7 @@ void MainWindow::on_listWidget_teamList_currentTextChanged(const QString &curren
         souvenir = it.key() + " - $" + QString::number(it.value(), 'f', 2);
         ui->listWidget_souvenirList->addItem(souvenir);
     }
-}
+}*/
 
 
 //Sorting box changed
@@ -155,5 +157,56 @@ void MainWindow::on_comboBox_exclude_currentTextChanged(const QString &arg1)
     onlySmallestDistance = (arg1 == "Smallest Distance");
 
     displayTeamNames();
+}
+
+
+void MainWindow::on_listWidget_teamList_itemClicked(QListWidgetItem *item)
+{
+    //If the user deselects a team
+    if (item->text() == "")
+    {
+        //ui->tableWidget_teamInfo->clear();
+        return;
+    }
+
+    //Set the currentTeamIndex to the index of the team the user selected
+    for (int i = 0; i < _teams.size(); i++)
+    {
+        if (_teams(i).teamName() == item->text())
+        {
+            currentTeamIndex = i;
+            break;
+        }
+    }
+
+    //_teams(currentTeamIndex).setTeamName("Hi");
+    ui->tableWidget_teamInfo->setItem(0, 0, new QTableWidgetItem(_teams[item->text()].teamName()));
+    ui->tableWidget_teamInfo->setItem(0, 1, new QTableWidgetItem(_teams[item->text()].stadiumName()));
+    ui->tableWidget_teamInfo->setItem(0, 2, new QTableWidgetItem(QString::number(_teams[item->text()].seatingCapacity())));
+    ui->tableWidget_teamInfo->setItem(0, 3, new QTableWidgetItem(_teams[item->text()].location()));
+    ui->tableWidget_teamInfo->setItem(0, 4, new QTableWidgetItem(_teams[item->text()].playingSurface()));
+    ui->tableWidget_teamInfo->setItem(0, 5, new QTableWidgetItem(_teams[item->text()].league()));
+    ui->tableWidget_teamInfo->setItem(0, 6, new QTableWidgetItem(QString::number(_teams[item->text()].dateOpened())));
+    ui->tableWidget_teamInfo->setItem(0, 7, new QTableWidgetItem(QString::number(_teams[item->text()].distanceToField())));
+    ui->tableWidget_teamInfo->setItem(0, 8, new QTableWidgetItem(_teams[item->text()].typology()));
+    ui->tableWidget_teamInfo->setItem(0, 9, new QTableWidgetItem(_teams[item->text()].rooftype()));
+
+    //Souvenir list
+    ui->listWidget_souvenirList->clear();
+    QMapIterator<QString, double> it(_teams[item->text()].souvenirList());
+
+    while (it.hasNext()) {
+        it.next();
+        QString souvenir;
+        souvenir = it.key() + " - $" + QString::number(it.value(), 'f', 2);
+        ui->listWidget_souvenirList->addItem(souvenir);
+    }
+}
+
+
+void MainWindow::on_tableWidget_teamInfo_itemChanged(QTableWidgetItem *item)
+{
+    qDebug("h");
+    //currentTeam->setTeamName("Hi");
 }
 

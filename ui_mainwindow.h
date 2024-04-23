@@ -15,6 +15,7 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
@@ -41,6 +42,7 @@ public:
     QPushButton *pushButton_edit;
     QListWidget *listWidget_souvenirList;
     QTableWidget *tableWidget_teamInfo;
+    QLabel *label;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -175,6 +177,9 @@ public:
 
         gridLayout_3->addWidget(tableWidget_teamInfo, 0, 0, 1, 3);
 
+        label = new QLabel(centralwidget);
+        label->setObjectName("label");
+        label->setGeometry(QRect(250, 580, 63, 20));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
@@ -235,6 +240,7 @@ public:
         tableWidget_teamInfo->setSortingEnabled(false);
         tableWidget_teamInfo->setSortingEnabled(__sortingEnabled);
 
+        label->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
     } // retranslateUi
 
 };
