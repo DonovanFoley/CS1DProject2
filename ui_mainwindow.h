@@ -18,6 +18,7 @@
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QWidget>
@@ -35,8 +36,10 @@ public:
     QComboBox *comboBox_sort;
     QGroupBox *groupBox_2;
     QGridLayout *gridLayout_3;
-    QTableWidget *tableWidget_teamInfo;
     QTableWidget *tableWidget_souvenirInfo;
+    QTableWidget *tableWidget_teamInfo;
+    QPushButton *pushButton_add;
+    QPushButton *pushButton_delete;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -83,79 +86,17 @@ public:
         groupBox_2->setGeometry(QRect(340, 20, 401, 541));
         gridLayout_3 = new QGridLayout(groupBox_2);
         gridLayout_3->setObjectName("gridLayout_3");
-        tableWidget_teamInfo = new QTableWidget(groupBox_2);
-        if (tableWidget_teamInfo->columnCount() < 1)
-            tableWidget_teamInfo->setColumnCount(1);
-        QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
-        tableWidget_teamInfo->setHorizontalHeaderItem(0, __qtablewidgetitem);
-        if (tableWidget_teamInfo->rowCount() < 10)
-            tableWidget_teamInfo->setRowCount(10);
-        QFont font;
-        font.setBold(true);
-        QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
-        __qtablewidgetitem1->setFont(font);
-        tableWidget_teamInfo->setVerticalHeaderItem(0, __qtablewidgetitem1);
-        QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
-        __qtablewidgetitem2->setFont(font);
-        tableWidget_teamInfo->setVerticalHeaderItem(1, __qtablewidgetitem2);
-        QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
-        __qtablewidgetitem3->setFont(font);
-        tableWidget_teamInfo->setVerticalHeaderItem(2, __qtablewidgetitem3);
-        QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
-        __qtablewidgetitem4->setFont(font);
-        tableWidget_teamInfo->setVerticalHeaderItem(3, __qtablewidgetitem4);
-        QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
-        __qtablewidgetitem5->setFont(font);
-        tableWidget_teamInfo->setVerticalHeaderItem(4, __qtablewidgetitem5);
-        QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
-        __qtablewidgetitem6->setFont(font);
-        tableWidget_teamInfo->setVerticalHeaderItem(5, __qtablewidgetitem6);
-        QTableWidgetItem *__qtablewidgetitem7 = new QTableWidgetItem();
-        __qtablewidgetitem7->setFont(font);
-        tableWidget_teamInfo->setVerticalHeaderItem(6, __qtablewidgetitem7);
-        QTableWidgetItem *__qtablewidgetitem8 = new QTableWidgetItem();
-        __qtablewidgetitem8->setFont(font);
-        tableWidget_teamInfo->setVerticalHeaderItem(7, __qtablewidgetitem8);
-        QTableWidgetItem *__qtablewidgetitem9 = new QTableWidgetItem();
-        __qtablewidgetitem9->setFont(font);
-        tableWidget_teamInfo->setVerticalHeaderItem(8, __qtablewidgetitem9);
-        QTableWidgetItem *__qtablewidgetitem10 = new QTableWidgetItem();
-        __qtablewidgetitem10->setFont(font);
-        tableWidget_teamInfo->setVerticalHeaderItem(9, __qtablewidgetitem10);
-        QTableWidgetItem *__qtablewidgetitem11 = new QTableWidgetItem();
-        tableWidget_teamInfo->setItem(0, 0, __qtablewidgetitem11);
-        QTableWidgetItem *__qtablewidgetitem12 = new QTableWidgetItem();
-        tableWidget_teamInfo->setItem(1, 0, __qtablewidgetitem12);
-        QTableWidgetItem *__qtablewidgetitem13 = new QTableWidgetItem();
-        tableWidget_teamInfo->setItem(2, 0, __qtablewidgetitem13);
-        QTableWidgetItem *__qtablewidgetitem14 = new QTableWidgetItem();
-        tableWidget_teamInfo->setItem(3, 0, __qtablewidgetitem14);
-        tableWidget_teamInfo->setObjectName("tableWidget_teamInfo");
-        tableWidget_teamInfo->setEnabled(true);
-        tableWidget_teamInfo->setMinimumSize(QSize(0, 304));
-        tableWidget_teamInfo->setInputMethodHints(Qt::ImhNone);
-        tableWidget_teamInfo->setFrameShape(QFrame::Box);
-        tableWidget_teamInfo->setFrameShadow(QFrame::Sunken);
-        tableWidget_teamInfo->setLineWidth(1);
-        tableWidget_teamInfo->setEditTriggers(QAbstractItemView::NoEditTriggers);
-        tableWidget_teamInfo->setTabKeyNavigation(true);
-        tableWidget_teamInfo->setAlternatingRowColors(false);
-        tableWidget_teamInfo->horizontalHeader()->setVisible(false);
-        tableWidget_teamInfo->horizontalHeader()->setCascadingSectionResizes(false);
-        tableWidget_teamInfo->horizontalHeader()->setDefaultSectionSize(280);
-        tableWidget_teamInfo->verticalHeader()->setMinimumSectionSize(20);
-
-        gridLayout_3->addWidget(tableWidget_teamInfo, 0, 0, 1, 2);
-
         tableWidget_souvenirInfo = new QTableWidget(groupBox_2);
         if (tableWidget_souvenirInfo->columnCount() < 2)
             tableWidget_souvenirInfo->setColumnCount(2);
-        QTableWidgetItem *__qtablewidgetitem15 = new QTableWidgetItem();
-        __qtablewidgetitem15->setFont(font);
-        tableWidget_souvenirInfo->setHorizontalHeaderItem(0, __qtablewidgetitem15);
-        QTableWidgetItem *__qtablewidgetitem16 = new QTableWidgetItem();
-        __qtablewidgetitem16->setFont(font);
-        tableWidget_souvenirInfo->setHorizontalHeaderItem(1, __qtablewidgetitem16);
+        QFont font;
+        font.setBold(true);
+        QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
+        __qtablewidgetitem->setFont(font);
+        tableWidget_souvenirInfo->setHorizontalHeaderItem(0, __qtablewidgetitem);
+        QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
+        __qtablewidgetitem1->setFont(font);
+        tableWidget_souvenirInfo->setHorizontalHeaderItem(1, __qtablewidgetitem1);
         tableWidget_souvenirInfo->setObjectName("tableWidget_souvenirInfo");
         tableWidget_souvenirInfo->setEnabled(true);
         tableWidget_souvenirInfo->setMinimumSize(QSize(0, 0));
@@ -179,6 +120,80 @@ public:
         tableWidget_souvenirInfo->verticalHeader()->setStretchLastSection(false);
 
         gridLayout_3->addWidget(tableWidget_souvenirInfo, 1, 0, 1, 2);
+
+        tableWidget_teamInfo = new QTableWidget(groupBox_2);
+        if (tableWidget_teamInfo->columnCount() < 1)
+            tableWidget_teamInfo->setColumnCount(1);
+        QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
+        tableWidget_teamInfo->setHorizontalHeaderItem(0, __qtablewidgetitem2);
+        if (tableWidget_teamInfo->rowCount() < 10)
+            tableWidget_teamInfo->setRowCount(10);
+        QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
+        __qtablewidgetitem3->setFont(font);
+        tableWidget_teamInfo->setVerticalHeaderItem(0, __qtablewidgetitem3);
+        QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
+        __qtablewidgetitem4->setFont(font);
+        tableWidget_teamInfo->setVerticalHeaderItem(1, __qtablewidgetitem4);
+        QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
+        __qtablewidgetitem5->setFont(font);
+        tableWidget_teamInfo->setVerticalHeaderItem(2, __qtablewidgetitem5);
+        QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
+        __qtablewidgetitem6->setFont(font);
+        tableWidget_teamInfo->setVerticalHeaderItem(3, __qtablewidgetitem6);
+        QTableWidgetItem *__qtablewidgetitem7 = new QTableWidgetItem();
+        __qtablewidgetitem7->setFont(font);
+        tableWidget_teamInfo->setVerticalHeaderItem(4, __qtablewidgetitem7);
+        QTableWidgetItem *__qtablewidgetitem8 = new QTableWidgetItem();
+        __qtablewidgetitem8->setFont(font);
+        tableWidget_teamInfo->setVerticalHeaderItem(5, __qtablewidgetitem8);
+        QTableWidgetItem *__qtablewidgetitem9 = new QTableWidgetItem();
+        __qtablewidgetitem9->setFont(font);
+        tableWidget_teamInfo->setVerticalHeaderItem(6, __qtablewidgetitem9);
+        QTableWidgetItem *__qtablewidgetitem10 = new QTableWidgetItem();
+        __qtablewidgetitem10->setFont(font);
+        tableWidget_teamInfo->setVerticalHeaderItem(7, __qtablewidgetitem10);
+        QTableWidgetItem *__qtablewidgetitem11 = new QTableWidgetItem();
+        __qtablewidgetitem11->setFont(font);
+        tableWidget_teamInfo->setVerticalHeaderItem(8, __qtablewidgetitem11);
+        QTableWidgetItem *__qtablewidgetitem12 = new QTableWidgetItem();
+        __qtablewidgetitem12->setFont(font);
+        tableWidget_teamInfo->setVerticalHeaderItem(9, __qtablewidgetitem12);
+        QTableWidgetItem *__qtablewidgetitem13 = new QTableWidgetItem();
+        tableWidget_teamInfo->setItem(0, 0, __qtablewidgetitem13);
+        QTableWidgetItem *__qtablewidgetitem14 = new QTableWidgetItem();
+        tableWidget_teamInfo->setItem(1, 0, __qtablewidgetitem14);
+        QTableWidgetItem *__qtablewidgetitem15 = new QTableWidgetItem();
+        tableWidget_teamInfo->setItem(2, 0, __qtablewidgetitem15);
+        QTableWidgetItem *__qtablewidgetitem16 = new QTableWidgetItem();
+        tableWidget_teamInfo->setItem(3, 0, __qtablewidgetitem16);
+        tableWidget_teamInfo->setObjectName("tableWidget_teamInfo");
+        tableWidget_teamInfo->setEnabled(true);
+        tableWidget_teamInfo->setMinimumSize(QSize(0, 304));
+        tableWidget_teamInfo->setInputMethodHints(Qt::ImhNone);
+        tableWidget_teamInfo->setFrameShape(QFrame::Box);
+        tableWidget_teamInfo->setFrameShadow(QFrame::Sunken);
+        tableWidget_teamInfo->setLineWidth(1);
+        tableWidget_teamInfo->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        tableWidget_teamInfo->setTabKeyNavigation(true);
+        tableWidget_teamInfo->setAlternatingRowColors(false);
+        tableWidget_teamInfo->horizontalHeader()->setVisible(false);
+        tableWidget_teamInfo->horizontalHeader()->setCascadingSectionResizes(false);
+        tableWidget_teamInfo->horizontalHeader()->setDefaultSectionSize(280);
+        tableWidget_teamInfo->verticalHeader()->setMinimumSectionSize(20);
+
+        gridLayout_3->addWidget(tableWidget_teamInfo, 0, 0, 1, 2);
+
+        pushButton_add = new QPushButton(groupBox_2);
+        pushButton_add->setObjectName("pushButton_add");
+        pushButton_add->setEnabled(false);
+
+        gridLayout_3->addWidget(pushButton_add, 2, 0, 1, 1);
+
+        pushButton_delete = new QPushButton(groupBox_2);
+        pushButton_delete->setObjectName("pushButton_delete");
+        pushButton_delete->setEnabled(false);
+
+        gridLayout_3->addWidget(pushButton_delete, 2, 1, 1, 1);
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
@@ -212,35 +227,37 @@ public:
         comboBox_sort->setItemText(4, QCoreApplication::translate("MainWindow", "Seating Capacity", nullptr));
 
         groupBox_2->setTitle(QCoreApplication::translate("MainWindow", "Team Info", nullptr));
-        QTableWidgetItem *___qtablewidgetitem = tableWidget_teamInfo->verticalHeaderItem(0);
-        ___qtablewidgetitem->setText(QCoreApplication::translate("MainWindow", "Team Name", nullptr));
-        QTableWidgetItem *___qtablewidgetitem1 = tableWidget_teamInfo->verticalHeaderItem(1);
-        ___qtablewidgetitem1->setText(QCoreApplication::translate("MainWindow", "Stadium Name", nullptr));
-        QTableWidgetItem *___qtablewidgetitem2 = tableWidget_teamInfo->verticalHeaderItem(2);
-        ___qtablewidgetitem2->setText(QCoreApplication::translate("MainWindow", "Seating Capacity", nullptr));
-        QTableWidgetItem *___qtablewidgetitem3 = tableWidget_teamInfo->verticalHeaderItem(3);
-        ___qtablewidgetitem3->setText(QCoreApplication::translate("MainWindow", "Location", nullptr));
-        QTableWidgetItem *___qtablewidgetitem4 = tableWidget_teamInfo->verticalHeaderItem(4);
-        ___qtablewidgetitem4->setText(QCoreApplication::translate("MainWindow", "Playing Surface", nullptr));
-        QTableWidgetItem *___qtablewidgetitem5 = tableWidget_teamInfo->verticalHeaderItem(5);
-        ___qtablewidgetitem5->setText(QCoreApplication::translate("MainWindow", "League", nullptr));
-        QTableWidgetItem *___qtablewidgetitem6 = tableWidget_teamInfo->verticalHeaderItem(6);
-        ___qtablewidgetitem6->setText(QCoreApplication::translate("MainWindow", "Date Opened", nullptr));
-        QTableWidgetItem *___qtablewidgetitem7 = tableWidget_teamInfo->verticalHeaderItem(7);
-        ___qtablewidgetitem7->setText(QCoreApplication::translate("MainWindow", "Distance To Field", nullptr));
-        QTableWidgetItem *___qtablewidgetitem8 = tableWidget_teamInfo->verticalHeaderItem(8);
-        ___qtablewidgetitem8->setText(QCoreApplication::translate("MainWindow", "Typology", nullptr));
-        QTableWidgetItem *___qtablewidgetitem9 = tableWidget_teamInfo->verticalHeaderItem(9);
-        ___qtablewidgetitem9->setText(QCoreApplication::translate("MainWindow", "Roof Type", nullptr));
+        QTableWidgetItem *___qtablewidgetitem = tableWidget_souvenirInfo->horizontalHeaderItem(0);
+        ___qtablewidgetitem->setText(QCoreApplication::translate("MainWindow", "Souvenir", nullptr));
+        QTableWidgetItem *___qtablewidgetitem1 = tableWidget_souvenirInfo->horizontalHeaderItem(1);
+        ___qtablewidgetitem1->setText(QCoreApplication::translate("MainWindow", "Price", nullptr));
+        QTableWidgetItem *___qtablewidgetitem2 = tableWidget_teamInfo->verticalHeaderItem(0);
+        ___qtablewidgetitem2->setText(QCoreApplication::translate("MainWindow", "Team Name", nullptr));
+        QTableWidgetItem *___qtablewidgetitem3 = tableWidget_teamInfo->verticalHeaderItem(1);
+        ___qtablewidgetitem3->setText(QCoreApplication::translate("MainWindow", "Stadium Name", nullptr));
+        QTableWidgetItem *___qtablewidgetitem4 = tableWidget_teamInfo->verticalHeaderItem(2);
+        ___qtablewidgetitem4->setText(QCoreApplication::translate("MainWindow", "Seating Capacity", nullptr));
+        QTableWidgetItem *___qtablewidgetitem5 = tableWidget_teamInfo->verticalHeaderItem(3);
+        ___qtablewidgetitem5->setText(QCoreApplication::translate("MainWindow", "Location", nullptr));
+        QTableWidgetItem *___qtablewidgetitem6 = tableWidget_teamInfo->verticalHeaderItem(4);
+        ___qtablewidgetitem6->setText(QCoreApplication::translate("MainWindow", "Playing Surface", nullptr));
+        QTableWidgetItem *___qtablewidgetitem7 = tableWidget_teamInfo->verticalHeaderItem(5);
+        ___qtablewidgetitem7->setText(QCoreApplication::translate("MainWindow", "League", nullptr));
+        QTableWidgetItem *___qtablewidgetitem8 = tableWidget_teamInfo->verticalHeaderItem(6);
+        ___qtablewidgetitem8->setText(QCoreApplication::translate("MainWindow", "Date Opened", nullptr));
+        QTableWidgetItem *___qtablewidgetitem9 = tableWidget_teamInfo->verticalHeaderItem(7);
+        ___qtablewidgetitem9->setText(QCoreApplication::translate("MainWindow", "Distance To Field", nullptr));
+        QTableWidgetItem *___qtablewidgetitem10 = tableWidget_teamInfo->verticalHeaderItem(8);
+        ___qtablewidgetitem10->setText(QCoreApplication::translate("MainWindow", "Typology", nullptr));
+        QTableWidgetItem *___qtablewidgetitem11 = tableWidget_teamInfo->verticalHeaderItem(9);
+        ___qtablewidgetitem11->setText(QCoreApplication::translate("MainWindow", "Roof Type", nullptr));
 
         const bool __sortingEnabled = tableWidget_teamInfo->isSortingEnabled();
         tableWidget_teamInfo->setSortingEnabled(false);
         tableWidget_teamInfo->setSortingEnabled(__sortingEnabled);
 
-        QTableWidgetItem *___qtablewidgetitem10 = tableWidget_souvenirInfo->horizontalHeaderItem(0);
-        ___qtablewidgetitem10->setText(QCoreApplication::translate("MainWindow", "Souvenir", nullptr));
-        QTableWidgetItem *___qtablewidgetitem11 = tableWidget_souvenirInfo->horizontalHeaderItem(1);
-        ___qtablewidgetitem11->setText(QCoreApplication::translate("MainWindow", "Price", nullptr));
+        pushButton_add->setText(QCoreApplication::translate("MainWindow", "Add", nullptr));
+        pushButton_delete->setText(QCoreApplication::translate("MainWindow", "Delete", nullptr));
     } // retranslateUi
 
 };
