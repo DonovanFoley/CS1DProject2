@@ -35,7 +35,7 @@ public:
     void setSeatingCapacity(int seatingCapacity) { _seatingCapacity = seatingCapacity; }
     void setLocation(QString location) { _location = location; }
     void setPlayingSurface(QString playingSurface) { _playingSurface = playingSurface; }
-    void setLeage(QString league) { _league = league; }
+    void setLeague(QString league) { _league = league; }
     void setDateOpened(int dateOpened) { _dateOpened = dateOpened; }
     void setDistanceToField(int distanceToField) { _distanceToField = distanceToField; }
     void setTypology(QString typology) { _typology = typology; }

@@ -34,7 +34,7 @@ private slots:
 
     void on_listWidget_teamList_itemClicked(QListWidgetItem *item);
 
-    void on_tableWidget_teamInfo_itemChanged(QTableWidgetItem *item);
+    void on_tableWidget_teamInfo_itemChanged();
 
 private:
     Ui::MainWindow *ui;

@@ -89,7 +89,7 @@ void MainWindow::displayTeamNames()
 void MainWindow::login()
 {
     loginDialog->exec();
-    if (loginDialog->ok() && loginDialog->password() == "a")
+    if (loginDialog->ok() && loginDialog->password() == "*Saddleback")
     {
         ui->pushButton_add->setEnabled(true);
         ui->pushButton_edit->setEnabled(true);
@@ -102,64 +102,6 @@ void MainWindow::login()
 //-----------------------------BEGINNING OF GO TO SLOT FUNCTIONS------------------------------------
 
 //Update display info when a team is clicked
-/*
-void MainWindow::on_listWidget_teamList_currentTextChanged(const QString &currentText)
-{
-    currentTeam = &_teams[currentText];
-    //If the user deselects a team
-    if (currentText == "")
-    {
-        //ui->tableWidget_teamInfo->clear();
-        return;
-    }
-    ui->tableWidget_teamInfo->setItem(0, 0, new QTableWidgetItem(_teams[currentText].teamName()));
-    ui->tableWidget_teamInfo->setItem(0, 1, new QTableWidgetItem(_teams[currentText].stadiumName()));
-    ui->tableWidget_teamInfo->setItem(0, 2, new QTableWidgetItem(QString::number(_teams[currentText].seatingCapacity())));
-    ui->tableWidget_teamInfo->setItem(0, 3, new QTableWidgetItem(_teams[currentText].location()));
-    ui->tableWidget_teamInfo->setItem(0, 4, new QTableWidgetItem(_teams[currentText].playingSurface()));
-    ui->tableWidget_teamInfo->setItem(0, 5, new QTableWidgetItem(_teams[currentText].league()));
-    ui->tableWidget_teamInfo->setItem(0, 6, new QTableWidgetItem(QString::number(_teams[currentText].dateOpened())));
-    ui->tableWidget_teamInfo->setItem(0, 7, new QTableWidgetItem(QString::number(_teams[currentText].distanceToField())));
-    ui->tableWidget_teamInfo->setItem(0, 8, new QTableWidgetItem(_teams[currentText].typology()));
-    ui->tableWidget_teamInfo->setItem(0, 9, new QTableWidgetItem(_teams[currentText].rooftype()));
-
-    //Souvenir list
-    ui->listWidget_souvenirList->clear();
-    QMapIterator<QString, double> it(_teams[currentText].souvenirList());
-
-    while (it.hasNext()) {
-        it.next();
-        QString souvenir;
-        souvenir = it.key() + " - $" + QString::number(it.value(), 'f', 2);
-        ui->listWidget_souvenirList->addItem(souvenir);
-    }
-}*/
-
-
-//Sorting box changed
-void MainWindow::on_comboBox_sort_currentTextChanged(const QString &arg1)
-{
-    ui->listWidget_teamList->clear();
-    _teams.sort(propertyMap[arg1]);
-
-    displayTeamNames();
-}
-
-//Exclusion box changed
-void MainWindow::on_comboBox_exclude_currentTextChanged(const QString &arg1)
-{
-    ui->listWidget_teamList->clear();
-
-    onlyAmerican = (arg1 == "American League");
-    onlyNational = (arg1 == "National League");
-    onlyOpenRoof = (arg1 == "Open Roof");
-    onlyGreatestDistance = (arg1 == "Greatest Distance");
-    onlySmallestDistance = (arg1 == "Smallest Distance");
-
-    displayTeamNames();
-}
-
-
 void MainWindow::on_listWidget_teamList_itemClicked(QListWidgetItem *item)
 {
     editFlag = false;
@@ -192,19 +134,51 @@ void MainWindow::on_listWidget_teamList_itemClicked(QListWidgetItem *item)
         souvenir = it.key() + " - $" + QString::number(it.value(), 'f', 2);
         ui->listWidget_souvenirList->addItem(souvenir);
     }
+
     editFlag = true;
 }
 
-//Edit team info upon changing the table widget
-void MainWindow::on_tableWidget_teamInfo_itemChanged(QTableWidgetItem *item)
+//Sorting box changed
+void MainWindow::on_comboBox_sort_currentTextChanged(const QString &arg1)
 {
+    ui->listWidget_teamList->clear();
+    _teams.sort(propertyMap[arg1]);
 
+    displayTeamNames();
+}
+
+//Exclusion box changed
+void MainWindow::on_comboBox_exclude_currentTextChanged(const QString &arg1)
+{
+    ui->listWidget_teamList->clear();
+
+    onlyAmerican = (arg1 == "American League");
+    onlyNational = (arg1 == "National League");
+    onlyOpenRoof = (arg1 == "Open Roof");
+    onlyGreatestDistance = (arg1 == "Greatest Distance");
+    onlySmallestDistance = (arg1 == "Smallest Distance");
+
+    displayTeamNames();
+}
+
+//Edit team info upon changing the table widget
+void MainWindow::on_tableWidget_teamInfo_itemChanged()
+{
     if (!editFlag)
     {
-        //editFlag = true;
         return;
     }
+    currentTeam->setTeamName(ui->tableWidget_teamInfo->item(0,0)->text());
     currentTeam->setStadiumName(ui->tableWidget_teamInfo->item(1,0)->text());
     currentTeam->setSeatingCapacity(ui->tableWidget_teamInfo->item(2,0)->text().toInt());
     currentTeam->setLocation(ui->tableWidget_teamInfo->item(3,0)->text());
+    currentTeam->setPlayingSurface(ui->tableWidget_teamInfo->item(4,0)->text());
+    currentTeam->setLeague(ui->tableWidget_teamInfo->item(5,0)->text());
+    currentTeam->setDateOpened(ui->tableWidget_teamInfo->item(6,0)->text().toInt());
+    currentTeam->setDistanceToField(ui->tableWidget_teamInfo->item(7,0)->text().toInt());
+    currentTeam->setTypology(ui->tableWidget_teamInfo->item(8,0)->text());
+    currentTeam->setRooftype(ui->tableWidget_teamInfo->item(9,0)->text());
+
+    //Call the combo box sorting method and then print new team names
+    on_comboBox_sort_currentTextChanged(ui->comboBox_sort->currentText());
 }
