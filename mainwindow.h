@@ -53,8 +53,8 @@ private:
     LoginDialog *loginDialog;
     QMenu *loginMenu;
     QAction *loginAct;
-    //Team *currentTeam = nullptr;
-    int currentTeamIndex = 0;
+    Team *currentTeam = nullptr;
+    bool editFlag = true;
 
 };
 #endif // MAINWINDOW_H

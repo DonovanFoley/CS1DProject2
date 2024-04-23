@@ -51,37 +51,37 @@ void MainWindow::displayTeamNames()
     {
         if (onlyAmerican)
         {
-            if (_teams(i).league() == "American") ui->listWidget_teamList->addItem(_teams(i).teamName());
+            if (_teams(i)->league() == "American") ui->listWidget_teamList->addItem(_teams(i)->teamName());
         }
         else if (onlyNational)
         {
-            if (_teams(i).league() == "National") ui->listWidget_teamList->addItem(_teams(i).teamName());
+            if (_teams(i)->league() == "National") ui->listWidget_teamList->addItem(_teams(i)->teamName());
         }
         else if (onlyOpenRoof)
         {
-            if (_teams(i).rooftype() == "Open") ui->listWidget_teamList->addItem(_teams(i).teamName());
+            if (_teams(i)->rooftype() == "Open") ui->listWidget_teamList->addItem(_teams(i)->teamName());
         }
         else if (onlyGreatestDistance)
         {
-            if (_teams(i).distanceToField() > max)
+            if (_teams(i)->distanceToField() > max)
             {
                 ui->listWidget_teamList->clear();
-                ui->listWidget_teamList->addItem(_teams(i).teamName());
-                max = _teams(i).distanceToField();
+                ui->listWidget_teamList->addItem(_teams(i)->teamName());
+                max = _teams(i)->distanceToField();
             }
         }
         else if (onlySmallestDistance)
         {
-            if (_teams(i).distanceToField() < min)
+            if (_teams(i)->distanceToField() < min)
             {
                 ui->listWidget_teamList->clear();
-                ui->listWidget_teamList->addItem(_teams(i).teamName());
-                min = _teams(i).distanceToField();
+                ui->listWidget_teamList->addItem(_teams(i)->teamName());
+                min = _teams(i)->distanceToField();
             }
         }
         else
         {
-            ui->listWidget_teamList->addItem(_teams(i).teamName());
+            ui->listWidget_teamList->addItem(_teams(i)->teamName());
         }
     }
 }
@@ -89,7 +89,7 @@ void MainWindow::displayTeamNames()
 void MainWindow::login()
 {
     loginDialog->exec();
-    if (loginDialog->ok() && loginDialog->password() == "*Saddleback")
+    if (loginDialog->ok() && loginDialog->password() == "a")
     {
         ui->pushButton_add->setEnabled(true);
         ui->pushButton_edit->setEnabled(true);
@@ -162,6 +162,8 @@ void MainWindow::on_comboBox_exclude_currentTextChanged(const QString &arg1)
 
 void MainWindow::on_listWidget_teamList_itemClicked(QListWidgetItem *item)
 {
+    editFlag = false;
+    currentTeam = _teams[item->text()];
     //If the user deselects a team
     if (item->text() == "")
     {
@@ -169,31 +171,20 @@ void MainWindow::on_listWidget_teamList_itemClicked(QListWidgetItem *item)
         return;
     }
 
-    //Set the currentTeamIndex to the index of the team the user selected
-    for (int i = 0; i < _teams.size(); i++)
-    {
-        if (_teams(i).teamName() == item->text())
-        {
-            currentTeamIndex = i;
-            break;
-        }
-    }
-
-    //_teams(currentTeamIndex).setTeamName("Hi");
-    ui->tableWidget_teamInfo->setItem(0, 0, new QTableWidgetItem(_teams[item->text()].teamName()));
-    ui->tableWidget_teamInfo->setItem(0, 1, new QTableWidgetItem(_teams[item->text()].stadiumName()));
-    ui->tableWidget_teamInfo->setItem(0, 2, new QTableWidgetItem(QString::number(_teams[item->text()].seatingCapacity())));
-    ui->tableWidget_teamInfo->setItem(0, 3, new QTableWidgetItem(_teams[item->text()].location()));
-    ui->tableWidget_teamInfo->setItem(0, 4, new QTableWidgetItem(_teams[item->text()].playingSurface()));
-    ui->tableWidget_teamInfo->setItem(0, 5, new QTableWidgetItem(_teams[item->text()].league()));
-    ui->tableWidget_teamInfo->setItem(0, 6, new QTableWidgetItem(QString::number(_teams[item->text()].dateOpened())));
-    ui->tableWidget_teamInfo->setItem(0, 7, new QTableWidgetItem(QString::number(_teams[item->text()].distanceToField())));
-    ui->tableWidget_teamInfo->setItem(0, 8, new QTableWidgetItem(_teams[item->text()].typology()));
-    ui->tableWidget_teamInfo->setItem(0, 9, new QTableWidgetItem(_teams[item->text()].rooftype()));
+    ui->tableWidget_teamInfo->setItem(0, 0, new QTableWidgetItem(_teams[item->text()]->teamName()));
+    ui->tableWidget_teamInfo->setItem(0, 1, new QTableWidgetItem(_teams[item->text()]->stadiumName()));
+    ui->tableWidget_teamInfo->setItem(0, 2, new QTableWidgetItem(QString::number(_teams[item->text()]->seatingCapacity())));
+    ui->tableWidget_teamInfo->setItem(0, 3, new QTableWidgetItem(_teams[item->text()]->location()));
+    ui->tableWidget_teamInfo->setItem(0, 4, new QTableWidgetItem(_teams[item->text()]->playingSurface()));
+    ui->tableWidget_teamInfo->setItem(0, 5, new QTableWidgetItem(_teams[item->text()]->league()));
+    ui->tableWidget_teamInfo->setItem(0, 6, new QTableWidgetItem(QString::number(_teams[item->text()]->dateOpened())));
+    ui->tableWidget_teamInfo->setItem(0, 7, new QTableWidgetItem(QString::number(_teams[item->text()]->distanceToField())));
+    ui->tableWidget_teamInfo->setItem(0, 8, new QTableWidgetItem(_teams[item->text()]->typology()));
+    ui->tableWidget_teamInfo->setItem(0, 9, new QTableWidgetItem(_teams[item->text()]->rooftype()));
 
     //Souvenir list
     ui->listWidget_souvenirList->clear();
-    QMapIterator<QString, double> it(_teams[item->text()].souvenirList());
+    QMapIterator<QString, double> it(_teams[item->text()]->souvenirList());
 
     while (it.hasNext()) {
         it.next();
@@ -201,12 +192,19 @@ void MainWindow::on_listWidget_teamList_itemClicked(QListWidgetItem *item)
         souvenir = it.key() + " - $" + QString::number(it.value(), 'f', 2);
         ui->listWidget_souvenirList->addItem(souvenir);
     }
+    editFlag = true;
 }
 
-
+//Edit team info upon changing the table widget
 void MainWindow::on_tableWidget_teamInfo_itemChanged(QTableWidgetItem *item)
 {
-    qDebug("h");
-    //currentTeam->setTeamName("Hi");
-}
 
+    if (!editFlag)
+    {
+        //editFlag = true;
+        return;
+    }
+    currentTeam->setStadiumName(ui->tableWidget_teamInfo->item(1,0)->text());
+    currentTeam->setSeatingCapacity(ui->tableWidget_teamInfo->item(2,0)->text().toInt());
+    currentTeam->setLocation(ui->tableWidget_teamInfo->item(3,0)->text());
+}
