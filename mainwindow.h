@@ -36,6 +36,8 @@ private slots:
 
     void on_tableWidget_teamInfo_itemChanged();
 
+    void on_tableWidget_souvenirInfo_itemChanged();
+
 private:
     Ui::MainWindow *ui;
 

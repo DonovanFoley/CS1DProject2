@@ -15,11 +15,9 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHeaderView>
-#include <QtWidgets/QLabel>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QWidget>
@@ -37,12 +35,8 @@ public:
     QComboBox *comboBox_sort;
     QGroupBox *groupBox_2;
     QGridLayout *gridLayout_3;
-    QPushButton *pushButton_add;
-    QPushButton *pushButton_delete;
-    QPushButton *pushButton_edit;
-    QListWidget *listWidget_souvenirList;
     QTableWidget *tableWidget_teamInfo;
-    QLabel *label;
+    QTableWidget *tableWidget_souvenirInfo;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -50,7 +44,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(800, 660);
+        MainWindow->resize(762, 660);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
         groupBox = new QGroupBox(centralwidget);
@@ -86,33 +80,9 @@ public:
 
         groupBox_2 = new QGroupBox(centralwidget);
         groupBox_2->setObjectName("groupBox_2");
-        groupBox_2->setGeometry(QRect(340, 20, 441, 541));
+        groupBox_2->setGeometry(QRect(340, 20, 401, 541));
         gridLayout_3 = new QGridLayout(groupBox_2);
         gridLayout_3->setObjectName("gridLayout_3");
-        pushButton_add = new QPushButton(groupBox_2);
-        pushButton_add->setObjectName("pushButton_add");
-        pushButton_add->setEnabled(false);
-
-        gridLayout_3->addWidget(pushButton_add, 3, 0, 1, 1);
-
-        pushButton_delete = new QPushButton(groupBox_2);
-        pushButton_delete->setObjectName("pushButton_delete");
-        pushButton_delete->setEnabled(false);
-
-        gridLayout_3->addWidget(pushButton_delete, 3, 2, 1, 1);
-
-        pushButton_edit = new QPushButton(groupBox_2);
-        pushButton_edit->setObjectName("pushButton_edit");
-        pushButton_edit->setEnabled(false);
-
-        gridLayout_3->addWidget(pushButton_edit, 3, 1, 1, 1);
-
-        listWidget_souvenirList = new QListWidget(groupBox_2);
-        listWidget_souvenirList->setObjectName("listWidget_souvenirList");
-        listWidget_souvenirList->setSortingEnabled(false);
-
-        gridLayout_3->addWidget(listWidget_souvenirList, 1, 0, 1, 3);
-
         tableWidget_teamInfo = new QTableWidget(groupBox_2);
         if (tableWidget_teamInfo->columnCount() < 1)
             tableWidget_teamInfo->setColumnCount(1);
@@ -173,17 +143,47 @@ public:
         tableWidget_teamInfo->horizontalHeader()->setVisible(false);
         tableWidget_teamInfo->horizontalHeader()->setCascadingSectionResizes(false);
         tableWidget_teamInfo->horizontalHeader()->setDefaultSectionSize(280);
-        tableWidget_teamInfo->verticalHeader()->setMinimumSectionSize(10);
+        tableWidget_teamInfo->verticalHeader()->setMinimumSectionSize(20);
 
-        gridLayout_3->addWidget(tableWidget_teamInfo, 0, 0, 1, 3);
+        gridLayout_3->addWidget(tableWidget_teamInfo, 0, 0, 1, 2);
 
-        label = new QLabel(centralwidget);
-        label->setObjectName("label");
-        label->setGeometry(QRect(250, 580, 63, 20));
+        tableWidget_souvenirInfo = new QTableWidget(groupBox_2);
+        if (tableWidget_souvenirInfo->columnCount() < 2)
+            tableWidget_souvenirInfo->setColumnCount(2);
+        QTableWidgetItem *__qtablewidgetitem15 = new QTableWidgetItem();
+        __qtablewidgetitem15->setFont(font);
+        tableWidget_souvenirInfo->setHorizontalHeaderItem(0, __qtablewidgetitem15);
+        QTableWidgetItem *__qtablewidgetitem16 = new QTableWidgetItem();
+        __qtablewidgetitem16->setFont(font);
+        tableWidget_souvenirInfo->setHorizontalHeaderItem(1, __qtablewidgetitem16);
+        tableWidget_souvenirInfo->setObjectName("tableWidget_souvenirInfo");
+        tableWidget_souvenirInfo->setEnabled(true);
+        tableWidget_souvenirInfo->setMinimumSize(QSize(0, 0));
+        tableWidget_souvenirInfo->setInputMethodHints(Qt::ImhNone);
+        tableWidget_souvenirInfo->setFrameShape(QFrame::Box);
+        tableWidget_souvenirInfo->setFrameShadow(QFrame::Sunken);
+        tableWidget_souvenirInfo->setLineWidth(1);
+        tableWidget_souvenirInfo->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        tableWidget_souvenirInfo->setTabKeyNavigation(true);
+        tableWidget_souvenirInfo->setAlternatingRowColors(false);
+        tableWidget_souvenirInfo->setRowCount(0);
+        tableWidget_souvenirInfo->horizontalHeader()->setVisible(true);
+        tableWidget_souvenirInfo->horizontalHeader()->setCascadingSectionResizes(false);
+        tableWidget_souvenirInfo->horizontalHeader()->setDefaultSectionSize(188);
+        tableWidget_souvenirInfo->horizontalHeader()->setHighlightSections(true);
+        tableWidget_souvenirInfo->horizontalHeader()->setProperty("showSortIndicator", QVariant(false));
+        tableWidget_souvenirInfo->verticalHeader()->setVisible(false);
+        tableWidget_souvenirInfo->verticalHeader()->setMinimumSectionSize(10);
+        tableWidget_souvenirInfo->verticalHeader()->setHighlightSections(true);
+        tableWidget_souvenirInfo->verticalHeader()->setProperty("showSortIndicator", QVariant(false));
+        tableWidget_souvenirInfo->verticalHeader()->setStretchLastSection(false);
+
+        gridLayout_3->addWidget(tableWidget_souvenirInfo, 1, 0, 1, 2);
+
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 800, 26));
+        menubar->setGeometry(QRect(0, 0, 762, 26));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
@@ -212,9 +212,6 @@ public:
         comboBox_sort->setItemText(4, QCoreApplication::translate("MainWindow", "Seating Capacity", nullptr));
 
         groupBox_2->setTitle(QCoreApplication::translate("MainWindow", "Team Info", nullptr));
-        pushButton_add->setText(QCoreApplication::translate("MainWindow", "Add", nullptr));
-        pushButton_delete->setText(QCoreApplication::translate("MainWindow", "Delete", nullptr));
-        pushButton_edit->setText(QCoreApplication::translate("MainWindow", "Edit", nullptr));
         QTableWidgetItem *___qtablewidgetitem = tableWidget_teamInfo->verticalHeaderItem(0);
         ___qtablewidgetitem->setText(QCoreApplication::translate("MainWindow", "Team Name", nullptr));
         QTableWidgetItem *___qtablewidgetitem1 = tableWidget_teamInfo->verticalHeaderItem(1);
@@ -240,7 +237,10 @@ public:
         tableWidget_teamInfo->setSortingEnabled(false);
         tableWidget_teamInfo->setSortingEnabled(__sortingEnabled);
 
-        label->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
+        QTableWidgetItem *___qtablewidgetitem10 = tableWidget_souvenirInfo->horizontalHeaderItem(0);
+        ___qtablewidgetitem10->setText(QCoreApplication::translate("MainWindow", "Souvenir", nullptr));
+        QTableWidgetItem *___qtablewidgetitem11 = tableWidget_souvenirInfo->horizontalHeaderItem(1);
+        ___qtablewidgetitem11->setText(QCoreApplication::translate("MainWindow", "Price", nullptr));
     } // retranslateUi
 
 };

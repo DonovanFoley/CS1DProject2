@@ -40,6 +40,7 @@ public:
     void setDistanceToField(int distanceToField) { _distanceToField = distanceToField; }
     void setTypology(QString typology) { _typology = typology; }
     void setRooftype(QString rooftype) { _rooftype = rooftype; }
+    void setSouvenirList(QMap<QString, double> souvenirList) { _souvenirList = souvenirList; }
 
 private:
     QString _teamName;

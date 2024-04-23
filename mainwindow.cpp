@@ -23,8 +23,13 @@ MainWindow::MainWindow(QWidget *parent)
     s.insert("Second Souvenir item", 10.05);
 
     _teams.insert(Team("Arizona Diamondbacks", "Chase Field", 48686, "Phoenix, Arizona", "Grass", "National", 1998, 407, "Retro Modern", "Retractable", s));
+    s.clear();
     s.insert("Third souvenir item", 6.00);
+    s.insert("A Souvenir", 9.99);
     _teams.insert(Team("Atlanta Braves", "SunTrust Park", 41149, "Cumberland, Georgia", "Grass", "National", 2017, 400, "Retro Modern", "Open", s));
+    s.clear();
+    s.insert("First", 6.55);
+    s.insert("Second", 1.11);
     _teams.insert(Team("Baltimore Orioles", "Oriole Park at Camden Yards", 45971, "Baltimore, Maryland", "Grass", "American", 1992, 410, "Retro Classic", "Open", s));
     _teams.insert(Team("Chicago Cubs", "Wrigley Field", 41268, "Chicago, Illinois", "Grass", "National", 1914, 400, "Jewel Box", "Open", s));
 
@@ -91,10 +96,11 @@ void MainWindow::login()
     loginDialog->exec();
     if (loginDialog->ok() && loginDialog->password() == "*Saddleback")
     {
-        ui->pushButton_add->setEnabled(true);
-        ui->pushButton_edit->setEnabled(true);
-        ui->pushButton_delete->setEnabled(true);
+        //ui->pushButton_add->setEnabled(true);
+        //ui->pushButton_edit->setEnabled(true);
+        //ui->pushButton_delete->setEnabled(true);
         ui->tableWidget_teamInfo->setEditTriggers(QAbstractItemView::DoubleClicked);
+        ui->tableWidget_souvenirInfo->setEditTriggers(QAbstractItemView::DoubleClicked);
     }
     loginDialog->reset();
 }
@@ -124,15 +130,19 @@ void MainWindow::on_listWidget_teamList_itemClicked(QListWidgetItem *item)
     ui->tableWidget_teamInfo->setItem(0, 8, new QTableWidgetItem(_teams[item->text()]->typology()));
     ui->tableWidget_teamInfo->setItem(0, 9, new QTableWidgetItem(_teams[item->text()]->rooftype()));
 
+
     //Souvenir list
-    ui->listWidget_souvenirList->clear();
+    ui->tableWidget_souvenirInfo->clearContents();
+    ui->tableWidget_souvenirInfo->setRowCount(0);
     QMapIterator<QString, double> it(_teams[item->text()]->souvenirList());
 
     while (it.hasNext()) {
         it.next();
-        QString souvenir;
-        souvenir = it.key() + " - $" + QString::number(it.value(), 'f', 2);
-        ui->listWidget_souvenirList->addItem(souvenir);
+        ui->tableWidget_souvenirInfo->insertRow(0);
+        QString souvenir = it.key();
+        QString price = QString::number(it.value(), 'f', 2);
+        ui->tableWidget_souvenirInfo->setItem(0, 0, new QTableWidgetItem(souvenir));
+        ui->tableWidget_souvenirInfo->setItem(0, 1, new QTableWidgetItem(price));
     }
 
     editFlag = true;
@@ -147,7 +157,7 @@ void MainWindow::on_comboBox_sort_currentTextChanged(const QString &arg1)
     displayTeamNames();
 }
 
-//Exclusion box changed
+//Exclusion box changed_
 void MainWindow::on_comboBox_exclude_currentTextChanged(const QString &arg1)
 {
     ui->listWidget_teamList->clear();
@@ -161,13 +171,11 @@ void MainWindow::on_comboBox_exclude_currentTextChanged(const QString &arg1)
     displayTeamNames();
 }
 
-//Edit team info upon changing the table widget
+//Edit team info upon changing the table table
 void MainWindow::on_tableWidget_teamInfo_itemChanged()
 {
-    if (!editFlag)
-    {
-        return;
-    }
+    if (!editFlag) return;
+
     currentTeam->setTeamName(ui->tableWidget_teamInfo->item(0,0)->text());
     currentTeam->setStadiumName(ui->tableWidget_teamInfo->item(1,0)->text());
     currentTeam->setSeatingCapacity(ui->tableWidget_teamInfo->item(2,0)->text().toInt());
@@ -182,3 +190,19 @@ void MainWindow::on_tableWidget_teamInfo_itemChanged()
     //Call the combo box sorting method and then print new team names
     on_comboBox_sort_currentTextChanged(ui->comboBox_sort->currentText());
 }
+
+//Edit team info upon changing the souvenir table
+void MainWindow::on_tableWidget_souvenirInfo_itemChanged()
+{
+    if (!editFlag) return;
+
+    QMap<QString, double> souvenirList;
+
+    for (int i = 0; i < ui->tableWidget_souvenirInfo->rowCount(); i++)
+    {
+        souvenirList[ui->tableWidget_souvenirInfo->item(i, 0)->text()] = ui->tableWidget_souvenirInfo->item(i, 1)->text().toDouble();
+    }
+
+    currentTeam->setSouvenirList(souvenirList);
+}
+
