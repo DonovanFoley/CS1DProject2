@@ -205,3 +205,13 @@ void MainWindow::on_tableWidget_souvenirInfo_itemChanged()
     currentTeam->setSouvenirList(souvenirList);
 }
 
+//Add souvenir button
+void MainWindow::on_pushButton_add_clicked()
+{
+    editFlag = false;
+    ui->tableWidget_souvenirInfo->insertRow(0);
+    ui->tableWidget_souvenirInfo->setItem(0, 0, new QTableWidgetItem("Item"));
+    editFlag = true;
+    ui->tableWidget_souvenirInfo->setItem(0, 1, new QTableWidgetItem("0.00"));
+}
+

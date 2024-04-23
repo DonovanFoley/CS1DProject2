@@ -38,6 +38,8 @@ private slots:
 
     void on_tableWidget_souvenirInfo_itemChanged();
 
+    void on_pushButton_add_clicked();
+
 private:
     Ui::MainWindow *ui;
 
