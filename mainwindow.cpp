@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     loginMenu->addAction(loginAct);
     connect(loginAct, &QAction::triggered, this, &MainWindow::login);
 
+    /*
     //Dummy teams for testing purposes
     QMap<QString, double> s;
     s.insert("Souvenir item", 15.59);
@@ -31,7 +32,11 @@ MainWindow::MainWindow(QWidget *parent)
     s.insert("First", 6.55);
     s.insert("Second", 1.11);
     _teams.insert(Team("Baltimore Orioles", "Oriole Park at Camden Yards", 45971, "Baltimore, Maryland", "Grass", "American", 1992, 410, "Retro Classic", "Open", s));
-    _teams.insert(Team("Chicago Cubs", "Wrigley Field", 41268, "Chicago, Illinois", "Grass", "National", 1914, 400, "Jewel Box", "Open", s));
+    _teams.insert(Team("Chicago Cubs", "Wrigley Field", 41268, "Chicago, Illinois", "Grass", "National", 1914, 400, "Jewel Box", "Open", s)); */
+
+    StadiumsDB db("stadiums.db");
+    db.populate_teams(_teams);
+    db.populate_souvenirs(_teams);
 
     propertyMap["Team Name"] = teamName;
     propertyMap["Stadium Name"] = stadiumName;

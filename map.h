@@ -11,8 +11,10 @@ class Map
 public:
     Map();
 
-    void insert(Team team);
+    Team& insert(Team team);
     void sort(Property property);
+
+    void clear();
     //template <typename T> T compare(T p1, T p2);
     int size();
 

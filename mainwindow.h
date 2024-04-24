@@ -7,6 +7,7 @@
 #include "team.h"
 #include "map.h"
 #include "logindialog.h"
+#include "stadiumdb.h"
 #include <QTableWidgetItem>
 #include <QListWidgetItem>
 

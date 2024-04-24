@@ -2,9 +2,10 @@
 
 Map::Map() {}
 
-void Map::insert(Team team)
+Team& Map::insert(Team team)
 {
     _teamsVector.append(team);
+    return _teamsVector.back();
 }
 
 void Map::sort(Property property)
@@ -42,6 +43,8 @@ void Map::sort(Property property)
     }
 }
 
+void Map::clear() { _teamsVector.clear(); }
+
 int Map::size() { return _teamsVector.size(); }
 
 Team* Map::operator[](QString teamName)
@@ -50,7 +53,7 @@ Team* Map::operator[](QString teamName)
     {
         if (_teamsVector[i].teamName() == teamName) return &_teamsVector[i];
     }
-    //return;
+    return nullptr;
 }
 
 Team* Map::operator()(int index)
