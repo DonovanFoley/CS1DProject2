@@ -36,6 +36,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     StadiumsDB db("stadiums.db");
     db.populate_teams(_teams);
+    db.populate_souvenirs(_teams);
 
     propertyMap["Team Name"] = teamName;
     propertyMap["Stadium Name"] = stadiumName;

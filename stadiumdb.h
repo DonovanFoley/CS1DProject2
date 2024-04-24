@@ -6,6 +6,7 @@
 #include "map.h"
 #include <iostream>
 #include <vector>
+#include <sstream>
 
 class StadiumsDB 
 {
@@ -16,6 +17,7 @@ class StadiumsDB
     int num_stadiums();
 
     void populate_teams(Map& teams);
+    void populate_souvenirs(Map& teams);
     
     void modify_stadium_info(Team&);
 

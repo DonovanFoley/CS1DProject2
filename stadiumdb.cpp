@@ -30,6 +30,27 @@ void StadiumsDB::populate_teams(Map& teams)
   finalize_statement();
 }
 
+void StadiumsDB::populate_souvenirs(Map& teams) 
+{
+  for(int i = 0; i < teams.size(); ++i) 
+  {
+    auto team = teams(i);
+    std::stringstream state;
+    state << "SELECT name, price FROM souvenir WHERE stadium_id = " << team->id() << ";";
+    prepare_statement(state.str());
+
+    status_ = sqlite3_step(state_);
+    while(status_ != SQLITE_DONE)
+    {
+      QString name(reinterpret_cast<const char*>(sqlite3_column_text(state_, 0)));
+      team->souvenirListRef()[name] = sqlite3_column_double(state_, 1);
+      status_ = sqlite3_step(state_);
+    }
+
+    finalize_statement();
+  }
+}
+
 void StadiumsDB::modify_stadium_info(Team& stadium)
 {
   stadium.setId(sqlite3_column_int(state_, 0));
