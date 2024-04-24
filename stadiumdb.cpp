@@ -19,11 +19,11 @@ void StadiumsDB::populate_teams(Map& teams)
   teams.clear();
   prepare_statement("SELECT * FROM stadium");   //make table of all stadiums
  
-  status_ = sqlite3_step(state_);
+  status_ = sqlite3_step(state_);               //do until out of rows in table
   while(status_ != SQLITE_DONE)
   {
-    QVector<Team>::reference ref = teams.insert(Team());
-    modify_stadium_info(ref);
+    QVector<Team>::reference ref = teams.insert(Team());  //insert new team
+    modify_stadium_info(ref);                             //populate it with data
     status_ = sqlite3_step(state_);
   }
 
@@ -32,14 +32,17 @@ void StadiumsDB::populate_teams(Map& teams)
 
 void StadiumsDB::populate_souvenirs(Map& teams) 
 {
-  for(int i = 0; i < teams.size(); ++i) 
+  for(int i = 0; i < teams.size(); ++i)                   //for all teams
   {
     auto team = teams(i);
+    team->souvenirListRef().clear();
+
     std::stringstream state;
     state << "SELECT name, price FROM souvenir WHERE stadium_id = " << team->id() << ";";
+    
     prepare_statement(state.str());
 
-    status_ = sqlite3_step(state_);
+    status_ = sqlite3_step(state_);             //do until out of rows for table
     while(status_ != SQLITE_DONE)
     {
       QString name(reinterpret_cast<const char*>(sqlite3_column_text(state_, 0)));
@@ -54,25 +57,15 @@ void StadiumsDB::populate_souvenirs(Map& teams)
 void StadiumsDB::modify_stadium_info(Team& stadium)
 {
   stadium.setId(sqlite3_column_int(state_, 0));
-
   stadium.setTeamName(QString(reinterpret_cast<const char*>(sqlite3_column_text(state_, 1))));
-  
   stadium.setStadiumName(QString(reinterpret_cast<const char*>(sqlite3_column_text(state_, 2))));
-  
   stadium.setSeatingCapacity(sqlite3_column_int(state_, 3));
-  
   stadium.setLocation(QString(reinterpret_cast<const char*>(sqlite3_column_text(state_, 4))));
-  
   stadium.setPlayingSurface(QString(reinterpret_cast<const char*>(sqlite3_column_text(state_, 6))));
-  
   stadium.setLeague(QString(reinterpret_cast<const char*>(sqlite3_column_text(state_, 7))));
-  
   stadium.setDateOpened(sqlite3_column_int(state_, 8));
-  
   stadium.setDistanceToField(sqlite3_column_int(state_, 9));
-  
   stadium.setTypology(QString(reinterpret_cast<const char*>(sqlite3_column_text(state_, 10))));
-  
   stadium.setRooftype(QString(reinterpret_cast<const char*>(sqlite3_column_text(state_, 11))));
 }
 
