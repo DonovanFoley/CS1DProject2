@@ -15,6 +15,7 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
@@ -40,6 +41,7 @@ public:
     QTableWidget *tableWidget_teamInfo;
     QPushButton *pushButton_add;
     QPushButton *pushButton_delete;
+    QLabel *label;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -195,6 +197,9 @@ public:
 
         gridLayout_3->addWidget(pushButton_delete, 2, 1, 1, 1);
 
+        label = new QLabel(centralwidget);
+        label->setObjectName("label");
+        label->setGeometry(QRect(70, 580, 63, 20));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
@@ -258,6 +263,7 @@ public:
 
         pushButton_add->setText(QCoreApplication::translate("MainWindow", "Add", nullptr));
         pushButton_delete->setText(QCoreApplication::translate("MainWindow", "Delete", nullptr));
+        label->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
     } // retranslateUi
 
 };

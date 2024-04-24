@@ -40,6 +40,10 @@ private slots:
 
     void on_pushButton_add_clicked();
 
+    void on_pushButton_delete_clicked();
+
+    void on_tableWidget_souvenirInfo_itemClicked(QTableWidgetItem *item);
+
 private:
     Ui::MainWindow *ui;
 
@@ -58,6 +62,7 @@ private:
     QMenu *loginMenu;
     QAction *loginAct;
     Team *currentTeam = nullptr;
+    int currentSouvenir = 0;
     bool editFlag = true;
 
 };

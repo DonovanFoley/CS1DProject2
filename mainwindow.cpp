@@ -215,3 +215,16 @@ void MainWindow::on_pushButton_add_clicked()
     ui->tableWidget_souvenirInfo->setItem(0, 1, new QTableWidgetItem("0.00"));
 }
 
+//Delete souvenir button
+void MainWindow::on_pushButton_delete_clicked()
+{
+
+}
+
+//Clicked on a souvenir (Helper function for delete)
+void MainWindow::on_tableWidget_souvenirInfo_itemClicked(QTableWidgetItem *item)
+{
+    //currentSouvenir = item->row();
+    //ui->label->setText();
+}
+
