@@ -13,13 +13,17 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     map.cpp \
-    team.cpp
+    team.cpp \ 
+    stadiumdb.cpp \
+    sqlite3.c
 
 HEADERS += \
     logindialog.h \
     mainwindow.h \
     map.h \
-    team.h
+    team.h \
+    stadiumdb.h \ 
+    sqlite3.h
 
 FORMS += \
     logindialog.ui \

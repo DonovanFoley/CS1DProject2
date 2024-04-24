@@ -14,6 +14,7 @@ public:
 
 
     //Accessors
+    int id() const { return _id; }
     QString teamName() { return _teamName; }
     QString stadiumName() { return _stadiumName; }
     int seatingCapacity() { return _seatingCapacity; }
@@ -27,9 +28,12 @@ public:
     QMap<QString, double> souvenirList() { return _souvenirList; }
     bool TeamisInTrip() { return _isInTrip; }
     bool TeamisStartingTeam() { return _isStartingTeam; }
+    
+    QMap<QString, double>& souvenirListRef() { return _souvenirList; }
 
 
     //Mutators
+    void setId(int id) { _id = id; }
     void setTeamName(QString teamName) { _teamName = teamName; }
     void setStadiumName(QString stadiumName) { _stadiumName = stadiumName; }
     void setSeatingCapacity(int seatingCapacity) { _seatingCapacity = seatingCapacity; }
@@ -43,6 +47,7 @@ public:
     void setSouvenirList(QMap<QString, double> souvenirList) { _souvenirList = souvenirList; }
 
 private:
+    int _id;
     QString _teamName;
     QString _stadiumName;
     int _seatingCapacity;
