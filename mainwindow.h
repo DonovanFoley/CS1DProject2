@@ -1,6 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
+//hi
 #include <QMainWindow>
 #include <QAction>
 #include <QMenu>
