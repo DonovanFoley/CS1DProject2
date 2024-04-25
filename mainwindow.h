@@ -67,6 +67,7 @@ private:
     Team *currentTeam = nullptr;
     QString currentSouvenirName;
     double currentSouvenirPrice;
+    bool loggedIn = false;
     bool editFlag = true;
 
 };

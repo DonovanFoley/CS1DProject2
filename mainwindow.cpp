@@ -102,9 +102,10 @@ void MainWindow::login()
     if (loginDialog->ok() && loginDialog->password() == "*Saddleback")
     {
         ui->pushButton_add->setEnabled(true);
-        ui->pushButton_delete->setEnabled(true);
+        //ui->pushButton_delete->setEnabled(true);
         ui->tableWidget_teamInfo->setEditTriggers(QAbstractItemView::DoubleClicked);
         ui->tableWidget_souvenirInfo->setEditTriggers(QAbstractItemView::DoubleClicked);
+        loggedIn = true;
     }
     loginDialog->reset();
 }
@@ -150,6 +151,7 @@ void MainWindow::on_listWidget_teamList_itemClicked(QListWidgetItem *item)
     }
 
     editFlag = true;
+    ui->pushButton_delete->setEnabled(false);
 }
 
 //Sorting box changed
@@ -195,7 +197,7 @@ void MainWindow::on_tableWidget_teamInfo_itemChanged()
     on_comboBox_sort_currentTextChanged(ui->comboBox_sort->currentText());
 }
 
-//Edit team info upon changing the souvenir table
+//Edit team object info upon changing the souvenir table
 void MainWindow::on_tableWidget_souvenirInfo_itemChanged()
 {
     if (!editFlag) return;
@@ -228,6 +230,7 @@ void MainWindow::on_pushButton_delete_clicked()
 
     QMap<QString, double> map = currentTeam->souvenirList();
 
+    //If the user clicked delete on the price, search the map until we find the element with the price
     QMapIterator<QString, double> it2(currentTeam->souvenirList());
     while (it2.hasNext())
     {
@@ -240,6 +243,7 @@ void MainWindow::on_pushButton_delete_clicked()
         }
     }
 
+    //If the user clicked delete on the key, delete the element with that key
     if (userClickedName) map.remove(currentSouvenirName);
 
     currentTeam->setSouvenirList(map);
@@ -260,6 +264,7 @@ void MainWindow::on_pushButton_delete_clicked()
     }
 
     editFlag = true;
+    ui->pushButton_delete->setEnabled(false);
 }
 
 //Clicked on a souvenir (Helper function for delete)
@@ -268,5 +273,6 @@ void MainWindow::on_tableWidget_souvenirInfo_itemClicked(QTableWidgetItem *item)
     currentSouvenirName = item->text();
     currentSouvenirPrice = item->text().toDouble();
     ui->label->setText(currentSouvenirName);
+    ui->pushButton_delete->setEnabled(loggedIn);
 }
 
