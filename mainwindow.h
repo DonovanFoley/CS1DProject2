@@ -28,6 +28,8 @@ public:
     void displayTeamNames();
     void login();
 
+    void setCurrentSouvenir(const QString &newCurrentSouvenir);
+
 private slots:
     //void on_listWidget_teamList_currentTextChanged(const QString &currentText);
     void on_comboBox_sort_currentTextChanged(const QString &arg1);
@@ -63,7 +65,8 @@ private:
     QMenu *loginMenu;
     QAction *loginAct;
     Team *currentTeam = nullptr;
-    int currentSouvenir = 0;
+    QString currentSouvenirName;
+    double currentSouvenirPrice;
     bool editFlag = true;
 
 };
