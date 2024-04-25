@@ -1,6 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
+//hi
 #include <QMainWindow>
 #include <QAction>
 #include <QMenu>
@@ -28,6 +28,8 @@ public:
     void displayTeamNames();
     void login();
 
+    void setCurrentSouvenir(const QString &newCurrentSouvenir);
+
 private slots:
     //void on_listWidget_teamList_currentTextChanged(const QString &currentText);
     void on_comboBox_sort_currentTextChanged(const QString &arg1);
@@ -38,6 +40,12 @@ private slots:
     void on_tableWidget_teamInfo_itemChanged();
 
     void on_tableWidget_souvenirInfo_itemChanged();
+
+    void on_pushButton_add_clicked();
+
+    void on_pushButton_delete_clicked();
+
+    void on_tableWidget_souvenirInfo_itemClicked(QTableWidgetItem *item);
 
 private:
     Ui::MainWindow *ui;
@@ -57,6 +65,9 @@ private:
     QMenu *loginMenu;
     QAction *loginAct;
     Team *currentTeam = nullptr;
+    QString currentSouvenirName;
+    double currentSouvenirPrice;
+    bool loggedIn = false;
     bool editFlag = true;
 
 };

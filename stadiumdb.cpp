@@ -1,5 +1,5 @@
 #include "stadiumdb.h"
-
+//hi
 StadiumsDB::StadiumsDB(const char * dbfile) { file_loc_ = strdup(dbfile); }
 
 int StadiumsDB::num_stadiums()

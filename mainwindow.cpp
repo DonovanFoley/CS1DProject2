@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+//hi
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -101,11 +101,11 @@ void MainWindow::login()
     loginDialog->exec();
     if (loginDialog->ok() && loginDialog->password() == "*Saddleback")
     {
-        //ui->pushButton_add->setEnabled(true);
-        //ui->pushButton_edit->setEnabled(true);
+        ui->pushButton_add->setEnabled(true);
         //ui->pushButton_delete->setEnabled(true);
         ui->tableWidget_teamInfo->setEditTriggers(QAbstractItemView::DoubleClicked);
         ui->tableWidget_souvenirInfo->setEditTriggers(QAbstractItemView::DoubleClicked);
+        loggedIn = true;
     }
     loginDialog->reset();
 }
@@ -151,6 +151,7 @@ void MainWindow::on_listWidget_teamList_itemClicked(QListWidgetItem *item)
     }
 
     editFlag = true;
+    ui->pushButton_delete->setEnabled(false);
 }
 
 //Sorting box changed
@@ -196,7 +197,7 @@ void MainWindow::on_tableWidget_teamInfo_itemChanged()
     on_comboBox_sort_currentTextChanged(ui->comboBox_sort->currentText());
 }
 
-//Edit team info upon changing the souvenir table
+//Edit team object info upon changing the souvenir table
 void MainWindow::on_tableWidget_souvenirInfo_itemChanged()
 {
     if (!editFlag) return;
@@ -209,5 +210,69 @@ void MainWindow::on_tableWidget_souvenirInfo_itemChanged()
     }
 
     currentTeam->setSouvenirList(souvenirList);
+}
+
+//Add souvenir button
+void MainWindow::on_pushButton_add_clicked()
+{
+    editFlag = false;
+    ui->tableWidget_souvenirInfo->insertRow(0);
+    ui->tableWidget_souvenirInfo->setItem(0, 0, new QTableWidgetItem("Item"));
+    editFlag = true;
+    ui->tableWidget_souvenirInfo->setItem(0, 1, new QTableWidgetItem("0.00"));
+}
+
+//Delete souvenir button
+void MainWindow::on_pushButton_delete_clicked()
+{
+    bool userClickedName = true;
+    editFlag = false;
+
+    QMap<QString, double> map = currentTeam->souvenirList();
+
+    //If the user clicked delete on the price, search the map until we find the element with the price
+    QMapIterator<QString, double> it2(currentTeam->souvenirList());
+    while (it2.hasNext())
+    {
+        it2.next();
+        if (it2.value() == currentSouvenirPrice)
+        {
+            map.remove(it2.key());
+            userClickedName = false;
+            break;
+        }
+    }
+
+    //If the user clicked delete on the key, delete the element with that key
+    if (userClickedName) map.remove(currentSouvenirName);
+
+    currentTeam->setSouvenirList(map);
+
+    ui->tableWidget_souvenirInfo->clearContents();
+    ui->tableWidget_souvenirInfo->setRowCount(0);
+    QMapIterator<QString, double> it(currentTeam->souvenirList());
+
+    //Update the souvenir list so that the deleted souvenir is no longer displayed
+    while (it.hasNext())
+    {
+        it.next();
+        ui->tableWidget_souvenirInfo->insertRow(0);
+        QString souvenir = it.key();
+        QString price = QString::number(it.value(), 'f', 2);
+        ui->tableWidget_souvenirInfo->setItem(0, 0, new QTableWidgetItem(souvenir));
+        ui->tableWidget_souvenirInfo->setItem(0, 1, new QTableWidgetItem(price));
+    }
+
+    editFlag = true;
+    ui->pushButton_delete->setEnabled(false);
+}
+
+//Clicked on a souvenir (Helper function for delete)
+void MainWindow::on_tableWidget_souvenirInfo_itemClicked(QTableWidgetItem *item)
+{
+    currentSouvenirName = item->text();
+    currentSouvenirPrice = item->text().toDouble();
+    ui->label->setText(currentSouvenirName);
+    ui->pushButton_delete->setEnabled(loggedIn);
 }
 
