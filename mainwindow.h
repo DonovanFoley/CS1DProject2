@@ -27,6 +27,7 @@ public:
     ~MainWindow();
 
     void displayTeamNames();
+    void displayTeamInfo();
     void login();
 
     void setCurrentSouvenir(const QString &newCurrentSouvenir);
