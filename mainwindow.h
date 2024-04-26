@@ -10,6 +10,8 @@
 #include "stadiumdb.h"
 #include <QTableWidgetItem>
 #include <QListWidgetItem>
+#include <QMessageBox>
+#include <QRegularExpression>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -26,6 +28,8 @@ public:
     ~MainWindow();
 
     void displayTeamNames();
+    void displayTeamInfo();
+    void displaySouvenirInfo();
     void login();
 
     void setCurrentSouvenir(const QString &newCurrentSouvenir);
