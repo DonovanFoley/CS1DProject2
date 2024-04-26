@@ -98,13 +98,29 @@ void MainWindow::displayTeamInfo()
     ui->tableWidget_teamInfo->setItem(0, 9, new QTableWidgetItem(currentTeam->rooftype()));
 }
 
+void MainWindow::displaySouvenirInfo()
+{
+    ui->tableWidget_souvenirInfo->clearContents();
+    ui->tableWidget_souvenirInfo->setRowCount(0);
+    QMapIterator<QString, double> it(currentTeam->souvenirList());
+
+    while (it.hasNext()) {
+        it.next();
+        ui->tableWidget_souvenirInfo->insertRow(0);
+        QString souvenir = it.key();
+        QString price = QString::number(it.value(), 'f', 2);
+        ui->tableWidget_souvenirInfo->setItem(0, 0, new QTableWidgetItem(souvenir));
+        ui->tableWidget_souvenirInfo->setItem(0, 1, new QTableWidgetItem(price));
+    }
+}
+
 void MainWindow::login()
 {
     loginDialog->exec();
     if (loginDialog->ok() && loginDialog->password() == "*Saddleback")
     {
-        ui->pushButton_add->setEnabled(true);
-        //ui->pushButton_delete->setEnabled(true);
+        QMessageBox::information(this, "Admin", "Logged In Successfully");
+        ui->pushButton_add->setEnabled(currentTeam != nullptr);
         ui->tableWidget_teamInfo->setEditTriggers(QAbstractItemView::DoubleClicked);
         ui->tableWidget_souvenirInfo->setEditTriggers(QAbstractItemView::DoubleClicked);
         loggedIn = true;
@@ -127,23 +143,11 @@ void MainWindow::on_listWidget_teamList_itemClicked(QListWidgetItem *item)
     }
 
     displayTeamInfo();
-
-    //Souvenir list
-    ui->tableWidget_souvenirInfo->clearContents();
-    ui->tableWidget_souvenirInfo->setRowCount(0);
-    QMapIterator<QString, double> it(_teams[item->text()]->souvenirList());
-
-    while (it.hasNext()) {
-        it.next();
-        ui->tableWidget_souvenirInfo->insertRow(0);
-        QString souvenir = it.key();
-        QString price = QString::number(it.value(), 'f', 2);
-        ui->tableWidget_souvenirInfo->setItem(0, 0, new QTableWidgetItem(souvenir));
-        ui->tableWidget_souvenirInfo->setItem(0, 1, new QTableWidgetItem(price));
-    }
+    displaySouvenirInfo();
 
     editFlag = true;
     ui->pushButton_delete->setEnabled(false);
+    ui->pushButton_add->setEnabled(loggedIn);
 }
 
 //Sorting box changed
@@ -212,9 +216,38 @@ void MainWindow::on_tableWidget_teamInfo_itemChanged()
 //Edit team object info upon changing the souvenir table
 void MainWindow::on_tableWidget_souvenirInfo_itemChanged()
 {
+    bool ok;
     if (!editFlag) return;
 
     QMap<QString, double> souvenirList;
+    //Check for invalid user input
+        /*
+    for (int i = 0; i < ui->tableWidget_souvenirInfo->rowCount(); i++)
+    {
+        if (ui->tableWidget_souvenirInfo->item(i, 0)->text().toInt() != 0 ||
+           (ui->tableWidget_souvenirInfo->item(i, 1)->text().toDouble() == 0.00 &&
+            ui->tableWidget_souvenirInfo->item(i, 0)->text() != "Item"))
+        {
+            editFlag = false;
+            displaySouvenirInfo();
+            editFlag = true;
+            QMessageBox::warning(this, "Invalid Input", "Invalid Input");
+            return;
+        }
+    }*/
+
+    for (int i = 0; i < ui->tableWidget_souvenirInfo->rowCount(); i++)
+    {
+        ui->tableWidget_souvenirInfo->item(i, 1)->text().toDouble(&ok);
+        if (ui->tableWidget_souvenirInfo->item(i, 0)->text().toInt() != 0 || !ok)
+        {
+            editFlag = false;
+            displaySouvenirInfo();
+            editFlag = true;
+            QMessageBox::warning(this, "Invalid Input", "Invalid Input");
+            return;
+        }
+    }
 
     for (int i = 0; i < ui->tableWidget_souvenirInfo->rowCount(); i++)
     {
@@ -284,7 +317,6 @@ void MainWindow::on_tableWidget_souvenirInfo_itemClicked(QTableWidgetItem *item)
 {
     currentSouvenirName = item->text();
     currentSouvenirPrice = item->text().toDouble();
-    ui->label->setText(currentSouvenirName);
     ui->pushButton_delete->setEnabled(loggedIn);
 }
 

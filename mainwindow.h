@@ -11,6 +11,7 @@
 #include <QTableWidgetItem>
 #include <QListWidgetItem>
 #include <QMessageBox>
+#include <QRegularExpression>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -28,6 +29,7 @@ public:
 
     void displayTeamNames();
     void displayTeamInfo();
+    void displaySouvenirInfo();
     void login();
 
     void setCurrentSouvenir(const QString &newCurrentSouvenir);
