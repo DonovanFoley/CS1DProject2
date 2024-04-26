@@ -10,6 +10,7 @@
 #include "stadiumdb.h"
 #include <QTableWidgetItem>
 #include <QListWidgetItem>
+#include <QMessageBox>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

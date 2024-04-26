@@ -182,6 +182,15 @@ void MainWindow::on_tableWidget_teamInfo_itemChanged()
 {
     if (!editFlag) return;
 
+    //Check for strings in number properties (invalid input)
+    if (ui->tableWidget_teamInfo->item(2,0)->text().toInt() == 0 ||
+        ui->tableWidget_teamInfo->item(6,0)->text() == "0" ||
+        ui->tableWidget_teamInfo->item(7,0)->text() == "0")
+    {
+        QMessageBox::warning(this, "Invalid Input", "Invalid Input");
+        return;
+    }
+
     currentTeam->setTeamName(ui->tableWidget_teamInfo->item(0,0)->text());
     currentTeam->setStadiumName(ui->tableWidget_teamInfo->item(1,0)->text());
     currentTeam->setSeatingCapacity(ui->tableWidget_teamInfo->item(2,0)->text().toInt());
