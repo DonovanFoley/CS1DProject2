@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "iostream"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -23,14 +24,16 @@ MainWindow::MainWindow(QWidget *parent)
     propertyMap["Seating Capacity"] = seatingCapacity;
 
     displayTeamNames();
-
-    //Hi
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+// void testSouvenirPurchaseWindow() {
+
+// }
 
 void MainWindow::displayTeamNames()
 {

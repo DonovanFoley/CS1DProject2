@@ -2,8 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "team.h"
 #include "map.h"
+#include "Team.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
