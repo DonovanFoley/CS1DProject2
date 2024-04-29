@@ -1,6 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
+//hi
 #include <QMainWindow>
 #include <QAction>
 #include <QMenu>
@@ -10,6 +10,8 @@
 #include "stadiumdb.h"
 #include <QTableWidgetItem>
 #include <QListWidgetItem>
+#include <QMessageBox>
+#include <QRegularExpression>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -26,7 +28,11 @@ public:
     ~MainWindow();
 
     void displayTeamNames();
+    void displayTeamInfo();
+    void displaySouvenirInfo();
     void login();
+
+    void setCurrentSouvenir(const QString &newCurrentSouvenir);
 
 private slots:
     //void on_listWidget_teamList_currentTextChanged(const QString &currentText);
@@ -38,6 +44,12 @@ private slots:
     void on_tableWidget_teamInfo_itemChanged();
 
     void on_tableWidget_souvenirInfo_itemChanged();
+
+    void on_pushButton_add_clicked();
+
+    void on_pushButton_delete_clicked();
+
+    void on_tableWidget_souvenirInfo_itemClicked(QTableWidgetItem *item);
 
 private:
     Ui::MainWindow *ui;
@@ -57,6 +69,9 @@ private:
     QMenu *loginMenu;
     QAction *loginAct;
     Team *currentTeam = nullptr;
+    QString currentSouvenirName;
+    double currentSouvenirPrice;
+    bool loggedIn = false;
     bool editFlag = true;
 
 };

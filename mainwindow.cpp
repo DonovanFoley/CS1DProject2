@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+//hi
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -17,22 +17,10 @@ MainWindow::MainWindow(QWidget *parent)
     loginMenu->addAction(loginAct);
     connect(loginAct, &QAction::triggered, this, &MainWindow::login);
 
-    /*
     //Dummy teams for testing purposes
     QMap<QString, double> s;
     s.insert("Souvenir item", 15.59);
     s.insert("Second Souvenir item", 10.05);
-
-    _teams.insert(Team("Arizona Diamondbacks", "Chase Field", 48686, "Phoenix, Arizona", "Grass", "National", 1998, 407, "Retro Modern", "Retractable", s));
-    s.clear();
-    s.insert("Third souvenir item", 6.00);
-    s.insert("A Souvenir", 9.99);
-    _teams.insert(Team("Atlanta Braves", "SunTrust Park", 41149, "Cumberland, Georgia", "Grass", "National", 2017, 400, "Retro Modern", "Open", s));
-    s.clear();
-    s.insert("First", 6.55);
-    s.insert("Second", 1.11);
-    _teams.insert(Team("Baltimore Orioles", "Oriole Park at Camden Yards", 45971, "Baltimore, Maryland", "Grass", "American", 1992, 410, "Retro Classic", "Open", s));
-    _teams.insert(Team("Chicago Cubs", "Wrigley Field", 41268, "Chicago, Illinois", "Grass", "National", 1914, 400, "Jewel Box", "Open", s)); */
 
     StadiumsDB db("stadiums.db");
     db.populate_teams(_teams);
@@ -96,16 +84,46 @@ void MainWindow::displayTeamNames()
     }
 }
 
+void MainWindow::displayTeamInfo()
+{
+    ui->tableWidget_teamInfo->setItem(0, 0, new QTableWidgetItem(currentTeam->teamName()));
+    ui->tableWidget_teamInfo->setItem(0, 1, new QTableWidgetItem(currentTeam->stadiumName()));
+    ui->tableWidget_teamInfo->setItem(0, 2, new QTableWidgetItem(QString::number(currentTeam->seatingCapacity())));
+    ui->tableWidget_teamInfo->setItem(0, 3, new QTableWidgetItem(currentTeam->location()));
+    ui->tableWidget_teamInfo->setItem(0, 4, new QTableWidgetItem(currentTeam->playingSurface()));
+    ui->tableWidget_teamInfo->setItem(0, 5, new QTableWidgetItem(currentTeam->league()));
+    ui->tableWidget_teamInfo->setItem(0, 6, new QTableWidgetItem(QString::number(currentTeam->dateOpened())));
+    ui->tableWidget_teamInfo->setItem(0, 7, new QTableWidgetItem(QString::number(currentTeam->distanceToField())));
+    ui->tableWidget_teamInfo->setItem(0, 8, new QTableWidgetItem(currentTeam->typology()));
+    ui->tableWidget_teamInfo->setItem(0, 9, new QTableWidgetItem(currentTeam->rooftype()));
+}
+
+void MainWindow::displaySouvenirInfo()
+{
+    ui->tableWidget_souvenirInfo->clearContents();
+    ui->tableWidget_souvenirInfo->setRowCount(0);
+    QMapIterator<QString, double> it(currentTeam->souvenirList());
+
+    while (it.hasNext()) {
+        it.next();
+        ui->tableWidget_souvenirInfo->insertRow(0);
+        QString souvenir = it.key();
+        QString price = QString::number(it.value(), 'f', 2);
+        ui->tableWidget_souvenirInfo->setItem(0, 0, new QTableWidgetItem(souvenir));
+        ui->tableWidget_souvenirInfo->setItem(0, 1, new QTableWidgetItem(price));
+    }
+}
+
 void MainWindow::login()
 {
     loginDialog->exec();
     if (loginDialog->ok() && loginDialog->password() == "*Saddleback")
     {
-        //ui->pushButton_add->setEnabled(true);
-        //ui->pushButton_edit->setEnabled(true);
-        //ui->pushButton_delete->setEnabled(true);
+        QMessageBox::information(this, "Admin", "Logged In Successfully");
+        ui->pushButton_add->setEnabled(currentTeam != nullptr);
         ui->tableWidget_teamInfo->setEditTriggers(QAbstractItemView::DoubleClicked);
         ui->tableWidget_souvenirInfo->setEditTriggers(QAbstractItemView::DoubleClicked);
+        loggedIn = true;
     }
     loginDialog->reset();
 }
@@ -124,33 +142,12 @@ void MainWindow::on_listWidget_teamList_itemClicked(QListWidgetItem *item)
         return;
     }
 
-    ui->tableWidget_teamInfo->setItem(0, 0, new QTableWidgetItem(_teams[item->text()]->teamName()));
-    ui->tableWidget_teamInfo->setItem(0, 1, new QTableWidgetItem(_teams[item->text()]->stadiumName()));
-    ui->tableWidget_teamInfo->setItem(0, 2, new QTableWidgetItem(QString::number(_teams[item->text()]->seatingCapacity())));
-    ui->tableWidget_teamInfo->setItem(0, 3, new QTableWidgetItem(_teams[item->text()]->location()));
-    ui->tableWidget_teamInfo->setItem(0, 4, new QTableWidgetItem(_teams[item->text()]->playingSurface()));
-    ui->tableWidget_teamInfo->setItem(0, 5, new QTableWidgetItem(_teams[item->text()]->league()));
-    ui->tableWidget_teamInfo->setItem(0, 6, new QTableWidgetItem(QString::number(_teams[item->text()]->dateOpened())));
-    ui->tableWidget_teamInfo->setItem(0, 7, new QTableWidgetItem(QString::number(_teams[item->text()]->distanceToField())));
-    ui->tableWidget_teamInfo->setItem(0, 8, new QTableWidgetItem(_teams[item->text()]->typology()));
-    ui->tableWidget_teamInfo->setItem(0, 9, new QTableWidgetItem(_teams[item->text()]->rooftype()));
-
-
-    //Souvenir list
-    ui->tableWidget_souvenirInfo->clearContents();
-    ui->tableWidget_souvenirInfo->setRowCount(0);
-    QMapIterator<QString, double> it(_teams[item->text()]->souvenirList());
-
-    while (it.hasNext()) {
-        it.next();
-        ui->tableWidget_souvenirInfo->insertRow(0);
-        QString souvenir = it.key();
-        QString price = QString::number(it.value(), 'f', 2);
-        ui->tableWidget_souvenirInfo->setItem(0, 0, new QTableWidgetItem(souvenir));
-        ui->tableWidget_souvenirInfo->setItem(0, 1, new QTableWidgetItem(price));
-    }
+    displayTeamInfo();
+    displaySouvenirInfo();
 
     editFlag = true;
+    ui->pushButton_delete->setEnabled(false);
+    ui->pushButton_add->setEnabled(loggedIn);
 }
 
 //Sorting box changed
@@ -176,10 +173,30 @@ void MainWindow::on_comboBox_exclude_currentTextChanged(const QString &arg1)
     displayTeamNames();
 }
 
-//Edit team info upon changing the table table
+//Edit team info upon changing the table
 void MainWindow::on_tableWidget_teamInfo_itemChanged()
 {
     if (!editFlag) return;
+
+    //Check for numbers in string properties (invalid input)
+    if (ui->tableWidget_teamInfo->item(2,0)->text().toInt() == 0 ||
+        ui->tableWidget_teamInfo->item(6,0)->text().toInt() == 0 ||
+        ui->tableWidget_teamInfo->item(7,0)->text().toInt() == 0 ||
+        ui->tableWidget_teamInfo->item(0,0)->text().toInt() != 0 ||
+        ui->tableWidget_teamInfo->item(1,0)->text().toInt() != 0 ||
+        ui->tableWidget_teamInfo->item(3,0)->text().toInt() != 0 ||
+        ui->tableWidget_teamInfo->item(4,0)->text().toInt() != 0 ||
+        ui->tableWidget_teamInfo->item(5,0)->text().toInt() != 0 ||
+        ui->tableWidget_teamInfo->item(8,0)->text().toInt() != 0 ||
+        ui->tableWidget_teamInfo->item(9,0)->text().toInt() != 0
+        )
+    {
+        editFlag = false;
+        displayTeamInfo();
+        editFlag = true;
+        QMessageBox::warning(this, "Invalid Input", "Invalid Input");
+        return;
+    }
 
     currentTeam->setTeamName(ui->tableWidget_teamInfo->item(0,0)->text());
     currentTeam->setStadiumName(ui->tableWidget_teamInfo->item(1,0)->text());
@@ -196,12 +213,41 @@ void MainWindow::on_tableWidget_teamInfo_itemChanged()
     on_comboBox_sort_currentTextChanged(ui->comboBox_sort->currentText());
 }
 
-//Edit team info upon changing the souvenir table
+//Edit team object info upon changing the souvenir table
 void MainWindow::on_tableWidget_souvenirInfo_itemChanged()
 {
+    bool ok;
     if (!editFlag) return;
 
     QMap<QString, double> souvenirList;
+    //Check for invalid user input
+        /*
+    for (int i = 0; i < ui->tableWidget_souvenirInfo->rowCount(); i++)
+    {
+        if (ui->tableWidget_souvenirInfo->item(i, 0)->text().toInt() != 0 ||
+           (ui->tableWidget_souvenirInfo->item(i, 1)->text().toDouble() == 0.00 &&
+            ui->tableWidget_souvenirInfo->item(i, 0)->text() != "Item"))
+        {
+            editFlag = false;
+            displaySouvenirInfo();
+            editFlag = true;
+            QMessageBox::warning(this, "Invalid Input", "Invalid Input");
+            return;
+        }
+    }*/
+
+    for (int i = 0; i < ui->tableWidget_souvenirInfo->rowCount(); i++)
+    {
+        ui->tableWidget_souvenirInfo->item(i, 1)->text().toDouble(&ok);
+        if (ui->tableWidget_souvenirInfo->item(i, 0)->text().toInt() != 0 || !ok)
+        {
+            editFlag = false;
+            displaySouvenirInfo();
+            editFlag = true;
+            QMessageBox::warning(this, "Invalid Input", "Invalid Input");
+            return;
+        }
+    }
 
     for (int i = 0; i < ui->tableWidget_souvenirInfo->rowCount(); i++)
     {
@@ -209,5 +255,68 @@ void MainWindow::on_tableWidget_souvenirInfo_itemChanged()
     }
 
     currentTeam->setSouvenirList(souvenirList);
+}
+
+//Add souvenir button
+void MainWindow::on_pushButton_add_clicked()
+{
+    editFlag = false;
+    ui->tableWidget_souvenirInfo->insertRow(0);
+    ui->tableWidget_souvenirInfo->setItem(0, 0, new QTableWidgetItem("Item"));
+    editFlag = true;
+    ui->tableWidget_souvenirInfo->setItem(0, 1, new QTableWidgetItem("0.00"));
+}
+
+//Delete souvenir button
+void MainWindow::on_pushButton_delete_clicked()
+{
+    bool userClickedName = true;
+    editFlag = false;
+
+    QMap<QString, double> map = currentTeam->souvenirList();
+
+    //If the user clicked delete on the price, search the map until we find the element with the price
+    QMapIterator<QString, double> it2(currentTeam->souvenirList());
+    while (it2.hasNext())
+    {
+        it2.next();
+        if (it2.value() == currentSouvenirPrice)
+        {
+            map.remove(it2.key());
+            userClickedName = false;
+            break;
+        }
+    }
+
+    //If the user clicked delete on the key, delete the element with that key
+    if (userClickedName) map.remove(currentSouvenirName);
+
+    currentTeam->setSouvenirList(map);
+
+    ui->tableWidget_souvenirInfo->clearContents();
+    ui->tableWidget_souvenirInfo->setRowCount(0);
+    QMapIterator<QString, double> it(currentTeam->souvenirList());
+
+    //Update the souvenir list so that the deleted souvenir is no longer displayed
+    while (it.hasNext())
+    {
+        it.next();
+        ui->tableWidget_souvenirInfo->insertRow(0);
+        QString souvenir = it.key();
+        QString price = QString::number(it.value(), 'f', 2);
+        ui->tableWidget_souvenirInfo->setItem(0, 0, new QTableWidgetItem(souvenir));
+        ui->tableWidget_souvenirInfo->setItem(0, 1, new QTableWidgetItem(price));
+    }
+
+    editFlag = true;
+    ui->pushButton_delete->setEnabled(false);
+}
+
+//Clicked on a souvenir (Helper function for delete)
+void MainWindow::on_tableWidget_souvenirInfo_itemClicked(QTableWidgetItem *item)
+{
+    currentSouvenirName = item->text();
+    currentSouvenirPrice = item->text().toDouble();
+    ui->pushButton_delete->setEnabled(loggedIn);
 }
 

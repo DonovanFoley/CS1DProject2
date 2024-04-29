@@ -1,5 +1,5 @@
 #include "team.h"
-
+//hi
 Team::Team() {}
 
 Team::Team(QString teamName, QString stadiumName, int seatingCapacity, QString location, QString playingSurface,
