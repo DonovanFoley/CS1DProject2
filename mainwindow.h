@@ -8,6 +8,7 @@
 #include "map.h"
 #include "logindialog.h"
 #include "stadiumdb.h"
+#include "tripdialog.h"
 #include <QTableWidgetItem>
 #include <QListWidgetItem>
 #include <QMessageBox>
@@ -30,6 +31,7 @@ public:
     void displayTeamNames();
     void displayTeamInfo();
     void displaySouvenirInfo();
+    void displayTripNames();
     void login();
 
     void setCurrentSouvenir(const QString &newCurrentSouvenir);
@@ -51,6 +53,10 @@ private slots:
 
     void on_tableWidget_souvenirInfo_itemClicked(QTableWidgetItem *item);
 
+    void on_pushButton_go_clicked();
+
+    void on_checkBox_addToTrip_clicked(bool checked);
+
 private:
     Ui::MainWindow *ui;
 
@@ -63,9 +69,11 @@ private:
     bool onlySmallestDistance = false;
 
     Map _teams;
+    Map _teamsInTrip;
     QMap<QString, Property> propertyMap;
 
     LoginDialog *loginDialog;
+    TripDialog *tripDialog;
     QMenu *loginMenu;
     QAction *loginAct;
     Team *currentTeam = nullptr;

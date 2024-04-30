@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     loginDialog = new LoginDialog;
+    tripDialog = new TripDialog;
     ui->tableWidget_teamInfo->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
 
     //Set up actions
@@ -32,6 +33,7 @@ MainWindow::MainWindow(QWidget *parent)
     propertyMap["Date Opened"] = dateOpened;
     propertyMap["Seating Capacity"] = seatingCapacity;
 
+    _teams.sort(teamName);
     displayTeamNames();
 }
 
@@ -114,6 +116,27 @@ void MainWindow::displaySouvenirInfo()
     }
 }
 
+void MainWindow::displayTripNames()
+{
+    //If there are no teams in the trip, immediately exit
+    if (_teamsInTrip.size() == 0)
+    {
+        ui->pushButton_go->setEnabled(false);
+        ui->label_tripNames->clear();
+        return;
+    }
+    ui->pushButton_go->setEnabled(true);
+
+    QString names = "";
+    names.append(_teamsInTrip(0)->teamName());
+    for (int i = 1; i < _teamsInTrip.size(); i++)
+    {
+        names.append(" → ");
+        names.append(_teamsInTrip(i)->teamName());
+    }
+    ui->label_tripNames->setText(names);
+}
+
 void MainWindow::login()
 {
     loginDialog->exec();
@@ -135,6 +158,7 @@ void MainWindow::on_listWidget_teamList_itemClicked(QListWidgetItem *item)
 {
     editFlag = false;
     currentTeam = _teams[item->text()];
+    // qDebug("Current team has been changed");
     //If the user deselects a team
     if (item->text() == "")
     {
@@ -142,6 +166,8 @@ void MainWindow::on_listWidget_teamList_itemClicked(QListWidgetItem *item)
         return;
     }
 
+    ui->checkBox_addToTrip->setEnabled(true);
+    ui->checkBox_addToTrip->setChecked(currentTeam->isInTrip());
     displayTeamInfo();
     displaySouvenirInfo();
 
@@ -157,9 +183,21 @@ void MainWindow::on_comboBox_sort_currentTextChanged(const QString &arg1)
     _teams.sort(propertyMap[arg1]);
 
     displayTeamNames();
+    if (currentTeam != nullptr)
+    {
+        for (int i = 0; i < ui->listWidget_teamList->count(); i++)
+        {
+            if (ui->listWidget_teamList->item(i)->text() == ui->tableWidget_teamInfo->item(0,0)->text())
+            {
+                 ui->listWidget_teamList->setCurrentRow(i);
+                 currentTeam = _teams[ui->listWidget_teamList->item(i)->text()];
+            }
+        }
+    }
+
 }
 
-//Exclusion box changed_
+//Exclusion box changed
 void MainWindow::on_comboBox_exclude_currentTextChanged(const QString &arg1)
 {
     ui->listWidget_teamList->clear();
@@ -171,6 +209,17 @@ void MainWindow::on_comboBox_exclude_currentTextChanged(const QString &arg1)
     onlySmallestDistance = (arg1 == "Smallest Distance");
 
     displayTeamNames();
+    if (currentTeam != nullptr)
+    {
+        for (int i = 0; i < ui->listWidget_teamList->count(); i++)
+        {
+            if (ui->listWidget_teamList->item(i)->text() == ui->tableWidget_teamInfo->item(0,0)->text())
+            {
+                ui->listWidget_teamList->setCurrentRow(i);
+                currentTeam = _teams[ui->listWidget_teamList->item(i)->text()];
+            }
+        }
+    }
 }
 
 //Edit team info upon changing the table
@@ -221,20 +270,6 @@ void MainWindow::on_tableWidget_souvenirInfo_itemChanged()
 
     QMap<QString, double> souvenirList;
     //Check for invalid user input
-        /*
-    for (int i = 0; i < ui->tableWidget_souvenirInfo->rowCount(); i++)
-    {
-        if (ui->tableWidget_souvenirInfo->item(i, 0)->text().toInt() != 0 ||
-           (ui->tableWidget_souvenirInfo->item(i, 1)->text().toDouble() == 0.00 &&
-            ui->tableWidget_souvenirInfo->item(i, 0)->text() != "Item"))
-        {
-            editFlag = false;
-            displaySouvenirInfo();
-            editFlag = true;
-            QMessageBox::warning(this, "Invalid Input", "Invalid Input");
-            return;
-        }
-    }*/
 
     for (int i = 0; i < ui->tableWidget_souvenirInfo->rowCount(); i++)
     {
@@ -318,5 +353,31 @@ void MainWindow::on_tableWidget_souvenirInfo_itemClicked(QTableWidgetItem *item)
     currentSouvenirName = item->text();
     currentSouvenirPrice = item->text().toDouble();
     ui->pushButton_delete->setEnabled(loggedIn);
+}
+
+//Clicked on trip "go" button
+void MainWindow::on_pushButton_go_clicked()
+{
+    //if (_teamsInTrip.size() == 0) return;
+
+    tripDialog->getTeams(_teamsInTrip);
+    tripDialog->exec();
+}
+
+//Checked or unchecked "Add To Trip" button
+void MainWindow::on_checkBox_addToTrip_clicked(bool checked)
+{
+    if (checked)
+    {
+        currentTeam->toggleIsInTrip(true);
+        _teamsInTrip.insert(*currentTeam);
+    }
+    else
+    {
+        currentTeam->toggleIsInTrip(false);
+        _teamsInTrip.remove(*currentTeam);
+    }
+
+    displayTripNames();
 }
 

@@ -26,8 +26,8 @@ public:
     QString typology() { return _typology; }
     QString rooftype() { return _rooftype; }
     QMap<QString, double> souvenirList() { return _souvenirList; }
-    bool TeamisInTrip() { return _isInTrip; }
-    bool TeamisStartingTeam() { return _isStartingTeam; }
+    bool isInTrip() { return _isInTrip; }
+    bool isStartingTeam() { return _isStartingTeam; }
     
     QMap<QString, double>& souvenirListRef() { return _souvenirList; }
 
@@ -45,6 +45,7 @@ public:
     void setTypology(QString typology) { _typology = typology; }
     void setRooftype(QString rooftype) { _rooftype = rooftype; }
     void setSouvenirList(QMap<QString, double> souvenirList) { _souvenirList = souvenirList; }
+    void toggleIsInTrip(bool isInTrip) { _isInTrip = isInTrip; }
 
 private:
     int _id;

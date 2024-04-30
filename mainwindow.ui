@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>762</width>
-    <height>660</height>
+    <width>753</width>
+    <height>741</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -388,13 +388,61 @@
      </item>
     </layout>
    </widget>
+   <widget class="QPushButton" name="pushButton_go">
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>640</y>
+      <width>93</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Go!</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_addToTrip">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>580</y>
+      <width>111</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::RightToLeft</enum>
+    </property>
+    <property name="text">
+     <string>Add To Trip</string>
+    </property>
+    <property name="tristate">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_tripNames">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>580</y>
+      <width>551</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>762</width>
+     <width>753</width>
      <height>26</height>
     </rect>
    </property>

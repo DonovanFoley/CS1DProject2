@@ -8,6 +8,17 @@ Team& Map::insert(Team team)
     return _teamsVector.back();
 }
 
+void Map::remove(Team team)
+{
+    for (int i = 0; i < _teamsVector.size(); i++)
+    {
+        if (_teamsVector[i].teamName() == team.teamName())
+        {
+            _teamsVector.remove(i);
+        }
+    }
+}
+
 void Map::sort(Property property)
 {
     Team temp;
