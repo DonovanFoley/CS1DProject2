@@ -205,7 +205,10 @@ public:
         pushButton_go->setGeometry(QRect(630, 640, 93, 29));
         checkBox_addToTrip = new QCheckBox(centralwidget);
         checkBox_addToTrip->setObjectName("checkBox_addToTrip");
-        checkBox_addToTrip->setGeometry(QRect(600, 580, 111, 24));
+        checkBox_addToTrip->setEnabled(false);
+        checkBox_addToTrip->setGeometry(QRect(610, 580, 111, 24));
+        checkBox_addToTrip->setLayoutDirection(Qt::RightToLeft);
+        checkBox_addToTrip->setTristate(false);
         label_tripNames = new QLabel(centralwidget);
         label_tripNames->setObjectName("label_tripNames");
         label_tripNames->setGeometry(QRect(20, 580, 551, 91));

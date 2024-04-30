@@ -117,10 +117,18 @@ void MainWindow::displaySouvenirInfo()
 
 void MainWindow::displayTripNames()
 {
-    QString names = "";
-    for (int i = 0; i < _teamsInTrip.size(); i++)
+    //If there are no teams in the trip, immediately exit
+    if (_teamsInTrip.size() == 0)
     {
-        names.append("->");
+        ui->label_tripNames->clear();
+        return;
+    }
+
+    QString names = "";
+    names.append(_teamsInTrip(0)->teamName());
+    for (int i = 1; i < _teamsInTrip.size(); i++)
+    {
+        names.append(" -> ");
         names.append(_teamsInTrip(i)->teamName());
     }
     ui->label_tripNames->setText(names);
@@ -154,6 +162,8 @@ void MainWindow::on_listWidget_teamList_itemClicked(QListWidgetItem *item)
         return;
     }
 
+    ui->checkBox_addToTrip->setEnabled(true);
+    ui->checkBox_addToTrip->setChecked(currentTeam->isInTrip());
     displayTeamInfo();
     displaySouvenirInfo();
 
@@ -171,7 +181,7 @@ void MainWindow::on_comboBox_sort_currentTextChanged(const QString &arg1)
     displayTeamNames();
 }
 
-//Exclusion box changed_
+//Exclusion box changed
 void MainWindow::on_comboBox_exclude_currentTextChanged(const QString &arg1)
 {
     ui->listWidget_teamList->clear();
