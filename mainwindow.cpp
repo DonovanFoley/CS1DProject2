@@ -33,6 +33,7 @@ MainWindow::MainWindow(QWidget *parent)
     propertyMap["Date Opened"] = dateOpened;
     propertyMap["Seating Capacity"] = seatingCapacity;
 
+    _teams.sort(teamName);
     displayTeamNames();
 }
 
@@ -155,9 +156,9 @@ void MainWindow::login()
 //Update display info when a team is clicked
 void MainWindow::on_listWidget_teamList_itemClicked(QListWidgetItem *item)
 {
-    qDebug("gi");
     editFlag = false;
     currentTeam = _teams[item->text()];
+    // qDebug("Current team has been changed");
     //If the user deselects a team
     if (item->text() == "")
     {
@@ -182,6 +183,18 @@ void MainWindow::on_comboBox_sort_currentTextChanged(const QString &arg1)
     _teams.sort(propertyMap[arg1]);
 
     displayTeamNames();
+    if (currentTeam != nullptr)
+    {
+        for (int i = 0; i < ui->listWidget_teamList->count(); i++)
+        {
+            if (ui->listWidget_teamList->item(i)->text() == ui->tableWidget_teamInfo->item(0,0)->text())
+            {
+                 ui->listWidget_teamList->setCurrentRow(i);
+                 currentTeam = _teams[ui->listWidget_teamList->item(i)->text()];
+            }
+        }
+    }
+
 }
 
 //Exclusion box changed
@@ -196,6 +209,17 @@ void MainWindow::on_comboBox_exclude_currentTextChanged(const QString &arg1)
     onlySmallestDistance = (arg1 == "Smallest Distance");
 
     displayTeamNames();
+    if (currentTeam != nullptr)
+    {
+        for (int i = 0; i < ui->listWidget_teamList->count(); i++)
+        {
+            if (ui->listWidget_teamList->item(i)->text() == ui->tableWidget_teamInfo->item(0,0)->text())
+            {
+                ui->listWidget_teamList->setCurrentRow(i);
+                currentTeam = _teams[ui->listWidget_teamList->item(i)->text()];
+            }
+        }
+    }
 }
 
 //Edit team info upon changing the table
