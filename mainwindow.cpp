@@ -155,6 +155,7 @@ void MainWindow::login()
 //Update display info when a team is clicked
 void MainWindow::on_listWidget_teamList_itemClicked(QListWidgetItem *item)
 {
+    qDebug("gi");
     editFlag = false;
     currentTeam = _teams[item->text()];
     //If the user deselects a team

@@ -15,6 +15,7 @@ class TripDialog : public QDialog
 public:
     explicit TripDialog(QWidget *parent = nullptr);
     void getTeams(Map teams);
+    void displayTeamInfo();
     ~TripDialog();
 
 private slots:
