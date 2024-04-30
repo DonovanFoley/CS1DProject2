@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     loginDialog = new LoginDialog;
+    tripDialog = new TripDialog;
     ui->tableWidget_teamInfo->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
 
     //Set up actions
@@ -112,6 +113,17 @@ void MainWindow::displaySouvenirInfo()
         ui->tableWidget_souvenirInfo->setItem(0, 0, new QTableWidgetItem(souvenir));
         ui->tableWidget_souvenirInfo->setItem(0, 1, new QTableWidgetItem(price));
     }
+}
+
+void MainWindow::displayTripNames()
+{
+    QString names = "";
+    for (int i = 0; i < _teamsInTrip.size(); i++)
+    {
+        names.append("->");
+        names.append(_teamsInTrip(i)->teamName());
+    }
+    ui->label_tripNames->setText(names);
 }
 
 void MainWindow::login()
@@ -221,20 +233,6 @@ void MainWindow::on_tableWidget_souvenirInfo_itemChanged()
 
     QMap<QString, double> souvenirList;
     //Check for invalid user input
-        /*
-    for (int i = 0; i < ui->tableWidget_souvenirInfo->rowCount(); i++)
-    {
-        if (ui->tableWidget_souvenirInfo->item(i, 0)->text().toInt() != 0 ||
-           (ui->tableWidget_souvenirInfo->item(i, 1)->text().toDouble() == 0.00 &&
-            ui->tableWidget_souvenirInfo->item(i, 0)->text() != "Item"))
-        {
-            editFlag = false;
-            displaySouvenirInfo();
-            editFlag = true;
-            QMessageBox::warning(this, "Invalid Input", "Invalid Input");
-            return;
-        }
-    }*/
 
     for (int i = 0; i < ui->tableWidget_souvenirInfo->rowCount(); i++)
     {
@@ -318,5 +316,28 @@ void MainWindow::on_tableWidget_souvenirInfo_itemClicked(QTableWidgetItem *item)
     currentSouvenirName = item->text();
     currentSouvenirPrice = item->text().toDouble();
     ui->pushButton_delete->setEnabled(loggedIn);
+}
+
+//Clicked on trip "go" button
+void MainWindow::on_pushButton_go_clicked()
+{
+    tripDialog->exec();
+}
+
+//Checked or unchecked "Add To Trip" button
+void MainWindow::on_checkBox_addToTrip_clicked(bool checked)
+{
+    if (checked)
+    {
+        currentTeam->toggleIsInTrip(true);
+        _teamsInTrip.insert(*currentTeam);
+    }
+    else
+    {
+        currentTeam->toggleIsInTrip(false);
+        _teamsInTrip.remove(*currentTeam);
+    }
+
+    displayTripNames();
 }
 

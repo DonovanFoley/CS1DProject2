@@ -13,7 +13,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     map.cpp \
-    team.cpp \ 
+    team.cpp \
+    tripdialog.cpp \
     stadiumdb.cpp \
     sqlite3.c
 
@@ -22,12 +23,14 @@ HEADERS += \
     mainwindow.h \
     map.h \
     team.h \
-    stadiumdb.h \ 
+    stadiumdb.h \
+    tripdialog.h
     sqlite3.h
 
 FORMS += \
     logindialog.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    tripdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

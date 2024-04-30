@@ -11,10 +11,12 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
@@ -40,6 +42,9 @@ public:
     QTableWidget *tableWidget_teamInfo;
     QPushButton *pushButton_add;
     QPushButton *pushButton_delete;
+    QPushButton *pushButton_go;
+    QCheckBox *checkBox_addToTrip;
+    QLabel *label_tripNames;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -47,7 +52,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(762, 660);
+        MainWindow->resize(753, 741);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
         groupBox = new QGroupBox(centralwidget);
@@ -195,10 +200,19 @@ public:
 
         gridLayout_3->addWidget(pushButton_delete, 2, 1, 1, 1);
 
+        pushButton_go = new QPushButton(centralwidget);
+        pushButton_go->setObjectName("pushButton_go");
+        pushButton_go->setGeometry(QRect(630, 640, 93, 29));
+        checkBox_addToTrip = new QCheckBox(centralwidget);
+        checkBox_addToTrip->setObjectName("checkBox_addToTrip");
+        checkBox_addToTrip->setGeometry(QRect(600, 580, 111, 24));
+        label_tripNames = new QLabel(centralwidget);
+        label_tripNames->setObjectName("label_tripNames");
+        label_tripNames->setGeometry(QRect(20, 580, 551, 91));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 762, 26));
+        menubar->setGeometry(QRect(0, 0, 753, 26));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
@@ -258,6 +272,9 @@ public:
 
         pushButton_add->setText(QCoreApplication::translate("MainWindow", "Add", nullptr));
         pushButton_delete->setText(QCoreApplication::translate("MainWindow", "Delete", nullptr));
+        pushButton_go->setText(QCoreApplication::translate("MainWindow", "Go!", nullptr));
+        checkBox_addToTrip->setText(QCoreApplication::translate("MainWindow", "Add To Trip", nullptr));
+        label_tripNames->setText(QString());
     } // retranslateUi
 
 };

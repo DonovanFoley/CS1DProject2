@@ -12,6 +12,7 @@ public:
     Map();
 
     Team& insert(Team team);
+    void remove(Team team);
     void sort(Property property);
 
     void clear();
