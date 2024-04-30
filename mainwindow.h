@@ -69,7 +69,7 @@ private:
     bool onlySmallestDistance = false;
 
     Map _teams;
-    Map _teamsInTrip;
+    QVector<Team> _teamsInTrip;
     QMap<QString, Property> propertyMap;
 
     LoginDialog *loginDialog;

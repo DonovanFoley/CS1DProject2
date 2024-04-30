@@ -13,7 +13,7 @@ TripDialog::~TripDialog()
     delete ui;
 }
 
-void TripDialog::getTeams(Map teams)
+void TripDialog::getTeams(QVector<Team> teams)
 {
     index = 0;
     _teams = teams;
@@ -57,15 +57,15 @@ void TripDialog::on_pushButton_next_clicked()
 
 void TripDialog::displayTeamInfo()
 {
-    ui->label_teamName->setText(_teams(index)->teamName());
-    ui->label_stadiumName->setText("Stadium Name: " + _teams(index)->stadiumName());
-    ui->label_seatingCapacity->setText("Seating Capacity: " + QString::number(_teams(index)->seatingCapacity()));
-    ui->label_location->setText("Location: " + _teams(index)->location());
-    ui->label_playingSurface->setText("Playing Surface: " + _teams(index)->playingSurface());
-    ui->label_league->setText("League: " + _teams(index)->league());
-    ui->label_dateOpened->setText("Date Opened: " + QString::number(_teams(index)->dateOpened()));
-    ui->label_distanceToField->setText("Distance To Field: " + QString::number(_teams(index)->distanceToField()));
-    ui->label_typology->setText("Typology: " + _teams(index)->typology());
-    ui->label_rooftype->setText("Rooftype: " + _teams(index)->rooftype());
+    ui->label_teamName->setText(_teams[index].teamName());
+    ui->label_stadiumName->setText("Stadium Name: " + _teams[index].stadiumName());
+    ui->label_seatingCapacity->setText("Seating Capacity: " + QString::number(_teams[index].seatingCapacity()));
+    ui->label_location->setText("Location: " + _teams[index].location());
+    ui->label_playingSurface->setText("Playing Surface: " + _teams[index].playingSurface());
+    ui->label_league->setText("League: " + _teams[index].league());
+    ui->label_dateOpened->setText("Date Opened: " + QString::number(_teams[index].dateOpened()));
+    ui->label_distanceToField->setText("Distance To Field: " + QString::number(_teams[index].distanceToField()));
+    ui->label_typology->setText("Typology: " + _teams[index].typology());
+    ui->label_rooftype->setText("Rooftype: " + _teams[index].rooftype());
 }
 

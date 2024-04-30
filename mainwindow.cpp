@@ -128,11 +128,11 @@ void MainWindow::displayTripNames()
     ui->pushButton_go->setEnabled(true);
 
     QString names = "";
-    names.append(_teamsInTrip(0)->teamName());
+    names.append(_teamsInTrip[0].teamName());
     for (int i = 1; i < _teamsInTrip.size(); i++)
     {
         names.append(" → ");
-        names.append(_teamsInTrip(i)->teamName());
+        names.append(_teamsInTrip[i].teamName());
     }
     ui->label_tripNames->setText(names);
 }
@@ -260,6 +260,19 @@ void MainWindow::on_tableWidget_teamInfo_itemChanged()
 
     //Call the combo box sorting method and then print new team names
     on_comboBox_sort_currentTextChanged(ui->comboBox_sort->currentText());
+
+    //Update trip teams in real time if the data is changed after they've been added
+    if (currentTeam->isInTrip())
+    {
+        for (int i = 0; i < _teamsInTrip.size(); i++)
+        {
+            if (_teamsInTrip[i].id() == currentTeam->id())
+            {
+                _teamsInTrip[i] = *currentTeam;
+            }
+        }
+    }
+    displayTripNames();
 }
 
 //Edit team object info upon changing the souvenir table
@@ -370,12 +383,19 @@ void MainWindow::on_checkBox_addToTrip_clicked(bool checked)
     if (checked)
     {
         currentTeam->toggleIsInTrip(true);
-        _teamsInTrip.insert(*currentTeam);
+        _teamsInTrip.append(*currentTeam);
     }
     else
     {
         currentTeam->toggleIsInTrip(false);
-        _teamsInTrip.remove(*currentTeam);
+        for (int i = 0; i < _teamsInTrip.size(); i++)
+        {
+            if (_teamsInTrip[i].teamName() == currentTeam->teamName())
+            {
+                _teamsInTrip.remove(i);
+                break;
+            }
+        }
     }
 
     displayTripNames();
