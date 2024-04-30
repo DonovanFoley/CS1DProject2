@@ -13,6 +13,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
 
 QT_BEGIN_NAMESPACE
 
@@ -20,6 +21,8 @@ class Ui_TripDialog
 {
 public:
     QLabel *label_teamName;
+    QPushButton *pushButton_previous;
+    QPushButton *pushButton_next;
 
     void setupUi(QDialog *TripDialog)
     {
@@ -34,6 +37,13 @@ public:
         font.setBold(true);
         label_teamName->setFont(font);
         label_teamName->setAlignment(Qt::AlignCenter);
+        pushButton_previous = new QPushButton(TripDialog);
+        pushButton_previous->setObjectName("pushButton_previous");
+        pushButton_previous->setEnabled(false);
+        pushButton_previous->setGeometry(QRect(30, 540, 93, 29));
+        pushButton_next = new QPushButton(TripDialog);
+        pushButton_next->setObjectName("pushButton_next");
+        pushButton_next->setGeometry(QRect(660, 530, 93, 29));
 
         retranslateUi(TripDialog);
 
@@ -44,6 +54,8 @@ public:
     {
         TripDialog->setWindowTitle(QCoreApplication::translate("TripDialog", "Dialog", nullptr));
         label_teamName->setText(QCoreApplication::translate("TripDialog", "TextLabel", nullptr));
+        pushButton_previous->setText(QCoreApplication::translate("TripDialog", "Previous", nullptr));
+        pushButton_next->setText(QCoreApplication::translate("TripDialog", "Next", nullptr));
     } // retranslateUi
 
 };

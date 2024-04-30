@@ -120,15 +120,17 @@ void MainWindow::displayTripNames()
     //If there are no teams in the trip, immediately exit
     if (_teamsInTrip.size() == 0)
     {
+        ui->pushButton_go->setEnabled(false);
         ui->label_tripNames->clear();
         return;
     }
+    ui->pushButton_go->setEnabled(true);
 
     QString names = "";
     names.append(_teamsInTrip(0)->teamName());
     for (int i = 1; i < _teamsInTrip.size(); i++)
     {
-        names.append(" -> ");
+        names.append(" → ");
         names.append(_teamsInTrip(i)->teamName());
     }
     ui->label_tripNames->setText(names);
@@ -331,6 +333,9 @@ void MainWindow::on_tableWidget_souvenirInfo_itemClicked(QTableWidgetItem *item)
 //Clicked on trip "go" button
 void MainWindow::on_pushButton_go_clicked()
 {
+    //if (_teamsInTrip.size() == 0) return;
+
+    tripDialog->getTeams(_teamsInTrip);
     tripDialog->exec();
 }
 
