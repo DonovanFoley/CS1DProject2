@@ -1,17 +1,24 @@
 #ifndef TEAM_H
 #define TEAM_H
 //hi
-#include <QString>
 #include <QMap>
+#include <QString>
 
 class Team
 {
 public:
     Team();
-    Team(QString teamName, QString stadiumName, int seatingCapacity, QString location, QString playingSurface,
-         QString league, int dateOpened, int distanceToField, QString typology, QString rooftype,
+    Team(QString teamName,
+         QString stadiumName,
+         int seatingCapacity,
+         QString location,
+         QString playingSurface,
+         QString league,
+         int dateOpened,
+         int distanceToField,
+         QString typology,
+         QString rooftype,
          QMap<QString, double> souvenirList);
-
 
     //Accessors
     int id() const { return _id; }
@@ -28,9 +35,8 @@ public:
     QMap<QString, double> souvenirList() { return _souvenirList; }
     bool isInTrip() { return _isInTrip; }
     bool isStartingTeam() { return _isStartingTeam; }
-    
-    QMap<QString, double>& souvenirListRef() { return _souvenirList; }
 
+    QMap<QString, double> &souvenirListRef() { return _souvenirList; }
 
     //Mutators
     void setId(int id) { _id = id; }

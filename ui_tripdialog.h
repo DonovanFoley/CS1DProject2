@@ -107,7 +107,6 @@ public:
 
         verticalLayout->addWidget(label_rooftype);
 
-
         retranslateUi(TripDialog);
 
         QMetaObject::connectSlotsByName(TripDialog);
@@ -121,20 +120,23 @@ public:
         pushButton_next->setText(QCoreApplication::translate("TripDialog", "Next", nullptr));
         groupBox_teamInfo->setTitle(QCoreApplication::translate("TripDialog", "Team Info", nullptr));
         label_stadiumName->setText(QCoreApplication::translate("TripDialog", "TextLabel", nullptr));
-        label_seatingCapacity->setText(QCoreApplication::translate("TripDialog", "TextLabel", nullptr));
+        label_seatingCapacity->setText(
+            QCoreApplication::translate("TripDialog", "TextLabel", nullptr));
         label_location->setText(QCoreApplication::translate("TripDialog", "TextLabel", nullptr));
-        label_playingSurface->setText(QCoreApplication::translate("TripDialog", "TextLabel", nullptr));
+        label_playingSurface->setText(
+            QCoreApplication::translate("TripDialog", "TextLabel", nullptr));
         label_league->setText(QCoreApplication::translate("TripDialog", "TextLabel", nullptr));
         label_dateOpened->setText(QCoreApplication::translate("TripDialog", "TextLabel", nullptr));
-        label_distanceToField->setText(QCoreApplication::translate("TripDialog", "TextLabel", nullptr));
+        label_distanceToField->setText(
+            QCoreApplication::translate("TripDialog", "TextLabel", nullptr));
         label_typology->setText(QCoreApplication::translate("TripDialog", "TextLabel", nullptr));
         label_rooftype->setText(QCoreApplication::translate("TripDialog", "TextLabel", nullptr));
     } // retranslateUi
-
 };
 
 namespace Ui {
-    class TripDialog: public Ui_TripDialog {};
+class TripDialog : public Ui_TripDialog
+{};
 } // namespace Ui
 
 QT_END_NAMESPACE
