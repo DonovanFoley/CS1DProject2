@@ -96,12 +96,18 @@ void SouvenirPurchase::populateSouvenirTable() {
 
 }
 
+/***************************************************************************
+ * Displays the name of each stadium visited on the trip, the total number of
+ *   items purchased at the stadium, and the total cost at the stadium
+ * Also displays the grand total cost for the trip
+***************************************************************************/
 void SouvenirPurchase::populateTripSummaryTable() {
 
+    // resize and center the souveir and price table
     ui->souvenirAndPriceTable->resize(500,400);
-    // Center the Trip Summary Table b/c the other tables are no longer on the dialog
     centerSouvenirTable();
 
+    // clear out any exisiting data and remove purchase/previous buttons
     ui->souvenirAndPriceTable->clear();
     ui->purchaseBtn->hide();
     ui->pushButton_previous->hide();
@@ -110,53 +116,63 @@ void SouvenirPurchase::populateTripSummaryTable() {
     ui->souvenirAndPriceTable->resizeColumnsToContents();
     ui->souvenirAndPriceTable->resizeRowsToContents();
 
-    QString teamName;
-    int numberOfItems = 0;
-    double totalCost = 0.0;
 
-    // Change the headings of the summary table
+    QString teamName;        // stores the team name
+    int numberOfItems = 0;   // stores items purchased at one stadium
+    double totalCost = 0.0;  // stores total cost at one stadium
+
+    // Change the headings of the table
     QStringList headers;
     headers << "Team Name" << "Total Items" << "Total Cost ($)";
     ui->souvenirAndPriceTable->setHorizontalHeaderLabels(headers);
     QHeaderView* souvenirTableHeaders = ui->souvenirAndPriceTable->horizontalHeader();
     souvenirTableHeaders->setSectionResizeMode(QHeaderView::Stretch);
 
-    int numTeams = _teams.size();
-    int blankRows = 3;
-    int totalRows = numTeams + blankRows;
+    int numTeams = _teams.size();         // tracks the number of rows needed to display all teams
+    int blankRows = 3;                    // num of blank lines to separate teams with grand total
+    int totalRows = numTeams + blankRows; // total rows needed for entire table
 
-    // Set the number of rows for souvenirAndPriceTable and summaryTable
+    double grandTotalCost = 0.0;          // stores the grand total of the trip
+
+    // Set the number of rows for souvenirAndPriceTable
     ui->souvenirAndPriceTable->setRowCount(totalRows);
 
-    // Calculate grand total
-    double grandTotalCost = 0.0;
-
-    // for testing that the total items and total cost are saved:
+    // iterate through every team on the trip and display corresponding info
+    // also calculate the grand total
     for (int currRow = 0; currRow < numTeams; ++currRow) {
         teamName = _teams[currRow].teamName();
         numberOfItems = totalSouvenirsPurchased.at(currRow);
         totalCost = totalCostPerTeam.at(currRow);
 
+        // update grand total
         grandTotalCost += totalCost;
 
         // Fill in the souvenir name, total items, and total cost for the current row
         ui->souvenirAndPriceTable->setItem(currRow, 0, new QTableWidgetItem(teamName));
 
+        // displays the number of items purchased for one team
         QTableWidgetItem* itemsItem = new QTableWidgetItem(QString::number(numberOfItems));
         itemsItem->setTextAlignment(Qt::AlignVCenter);
         ui->souvenirAndPriceTable->setItem(currRow, 1, itemsItem);
 
+        // displays the total cost at one stadium
         QTableWidgetItem* costItem = new QTableWidgetItem(QString::number(totalCost, 'f', 2));
         costItem->setTextAlignment(Qt::AlignVCenter); // Center text (optional)
         ui->souvenirAndPriceTable->setItem(currRow, 2, costItem);
 
     }
 
+    // displays the grand total
     ui->souvenirAndPriceTable->setItem(totalRows - 1, 0, new QTableWidgetItem(QString("Grand Total")));
     ui->souvenirAndPriceTable->setItem(totalRows - 1, 2, new QTableWidgetItem(QString::number(grandTotalCost, 'f', 2)));
 
 }
 
+/***************************************************************************
+ * Function called by: void SouvenirPurchase::populateTripSummaryTable()
+ * Used to resize and center the souvenirAndPriceTable since the other
+ *   UI elements are removed when the summary is displayed
+***************************************************************************/
 void SouvenirPurchase::centerSouvenirTable() {
     // Calculate the position to center the table in the dialog
     int parentWidth = this->width();
@@ -227,7 +243,14 @@ void SouvenirPurchase::on_purchaseBtn_clicked() {
     summaryTableCopy->setItem(0, 1, new QTableWidgetItem(QString::number(totalCostAtStadium,  'f', 2)));
 }
 
-
+/***************************************************************************
+ * Allows the user to move backwards during a trip and change their purchse
+ *  selections
+ * Variables Modified:
+ *     - index : decremented
+ *     - totalSouvenirsPurchase : last item in the vector is removed
+ *     - totalCostPerTeam : last item in the vector is removed
+***************************************************************************/
 void SouvenirPurchase::on_pushButton_previous_clicked()
 {
     // update parallel vectors to keep track of totals (from previous team)
@@ -244,23 +267,37 @@ void SouvenirPurchase::on_pushButton_previous_clicked()
 
 }
 
+/***************************************************************************
+ * Allows the user to move forward during a trip to the next stadium
+ * Variables Modified:
+ *     - index : incremented
+ *     - totalSouvenirsPurchase : entry added to end of vector
+ *     - totalCostPerTeam : entry added to end of vector
+***************************************************************************/
 void SouvenirPurchase::on_pushButton_next_clicked()
 {
     // update parallel vectors to keep track of totals (from previous team)
     totalSouvenirsPurchased.push_back(numberOfItemsPurchased);
     totalCostPerTeam.push_back(totalCostAtStadium);
 
+    // increment index
     index++;
-    //If the user clicks the "finish" button
+
+    //If the user clicks the "close" button
     if (index == _teams.size() + 1) {
         close();
     }
+
     //If the user clicks "next" on the last team (display end screen)
     else if (index == _teams.size()) {
+        // remove the summary table and team info box
         ui->groupBox_teamInfo->hide();
         ui->summaryTable->hide();
+
+        // show the overall Trip Summary
         populateTripSummaryTable();
-        ui->pushButton_next->setText("Finish");
+
+        ui->pushButton_next->setText("Close");
         ui->label_teamName->setText("Trip Summary:");
     } else {
         displayTeamInfo();
