@@ -1,0 +1,64 @@
+// #ifndef GRAPH_H
+/*#define GRAPH_H
+
+#include <QMainWindow>
+
+QT_BEGIN_NAMESPACE
+namespace Ui {
+class Graph;
+}
+QT_END_NAMESPACE
+
+class Graph : public QMainWindow
+{
+    Q_OBJECT
+
+public:
+    Graph(QWidget *parent = nullptr);
+    ~Graph();
+
+private:
+    Ui::Graph *ui;
+}*/
+//#endif // GRAPH_H
+
+#ifndef GRAPH_H
+#define GRAPH_H
+
+#include <vector>
+#include <queue>
+#include <unordered_map>
+#include <functional> // For std::greater
+#include <iostream>
+#include <QString>
+using namespace std;
+
+struct Edge
+{
+    int destination;
+    int weight;
+    bool operator>(const Edge& other) const
+    {
+        return weight > other.weight; // Greater comparison for min-heap
+    }
+};
+
+using AdjList = priority_queue<Edge, vector<Edge>, greater<Edge>>;
+using GraphStructure = std::unordered_map<int, AdjList>;
+
+class Graph
+{
+public:
+    void addEdge(int originIndex, int destinationIndex, int weight);
+    void recursiveDFS(GraphStructure graph,int current, vector<bool>& visited, const unordered_map<int, QString>& indexToStadium, int& totalDistance);
+    int DFS(int startVertex, vector<bool>& visited, const unordered_map<int, QString>&indexToStadium);
+    int BFS(GraphStructure graph, int startVertex, const unordered_map<int, QString>& indexToStadium);
+    GraphStructure& getGraph();
+
+private:
+    GraphStructure graph;
+};
+
+#endif // GRAPH_H
+
+
