@@ -16,11 +16,19 @@
   <widget class="QTableWidget" name="souvenirAndPriceTable">
    <property name="geometry">
     <rect>
-     <x>320</x>
-     <y>120</y>
-     <width>291</width>
-     <height>192</height>
+     <x>310</x>
+     <y>91</y>
+     <width>571</width>
+     <height>191</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="editTriggers">
+    <set>QAbstractItemView::NoEditTriggers</set>
    </property>
    <attribute name="verticalHeaderVisible">
     <bool>false</bool>
@@ -29,26 +37,49 @@
     <property name="text">
      <string>New Column</string>
     </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>New Column</string>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
     </property>
    </column>
    <column>
     <property name="text">
      <string>New Column</string>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>New Column</string>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
     </property>
    </column>
   </widget>
   <widget class="QTableWidget" name="summaryTable">
    <property name="geometry">
     <rect>
-     <x>620</x>
-     <y>120</y>
-     <width>256</width>
-     <height>192</height>
+     <x>480</x>
+     <y>360</y>
+     <width>241</width>
+     <height>121</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="editTriggers">
+    <set>QAbstractItemView::NoEditTriggers</set>
    </property>
    <attribute name="verticalHeaderVisible">
     <bool>false</bool>
@@ -57,29 +88,69 @@
     <property name="text">
      <string>New Row</string>
     </property>
+    <property name="textAlignment">
+     <set>AlignCenter</set>
+    </property>
    </row>
    <column>
     <property name="text">
      <string>New Column</string>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
    </column>
    <column>
     <property name="text">
      <string>New Column</string>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
    </column>
+   <item row="0" column="0">
+    <property name="text">
+     <string/>
+    </property>
+    <property name="textAlignment">
+     <set>AlignCenter</set>
+    </property>
+    <property name="flags">
+     <set>ItemIsEditable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+    </property>
+   </item>
+   <item row="0" column="1">
+    <property name="text">
+     <string/>
+    </property>
+    <property name="textAlignment">
+     <set>AlignCenter</set>
+    </property>
+    <property name="flags">
+     <set>ItemIsEnabled</set>
+    </property>
+   </item>
   </widget>
   <widget class="QPushButton" name="purchaseBtn">
    <property name="geometry">
     <rect>
-     <x>390</x>
-     <y>330</y>
+     <x>530</x>
+     <y>290</y>
      <width>131</width>
      <height>41</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
    <property name="text">
-    <string>Purchase Button</string>
+    <string>Add to Cart</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton_previous">

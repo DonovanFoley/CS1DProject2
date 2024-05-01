@@ -80,8 +80,11 @@ void SouvenirPurchase::populateSouvenirTable() {
         ui->souvenirAndPriceTable->insertRow(currentRow);
 
         // Fill in the souvenir name and price for the current row
-        ui->souvenirAndPriceTable->setItem(currentRow, 0, new QTableWidgetItem(i.key()));
-        ui->souvenirAndPriceTable->setItem(currentRow, 1, new QTableWidgetItem(QString::number(i.value(), 'f', 2)));
+        QTableWidgetItem* souvenirNameItem = new QTableWidgetItem(i.key());
+        ui->souvenirAndPriceTable->setItem(currentRow, 0, souvenirNameItem);
+
+        QTableWidgetItem* souvenirPriceItem = new QTableWidgetItem(QString::number(i.value(), 'f', 2));
+        ui->souvenirAndPriceTable->setItem(currentRow, 1, souvenirPriceItem);
 
         /* Adds QSpin Boxes so that there is a min/max amount that a user could purchase of each
          * souvenir type.*/
@@ -90,7 +93,86 @@ void SouvenirPurchase::populateSouvenirTable() {
         quantitySelector -> setMaximum(100);
         ui -> souvenirAndPriceTable -> setCellWidget(currentRow, 2, quantitySelector);
     }
+
 }
+
+void SouvenirPurchase::populateTripSummaryTable() {
+
+    ui->souvenirAndPriceTable->resize(500,400);
+    // Center the Trip Summary Table b/c the other tables are no longer on the dialog
+    centerSouvenirTable();
+
+    ui->souvenirAndPriceTable->clear();
+    ui->purchaseBtn->hide();
+    ui->pushButton_previous->hide();
+
+    // Adjust columns and rows to content
+    ui->souvenirAndPriceTable->resizeColumnsToContents();
+    ui->souvenirAndPriceTable->resizeRowsToContents();
+
+    QString teamName;
+    int numberOfItems = 0;
+    double totalCost = 0.0;
+
+    // Change the headings of the summary table
+    QStringList headers;
+    headers << "Team Name" << "Total Items" << "Total Cost ($)";
+    ui->souvenirAndPriceTable->setHorizontalHeaderLabels(headers);
+    QHeaderView* souvenirTableHeaders = ui->souvenirAndPriceTable->horizontalHeader();
+    souvenirTableHeaders->setSectionResizeMode(QHeaderView::Stretch);
+
+    int numTeams = _teams.size();
+    int blankRows = 3;
+    int totalRows = numTeams + blankRows;
+
+    // Set the number of rows for souvenirAndPriceTable and summaryTable
+    ui->souvenirAndPriceTable->setRowCount(totalRows);
+
+    // Calculate grand total
+    double grandTotalCost = 0.0;
+
+    // for testing that the total items and total cost are saved:
+    for (int currRow = 0; currRow < numTeams; ++currRow) {
+        teamName = _teams[currRow].teamName();
+        numberOfItems = totalSouvenirsPurchased.at(currRow);
+        totalCost = totalCostPerTeam.at(currRow);
+
+        grandTotalCost += totalCost;
+
+        // Fill in the souvenir name, total items, and total cost for the current row
+        ui->souvenirAndPriceTable->setItem(currRow, 0, new QTableWidgetItem(teamName));
+
+        QTableWidgetItem* itemsItem = new QTableWidgetItem(QString::number(numberOfItems));
+        itemsItem->setTextAlignment(Qt::AlignVCenter);
+        ui->souvenirAndPriceTable->setItem(currRow, 1, itemsItem);
+
+        QTableWidgetItem* costItem = new QTableWidgetItem(QString::number(totalCost, 'f', 2));
+        costItem->setTextAlignment(Qt::AlignVCenter); // Center text (optional)
+        ui->souvenirAndPriceTable->setItem(currRow, 2, costItem);
+
+    }
+
+    ui->souvenirAndPriceTable->setItem(totalRows - 1, 0, new QTableWidgetItem(QString("Grand Total")));
+    ui->souvenirAndPriceTable->setItem(totalRows - 1, 2, new QTableWidgetItem(QString::number(grandTotalCost, 'f', 2)));
+
+}
+
+void SouvenirPurchase::centerSouvenirTable() {
+    // Calculate the position to center the table in the dialog
+    int parentWidth = this->width();
+    int parentHeight = this->height();
+
+    int tableWidth = ui->souvenirAndPriceTable->width();
+    int tableHeight = ui->souvenirAndPriceTable->height();
+
+    int x = (parentWidth - tableWidth) / 2;
+    int y = (parentHeight - tableHeight) / 2;
+
+    // Move the table to the calculated position
+    ui->souvenirAndPriceTable->move(x, y);
+    ui->label_teamName->move(x, 0);
+}
+
 
 /***************************************************************************
  * Returns the number of souvenirs purchased by the user
@@ -124,6 +206,7 @@ void SouvenirPurchase::on_purchaseBtn_clicked() {
     // initalizations
     numberOfItemsPurchased = 0;
     totalCostAtStadium = 0;
+
 
     /* go through each row of the souvenirAndPriceTable and sum the quantity
        of items purchased and total price */
@@ -175,10 +258,10 @@ void SouvenirPurchase::on_pushButton_next_clicked()
     //If the user clicks "next" on the last team (display end screen)
     else if (index == _teams.size()) {
         ui->groupBox_teamInfo->hide();
-        ui->souvenirAndPriceTable->hide();
         ui->summaryTable->hide();
+        populateTripSummaryTable();
         ui->pushButton_next->setText("Finish");
-        ui->label_teamName->setText("Finished!");
+        ui->label_teamName->setText("Trip Summary:");
     } else {
         displayTeamInfo();
         ui->summaryTable->clear();

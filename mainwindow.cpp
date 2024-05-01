@@ -356,14 +356,6 @@ void MainWindow::on_pushButton_go_clicked()
     souvenirPurchaseDialog->getTeams(_teamsInTrip);
     souvenirPurchaseDialog->exec();
 
-    // for testing that the total items and total cost are saved:
-    for(int index = 0; index < _teamsInTrip.size(); index++) {
-        std::cout << (_teamsInTrip[index].teamName()).toStdString() << std::endl;
-        std::cout << "Number of items purchased: " << souvenirPurchaseDialog->totalSouvenirsPurchased.at(index) << std::endl;
-        std::cout << "Total cost at this stadium: " << souvenirPurchaseDialog->totalCostPerTeam.at(index) << std::endl;
-        std::cout << std::endl << std::endl;
-    }
-
     delete souvenirPurchaseDialog;
 
     // commented out by celeste:

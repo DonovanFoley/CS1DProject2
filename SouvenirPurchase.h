@@ -37,8 +37,10 @@ private:
 
     int index;
     void populateSouvenirTable();
+    void populateTripSummaryTable();
     int numberOfItemsPurchased = 0;
     double totalCostAtStadium = 0;
+    void centerSouvenirTable();
 };
 
 #endif // SOUVENIRPURCHASE_H

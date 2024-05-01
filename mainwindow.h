@@ -75,7 +75,6 @@ private:
 
     LoginDialog *loginDialog;
     TripDialog *tripDialog;
-    // SouvenirPurchase *souvenirPurchaseDialog;
 
     QMenu *loginMenu;
     QAction *loginAct;
