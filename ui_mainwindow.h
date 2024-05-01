@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 6.6.2
+** Created by: Qt User Interface Compiler version 6.6.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -202,6 +202,7 @@ public:
 
         pushButton_go = new QPushButton(centralwidget);
         pushButton_go->setObjectName("pushButton_go");
+        pushButton_go->setEnabled(false);
         pushButton_go->setGeometry(QRect(630, 640, 93, 29));
         checkBox_addToTrip = new QCheckBox(centralwidget);
         checkBox_addToTrip->setObjectName("checkBox_addToTrip");
@@ -215,7 +216,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 753, 26));
+        menubar->setGeometry(QRect(0, 0, 753, 37));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");

@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "map.h"
+#include "SouvenirPurchase.h"
 
 namespace Ui {
 class TripDialog;
