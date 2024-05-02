@@ -45,6 +45,7 @@ public:
     QPushButton *pushButton_go;
     QCheckBox *checkBox_addToTrip;
     QLabel *label_tripNames;
+    QComboBox *comboBox_tripType;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -52,12 +53,12 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(753, 741);
+        MainWindow->resize(753, 781);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
         groupBox = new QGroupBox(centralwidget);
         groupBox->setObjectName("groupBox");
-        groupBox->setGeometry(QRect(10, 20, 311, 541));
+        groupBox->setGeometry(QRect(10, 10, 311, 541));
         gridLayout = new QGridLayout(groupBox);
         gridLayout->setObjectName("gridLayout");
         listWidget_teamList = new QListWidget(groupBox);
@@ -88,7 +89,7 @@ public:
 
         groupBox_2 = new QGroupBox(centralwidget);
         groupBox_2->setObjectName("groupBox_2");
-        groupBox_2->setGeometry(QRect(340, 20, 401, 541));
+        groupBox_2->setGeometry(QRect(340, 10, 401, 541));
         gridLayout_3 = new QGridLayout(groupBox_2);
         gridLayout_3->setObjectName("gridLayout_3");
         tableWidget_souvenirInfo = new QTableWidget(groupBox_2);
@@ -202,17 +203,29 @@ public:
 
         pushButton_go = new QPushButton(centralwidget);
         pushButton_go->setObjectName("pushButton_go");
+        pushButton_go->setGeometry(QRect(650, 680, 90, 29));
         pushButton_go->setEnabled(false);
         pushButton_go->setGeometry(QRect(630, 640, 93, 29));
         checkBox_addToTrip = new QCheckBox(centralwidget);
         checkBox_addToTrip->setObjectName("checkBox_addToTrip");
         checkBox_addToTrip->setEnabled(false);
-        checkBox_addToTrip->setGeometry(QRect(610, 580, 111, 24));
-        checkBox_addToTrip->setLayoutDirection(Qt::RightToLeft);
+        checkBox_addToTrip->setGeometry(QRect(12, 570, 111, 24));
+        checkBox_addToTrip->setLayoutDirection(Qt::LeftToRight);
         checkBox_addToTrip->setTristate(false);
         label_tripNames = new QLabel(centralwidget);
         label_tripNames->setObjectName("label_tripNames");
-        label_tripNames->setGeometry(QRect(20, 580, 551, 91));
+        label_tripNames->setGeometry(QRect(20, 620, 591, 91));
+        QFont font1;
+        font1.setPointSize(8);
+        label_tripNames->setFont(font1);
+        label_tripNames->setWordWrap(true);
+        comboBox_tripType = new QComboBox(centralwidget);
+        comboBox_tripType->addItem(QString());
+        comboBox_tripType->addItem(QString());
+        comboBox_tripType->addItem(QString());
+        comboBox_tripType->addItem(QString());
+        comboBox_tripType->setObjectName("comboBox_tripType");
+        comboBox_tripType->setGeometry(QRect(409, 570, 330, 26));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
@@ -279,6 +292,11 @@ public:
         pushButton_go->setText(QCoreApplication::translate("MainWindow", "Go!", nullptr));
         checkBox_addToTrip->setText(QCoreApplication::translate("MainWindow", "Add To Trip", nullptr));
         label_tripNames->setText(QString());
+        comboBox_tripType->setItemText(0, QCoreApplication::translate("MainWindow", "One Other Team Starting At Dodger Stadium", nullptr));
+        comboBox_tripType->setItemText(1, QCoreApplication::translate("MainWindow", "Order Specified Using Shortest Path", nullptr));
+        comboBox_tripType->setItemText(2, QCoreApplication::translate("MainWindow", "All Teams Starting At Marlins Park", nullptr));
+        comboBox_tripType->setItemText(3, QCoreApplication::translate("MainWindow", "Recursively Choose The Closest Team", nullptr));
+
     } // retranslateUi
 
 };

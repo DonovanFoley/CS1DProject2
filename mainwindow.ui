@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>753</width>
-    <height>741</height>
+    <height>781</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>20</y>
+      <y>10</y>
       <width>311</width>
       <height>541</height>
      </rect>
@@ -99,7 +99,7 @@
     <property name="geometry">
      <rect>
       <x>340</x>
-      <y>20</y>
+      <y>10</y>
       <width>401</width>
       <height>541</height>
      </rect>
@@ -394,9 +394,9 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>630</x>
-      <y>640</y>
-      <width>93</width>
+      <x>650</x>
+      <y>680</y>
+      <width>90</width>
       <height>29</height>
      </rect>
     </property>
@@ -410,14 +410,14 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>610</x>
-      <y>580</y>
+      <x>12</x>
+      <y>570</y>
       <width>111</width>
       <height>24</height>
      </rect>
     </property>
     <property name="layoutDirection">
-     <enum>Qt::RightToLeft</enum>
+     <enum>Qt::LeftToRight</enum>
     </property>
     <property name="text">
      <string>Add To Trip</string>
@@ -430,14 +430,52 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>580</y>
-      <width>551</width>
+      <y>620</y>
+      <width>591</width>
       <height>91</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>8</pointsize>
+     </font>
     </property>
     <property name="text">
      <string/>
     </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_tripType">
+    <property name="geometry">
+     <rect>
+      <x>409</x>
+      <y>570</y>
+      <width>330</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>One Other Team Starting At Dodger Stadium</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Order Specified Using Shortest Path</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>All Teams Starting At Marlins Park</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Recursively Choose The Closest Team</string>
+     </property>
+    </item>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
