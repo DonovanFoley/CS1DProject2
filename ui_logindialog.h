@@ -51,11 +51,11 @@ public:
         pushButton_cancel->setText(QCoreApplication::translate("LoginDialog", "Cancel", nullptr));
         pushButton_ok->setText(QCoreApplication::translate("LoginDialog", "Ok", nullptr));
     } // retranslateUi
-
 };
 
 namespace Ui {
-    class LoginDialog: public Ui_LoginDialog {};
+class LoginDialog : public Ui_LoginDialog
+{};
 } // namespace Ui
 
 QT_END_NAMESPACE

@@ -4,14 +4,14 @@
 #include <QVector>
 #include "team.h"
 
-enum Property {teamName, stadiumName, typology, dateOpened, seatingCapacity};
+enum Property { teamName, stadiumName, typology, dateOpened, seatingCapacity };
 
 class Map
 {
 public:
     Map();
 
-    Team& insert(Team team);
+    Team &insert(Team team);
     void remove(Team team);
     void sort(Property property);
 
@@ -19,8 +19,8 @@ public:
     //template <typename T> T compare(T p1, T p2);
     int size();
 
-    Team* operator[](QString teamName);
-    Team* operator()(int index);
+    Team *operator[](QString teamName);
+    Team *operator()(int index);
 
 private:
     QVector<Team> _teamsVector;

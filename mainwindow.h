@@ -1,18 +1,19 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 //hi
-#include <QMainWindow>
 #include <QAction>
-#include <QMenu>
-#include "team.h"
-#include "map.h"
-#include "logindialog.h"
-#include "stadiumdb.h"
-#include "tripdialog.h"
-#include <QTableWidgetItem>
 #include <QListWidgetItem>
+#include <QMainWindow>
+#include <QMenu>
 #include <QMessageBox>
 #include <QRegularExpression>
+#include <QTableWidgetItem>
+#include "logindialog.h"
+#include "map.h"
+#include "stadiumdb.h"
+#include "team.h"
+#include "tripdialog.h"
+#include "SouvenirPurchase.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -76,6 +77,7 @@ private:
 
     LoginDialog *loginDialog;
     TripDialog *tripDialog;
+
     QMenu *loginMenu;
     QAction *loginAct;
     Team *currentTeam = nullptr;
@@ -83,7 +85,6 @@ private:
     double currentSouvenirPrice;
     bool loggedIn = false;
     bool editFlag = true;
-
 };
 #endif // MAINWINDOW_H
 //test
