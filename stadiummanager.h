@@ -1,28 +1,3 @@
-/*#ifndef STADIUMMANAGER_H
-#define STADIUMMANAGER_H
-
-#include <QMainWindow>
-
-QT_BEGIN_NAMESPACE
-namespace Ui {
-class StadiumManager;
-}
-QT_END_NAMESPACE
-
-class StadiumManager : public QMainWindow
-{
-    Q_OBJECT
-
-public:
-    StadiumManager(QWidget *parent = nullptr);
-    ~StadiumManager();
-
-private:
-    Ui::StadiumManager *ui;
-};
-#endif // STADIUMMANAGER_H */
-
-
 #ifndef STADIUMMANAGER_H
 #define STADIUMMANAGER_H
 
