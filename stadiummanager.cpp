@@ -1,19 +1,3 @@
-/* #include "stadiummanager.h"
-#include "ui_stadiummanager.h"
-
-StadiumManager::StadiumManager(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::StadiumManager)
-{
-    ui->setupUi(this);
-}
-
-StadiumManager::~StadiumManager()
-{
-    delete ui;
-}
-*/
-
 #include "stadiummanager.h"
 #include <QMessageBox>
 #include <QObject>
