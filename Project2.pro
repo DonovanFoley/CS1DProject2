@@ -9,6 +9,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    SouvenirPurchase.cpp \
     logindialog.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
     sqlite3.c
 
 HEADERS += \
+    SouvenirPurchase.h \
     logindialog.h \
     mainwindow.h \
     map.h \
@@ -28,6 +30,7 @@ HEADERS += \
     sqlite3.h
 
 FORMS += \
+    SouvenirPurchase.ui \
     logindialog.ui \
     mainwindow.ui \
     tripdialog.ui
