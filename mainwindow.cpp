@@ -272,7 +272,8 @@ void MainWindow::on_tableWidget_teamInfo_itemChanged()
             }
         }
     }
-    displayTripNames();
+    displayTripNames
+        ();
 }
 
 //Edit team object info upon changing the souvenir table
