@@ -402,3 +402,33 @@ void MainWindow::on_checkBox_addToTrip_clicked(bool checked)
     displayTripNames();
 }
 
+//Trip type box changed
+void MainWindow::on_comboBox_tripType_currentTextChanged(const QString &arg1)
+{
+    for (int i = 0; i < _teams.size(); i++)
+    {
+        _teams(i)->toggleIsInTrip(false);
+    }
+    ui->checkBox_addToTrip->setChecked(false);
+    ui->label_tripNames->clear();
+    ui->pushButton_go->setEnabled(false);
+    _teamsInTrip.clear();
+
+    if (arg1 == "One Other Team Starting At Dodger Stadium")
+    {
+        //Algorithm 1
+    }
+    else if (arg1 == "Order Specified Using Shortest Path")
+    {
+        //Algorithm 2
+    }
+    else if (arg1 == "All Teams Starting At Marlins Park")
+    {
+        //Algorithm 3
+    }
+    else if (arg1 == "Recursively Choose The Closest Team")
+    {
+        //Algorithm 4
+    }
+}
+

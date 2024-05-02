@@ -57,6 +57,8 @@ private slots:
 
     void on_checkBox_addToTrip_clicked(bool checked);
 
+    void on_comboBox_tripType_currentTextChanged(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
 
