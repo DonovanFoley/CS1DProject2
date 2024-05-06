@@ -17,7 +17,8 @@ SOURCES += \
     team.cpp \
     tripdialog.cpp \
     stadiumdb.cpp \
-    sqlite3.c
+    sqlite3.c \
+    graph.cpp
 
 HEADERS += \
     SouvenirPurchase.h \
@@ -26,8 +27,9 @@ HEADERS += \
     map.h \
     team.h \
     stadiumdb.h \
-    tripdialog.h
-    sqlite3.h
+    tripdialog.h \
+    sqlite3.h \
+    graph.h
 
 FORMS += \
     SouvenirPurchase.ui \

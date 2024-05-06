@@ -1,10 +1,15 @@
+#ifndef GRAPH_H
+#define GRAPH_H
+
 #include <vector>
 #include <queue>
 #include <unordered_map>
 #include <functional> // For std::greater
 #include <iostream>
 #include <QString>
-using namespace std;
+
+#include "team.h"
+
 
 struct Edge
 {
@@ -16,16 +21,19 @@ struct Edge
     }
 };
 
-using AdjList = priority_queue<Edge, vector<Edge>, greater<Edge>>;
+using AdjList = std::priority_queue<Edge, std::vector<Edge>, std::greater<Edge>>;
 using GraphStructure = std::unordered_map<int, AdjList>;
 
 class Graph
 {
 public:
     void addEdge(int originIndex, int destinationIndex, int weight);
-    void recursiveDFS(GraphStructure graph,int current, vector<bool>& visited, const unordered_map<int, QString>& indexToStadium, int& totalDistance);
-    int DFS(int startVertex, vector<bool>& visited, const unordered_map<int, QString>&indexToStadium);
-    int BFS(GraphStructure graph, int startVertex, const unordered_map<int, QString>& indexToStadium);
+
+    void add_edge_one_way(int, int, int);
+
+    void recursiveDFS(GraphStructure graph, int current, std::vector<bool>& visited, const std::unordered_map<int, QString>& indexToStadium, int& totalDistance);
+    int DFS(int startVertex, std::vector<bool>& visited, const std::unordered_map<int, QString>&indexToStadium);
+    int BFS(GraphStructure graph, int startVertex, const std::unordered_map<int, QString>& indexToStadium);
     GraphStructure& getGraph();
 
 private:

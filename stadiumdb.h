@@ -4,6 +4,8 @@
 #include "map.h"
 #include "sqlite3.h"
 #include "team.h"
+#include "graph.h"
+
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -16,10 +18,12 @@ public:
 
     int num_stadiums();
 
-    void populate_teams(Map &teams);
-    void populate_souvenirs(Map &teams);
+    void populate_teams(Map&);
+    void populate_souvenirs(Map&);
 
-    void modify_stadium_info(Team &);
+    void modify_stadium_info(Team&);
+
+    Graph make_graph(const Map&);
 
 protected:
     void prepare_statement(std::string);
