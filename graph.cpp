@@ -11,6 +11,25 @@ void Graph::add_edge_one_way(int originIndex, int destinationIndex, int weight)
   graph[originIndex].emplace(Edge{destinationIndex, weight});
 }
 
+void Graph::print_graph() 
+{
+  for (auto& [key, value]: graph) 
+  {
+    auto pq = value;
+
+    std::cerr << key << ':';
+
+    while(!pq.empty())
+    {
+      std::cerr << " {" << pq.top().destination << ", " << pq.top().weight << "}"; 
+      pq.pop();
+    }
+
+    std::cerr << '\n';
+  }
+}
+
+
 void Graph::recursiveDFS(GraphStructure graph, int current, std::vector<bool>& visited, const std::unordered_map<int, QString>& indexToStadium, int& totalDistance)
 {
 

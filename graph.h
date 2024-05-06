@@ -31,6 +31,8 @@ public:
 
     void add_edge_one_way(int, int, int);
 
+    void print_graph();
+
     void recursiveDFS(GraphStructure graph, int current, std::vector<bool>& visited, const std::unordered_map<int, QString>& indexToStadium, int& totalDistance);
     int DFS(int startVertex, std::vector<bool>& visited, const std::unordered_map<int, QString>&indexToStadium);
     int BFS(GraphStructure graph, int startVertex, const std::unordered_map<int, QString>& indexToStadium);

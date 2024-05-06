@@ -105,6 +105,8 @@ void MainWindow::displayTeamInfo()
 
 void MainWindow::displaySouvenirInfo()
 {
+    if(!currentTeam) return;
+
     ui->tableWidget_souvenirInfo->clearContents();
     ui->tableWidget_souvenirInfo->setRowCount(0);
     QMapIterator<QString, double> it(currentTeam->souvenirList());
@@ -158,6 +160,9 @@ void MainWindow::choose_file() {
   database.set_file(filename);
   database.populate_teams(_teams);
   database.populate_souvenirs(_teams);
+
+  displayTeamNames();
+  //displaySouvenirInfo();
 }
 
 //-----------------------------BEGINNING OF GO TO SLOT FUNCTIONS------------------------------------
