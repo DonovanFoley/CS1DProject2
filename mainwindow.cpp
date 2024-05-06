@@ -15,19 +15,28 @@ MainWindow::MainWindow(QWidget *parent)
     //Set up actions
     loginAct = new QAction("Login to Admin", this);
 
+    openDBAct = new QAction("Open Databae...", this);
+
     //Set up toolbar
     loginMenu = menuBar()->addMenu("&Login");
     loginMenu->addAction(loginAct);
     connect(loginAct, &QAction::triggered, this, &MainWindow::login);
 
+    fileMenu = menuBar()->addMenu("&File");
+    fileMenu->addAction(openDBAct);
+    connect(openDBAct, &QAction::triggered, this, &MainWindow::choose_file);
+
     //Dummy teams for testing purposes
     QMap<QString, double> s;
     s.insert("Souvenir item", 15.59);
     s.insert("Second Souvenir item", 10.05);
-
-    StadiumsDB db("/Users/celesterock/Qt Projects/CS1DProject2_CR/stadiums.db");
-    db.populate_teams(_teams);
-    db.populate_souvenirs(_teams);
+  
+    if(std::filesystem::exists("stadiums.d"))
+    {
+      database.set_file("stadiums.db");
+      database.populate_teams(_teams);
+      database.populate_souvenirs(_teams);
+    }
 
     propertyMap["Team Name"] = teamName;
     propertyMap["Stadium Name"] = stadiumName;
@@ -96,6 +105,8 @@ void MainWindow::displayTeamInfo()
 
 void MainWindow::displaySouvenirInfo()
 {
+    if(!currentTeam) return;
+
     ui->tableWidget_souvenirInfo->clearContents();
     ui->tableWidget_souvenirInfo->setRowCount(0);
     QMapIterator<QString, double> it(currentTeam->souvenirList());
@@ -140,6 +151,18 @@ void MainWindow::login()
         loggedIn = true;
     }
     loginDialog->reset();
+}
+
+void MainWindow::choose_file() {
+  QString filename = QFileDialog::getOpenFileName(this, "Open Database",
+                                                  "/home",
+                                                  "SQLite files (*.db *.sqlite *.sqlite3)");
+  database.set_file(filename);
+  database.populate_teams(_teams);
+  database.populate_souvenirs(_teams);
+
+  displayTeamNames();
+  //displaySouvenirInfo();
 }
 
 //-----------------------------BEGINNING OF GO TO SLOT FUNCTIONS------------------------------------

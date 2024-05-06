@@ -5,6 +5,18 @@ StadiumsDB::StadiumsDB(const char *dbfile)
     file_loc_ = strdup(dbfile);
 }
 
+StadiumsDB::StadiumsDB() {}
+
+void StadiumsDB::set_file(const char* dbfile)
+{
+  file_loc_ = strdup(dbfile);
+}
+
+void StadiumsDB::set_file(const QString dbfile)
+{
+  file_loc_ = strdup(dbfile.toStdString().data());
+}
+
 int StadiumsDB::num_stadiums()
 {
     prepare_statement("SELECT count() FROM stadium");
@@ -69,6 +81,32 @@ void StadiumsDB::modify_stadium_info(Team &stadium)
     stadium.setDistanceToField(sqlite3_column_int(state_, 9));
     stadium.setTypology(QString(reinterpret_cast<const char *>(sqlite3_column_text(state_, 10))));
     stadium.setRooftype(QString(reinterpret_cast<const char *>(sqlite3_column_text(state_, 11))));
+}
+
+Graph StadiumsDB::make_graph(const Map& teams) {
+  Graph teams_edges;
+
+  for(int i = 0; i < teams.size(); ++i)
+  {
+    std::stringstream state;
+    state << "SELECT * FROM stadium_Distance WHERE stadium_id1 = " << teams(i)->id() << ";";
+
+    prepare_statement(state.str());
+
+    status_ = sqlite3_step(state_);
+    while(status_ != SQLITE_DONE) {
+      int origin = sqlite3_column_int(state_, 0);
+      int dest =   sqlite3_column_int(state_, 1);
+      int w =      sqlite3_column_int(state_, 2);
+      
+      teams_edges.add_edge_one_way(origin, dest, w);
+      status_ = sqlite3_step(state_);
+    }
+
+    finalize_statement();
+  }
+
+  return teams_edges;
 }
 
 void StadiumsDB::prepare_statement(std::string statement)
