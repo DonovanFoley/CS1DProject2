@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
     s.insert("Souvenir item", 15.59);
     s.insert("Second Souvenir item", 10.05);
   
-    if(std::filesystem::exists("stadiums.d"))
+    if(std::filesystem::exists("stadiums.db"))
     {
       database.set_file("stadiums.db");
       database.populate_teams(_teams);
