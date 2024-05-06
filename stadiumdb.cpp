@@ -5,6 +5,18 @@ StadiumsDB::StadiumsDB(const char *dbfile)
     file_loc_ = strdup(dbfile);
 }
 
+StadiumsDB::StadiumsDB() {}
+
+void StadiumsDB::set_file(const char* dbfile)
+{
+  file_loc_ = strdup(dbfile);
+}
+
+void StadiumsDB::set_file(const QString dbfile)
+{
+  file_loc_ = strdup(dbfile.toStdString().data());
+}
+
 int StadiumsDB::num_stadiums()
 {
     prepare_statement("SELECT count() FROM stadium");

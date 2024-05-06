@@ -13,8 +13,11 @@
 class StadiumsDB
 {
 public:
-    StadiumsDB(const char *dbfile);
-    StadiumsDB() = delete;
+    StadiumsDB(const char* dbfile);
+    StadiumsDB();
+
+    void set_file(const char* dbfile);
+    void set_file(const QString dbfile);
 
     int num_stadiums();
 
