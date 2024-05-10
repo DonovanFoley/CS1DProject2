@@ -90,3 +90,26 @@ void StadiumManager::performBFS(QWidget *parentWidget)
         cerr << "Target Field not found in the stadium list." << endl;
     }
 }
+
+void StadiumManager::planDreamVacation(QWidget* parentWidget) 
+{
+    QStringList teamsList = indexToStadium.values();
+    bool ok;
+    QString startingTeam = QInputDialog::getItem(parentWidget, "Select Starting Team", "Choose your starting team:", teamsList, 0, false, &ok);
+    if (!ok || startingTeam.isEmpty()) return;
+
+    int startIndex = StadiumToIndex[startingTeam.toLower()];
+    std::vector<int> stadiumIndices;
+
+    QString otherTeams = QInputDialog::getText(parentWidget, "Select Other Teams", "Enter other teams to visit, separated by commas:");
+    QStringList teamList = otherTeams.split(',');
+    for (const QString& team : teamList) {
+        QString cleanTeam = team.trimmed().toLower();
+        if (stadiumToIndex.contains(cleanTeam) && cleanTeam != startingTeam.toLower()) {
+            stadiumIndices.push_back(stadiumToIndex[cleanTeam]);
+        }
+    }
+
+    int totalDistance = graph.planTrip(startIndex, stadiumIndices);
+    QMessageBox::information(parentWidget, "Total Trip Distance", "The total distance for the trip is: " + QString::number(totalDistance) + " units.");
+}
