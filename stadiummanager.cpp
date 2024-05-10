@@ -1,19 +1,3 @@
-/* #include "stadiummanager.h"
-#include "ui_stadiummanager.h"
-
-StadiumManager::StadiumManager(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::StadiumManager)
-{
-    ui->setupUi(this);
-}
-
-StadiumManager::~StadiumManager()
-{
-    delete ui;
-}
-*/
-
 #include "stadiummanager.h"
 #include <QMessageBox>
 #include <QObject>
@@ -104,3 +88,32 @@ void StadiumManager::performBFS(QWidget *parentWidget)
         cerr << "Target Field not found in the stadium list." << endl;
     }
 }
+
+void planDreamVacation(QWidget* parentWidget) {
+        // Prompt for starting team
+    QStringList teamsList = indexToStadium.values();
+    bool ok;
+    QString startingTeam = QInputDialog::getItem(parentWidget, "Select Starting Team", "Choose your starting team:", teamsList, 0, false, &ok);
+    if (!ok || startingTeam.isEmpty()) return;
+
+    int startIndex = StadiumToIndex[startingTeam.toLower()];
+    std::vector<int> stadiumIndices;
+        
+    // Prompt for other stadiums to visit
+    QStringList otherTeams = QInputDialog::getItem(parentWidget, "Select Other Teams", "Choose additional teams to visit (comma-separated):", teamsList.join(','), 0, false, &ok).split(",");
+    if (!ok || otherTeams.isEmpty()) return;
+        
+    for (const QString& team : otherTeams)
+    {
+        QString lowerTeam = team.trimmed().toLower();
+        if (StadiumToIndex.contains(lowerTeam) && StadiumToIndex[lowerTeam] != startIndex) 
+        {
+            stadiumIndices.push_back(StadiumToIndex[lowerTeam]);
+        }
+    }
+        // Plan and display trip
+        int totalDistance = 0;
+        graph.planTrip(startIndex, stadiumIndices, indexToStadium, totalDistance);
+        QMessageBox::information(parentWidget, "Total Distance", "Total Distance: " + QString::number(totalDistance));
+    
+    }
