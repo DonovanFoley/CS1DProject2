@@ -1,6 +1,8 @@
 #include "stadiummanager.h"
 #include <QMessageBox>
 #include <QObject>
+#include <algorithm>
+#include <climits> 
 
 void StadiumManager::loadStadiums()
 {
@@ -87,4 +89,40 @@ void StadiumManager::performBFS(QWidget *parentWidget)
     {
         cerr << "Target Field not found in the stadium list." << endl;
     }
+}
+
+int Graph::planTrip(int startVertex, const std::vector<int>& stadiums) {
+    int minDistance = INT_MAX;
+    return recursivePlanTrip(startVertex, stadiums, 0, minDistance);
+}
+
+int Graph::recursivePlanTrip(int currentVertex, std::vector<int> remainingStadiums, int currentDistance, int& minDistance) {
+    if (remainingStadiums.empty()) {
+        return currentDistance;  // Base case: all stadiums visited
+    }
+
+    for (auto it = remainingStadiums.begin(); it != remainingStadiums.end(); ++it) {
+        int nextVertex = *it;
+        // Finding the weight from the current vertex to the next vertex
+        int distanceToNext = INT_MAX;
+        while (!graph[currentVertex].empty()) {
+            Edge edge = graph[currentVertex].top();
+            graph[currentVertex].pop();
+            if (edge.destination == nextVertex) {
+                distanceToNext = edge.weight;
+                break;
+            }
+        }
+
+        if (distanceToNext != INT_MAX) {  // If a valid edge was found
+            std::vector<int> newRemaining = remainingStadiums;
+            newRemaining.erase(it);  // Remove the next vertex from remaining list
+            int totalDistance = recursivePlanTrip(nextVertex, newRemaining, currentDistance + distanceToNext, minDistance);
+            if (totalDistance < minDistance) {
+                minDistance = totalDistance;  // Update the minimum distance found
+            }
+        }
+    }
+
+    return minDistance;
 }
