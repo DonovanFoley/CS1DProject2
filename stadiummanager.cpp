@@ -89,7 +89,8 @@ void StadiumManager::performBFS(QWidget *parentWidget)
     }
 }
 
-void planDreamVacation(QWidget* parentWidget) {
+void planDreamVacation(QWidget* parentWidget) 
+{
         // Prompt for starting team
     QStringList teamsList = indexToStadium.values();
     bool ok;
@@ -111,9 +112,9 @@ void planDreamVacation(QWidget* parentWidget) {
             stadiumIndices.push_back(StadiumToIndex[lowerTeam]);
         }
     }
-        // Plan and display trip
-        int totalDistance = 0;
-        graph.planTrip(startIndex, stadiumIndices, indexToStadium, totalDistance);
-        QMessageBox::information(parentWidget, "Total Distance", "Total Distance: " + QString::number(totalDistance));
+    // Plan and display trip
+    int totalDistance = 0;
+    graph.planTrip(startIndex, stadiumIndices, indexToStadium, totalDistance);
+    QMessageBox::information(parentWidget, "Total Distance", "Total Distance: " + QString::number(totalDistance));
     
-    }
+}
