@@ -8,6 +8,7 @@
 #include <QTextStream>
 #include <QStringList>
 #include <unordered_map>
+#include <QInputDialog>
 
 using namespace std;
 
