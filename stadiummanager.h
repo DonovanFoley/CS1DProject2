@@ -18,6 +18,7 @@ public:
     void loadStadiums();
     void performDFS(QWidget *parentWidget);
     void performBFS(QWidget *parentWidget);
+    void planDreamVacation(QWidget* parentWidget);
 
 private:
     Graph graph;
