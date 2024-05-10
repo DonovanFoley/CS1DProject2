@@ -1,27 +1,3 @@
-// #ifndef GRAPH_H
-/*#define GRAPH_H
-
-#include <QMainWindow>
-
-QT_BEGIN_NAMESPACE
-namespace Ui {
-class Graph;
-}
-QT_END_NAMESPACE
-
-class Graph : public QMainWindow
-{
-    Q_OBJECT
-
-public:
-    Graph(QWidget *parent = nullptr);
-    ~Graph();
-
-private:
-    Ui::Graph *ui;
-}*/
-//#endif // GRAPH_H
-
 #ifndef GRAPH_H
 #define GRAPH_H
 
