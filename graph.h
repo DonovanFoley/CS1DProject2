@@ -37,9 +37,11 @@ public:
     int DFS(int startVertex, std::vector<bool>& visited, const std::unordered_map<int, QString>&indexToStadium);
     int BFS(GraphStructure graph, int startVertex, const std::unordered_map<int, QString>& indexToStadium);
     GraphStructure& getGraph();
+    int planTrip(int startVertex, const std::vector<int>& stadiums);
 
 private:
     GraphStructure graph;
+    int recursivePlanTrip(int currentVertex, std::vector<int> remainingStadiums, int currentDistance, int& minDistance);
 };
 
 #endif // GRAPH_H
