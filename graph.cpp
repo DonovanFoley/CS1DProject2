@@ -1,4 +1,7 @@
 #include "graph.h"
+#include <algorithm>
+#include <vector>
+#include <unordered_set>
 
 void Graph::addEdge(int originIndex, int destinationIndex, int weight)
 {
