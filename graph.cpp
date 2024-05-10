@@ -109,3 +109,29 @@ GraphStructure& Graph::getGraph()
 {
     return graph;
 }
+
+  // method to find the most efficient order recursively
+int planTrip(int startVertex, const std::vector<int>& stadiums, 
+std::unordered_map<int, QString>& indexToStadium, int& totalDistance) 
+{
+    std::vector<bool> visited(graph.size(), false);
+    visited[startVertex] = true;
+    totalDistance = 0;
+    int currentVertex = startVertex;
+
+    std::cout << "Starting at: " << indexToStadium[startVertex].toStdString() << std::endl;
+    for (int stadium : stadiums) 
+    {
+        if (visited[stadium]) continue;
+        visited[stadium] = true;
+        // Calculate distance between currentVertex and stadium (assume graph contains weights)
+        int distance = 0; // Assume a method to compute distance using edges
+        std::cout << "Visiting: " << indexToStadium[stadium].toStdString() << std::endl;
+        totalDistance += distance;
+        currentVertex = stadium;
+    }
+
+    std::cout << "Total distance traveled: " << totalDistance << std::endl;
+    return totalDistance;
+    
+}
