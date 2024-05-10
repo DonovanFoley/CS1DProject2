@@ -3,6 +3,7 @@
 #include <QObject>
 #include <algorithm>
 #include <climits> 
+#include <QInputDialog>
 
 void StadiumManager::loadStadiums()
 {
