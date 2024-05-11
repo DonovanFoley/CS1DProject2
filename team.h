@@ -1,17 +1,24 @@
 #ifndef TEAM_H
 #define TEAM_H
 //hi
-#include <QString>
 #include <QMap>
+#include <QString>
 
 class Team
 {
 public:
     Team();
-    Team(QString teamName, QString stadiumName, int seatingCapacity, QString location, QString playingSurface,
-         QString league, int dateOpened, int distanceToField, QString typology, QString rooftype,
+    Team(QString teamName,
+         QString stadiumName,
+         int seatingCapacity,
+         QString location,
+         QString playingSurface,
+         QString league,
+         int dateOpened,
+         int distanceToField,
+         QString typology,
+         QString rooftype,
          QMap<QString, double> souvenirList);
-
 
     //Accessors
     int id() const { return _id; }
@@ -26,11 +33,10 @@ public:
     QString typology() { return _typology; }
     QString rooftype() { return _rooftype; }
     QMap<QString, double> souvenirList() { return _souvenirList; }
-    bool TeamisInTrip() { return _isInTrip; }
-    bool TeamisStartingTeam() { return _isStartingTeam; }
-    
-    QMap<QString, double>& souvenirListRef() { return _souvenirList; }
+    bool isInTrip() { return _isInTrip; }
+    bool isStartingTeam() { return _isStartingTeam; }
 
+    QMap<QString, double> &souvenirListRef() { return _souvenirList; }
 
     //Mutators
     void setId(int id) { _id = id; }
@@ -45,6 +51,7 @@ public:
     void setTypology(QString typology) { _typology = typology; }
     void setRooftype(QString rooftype) { _rooftype = rooftype; }
     void setSouvenirList(QMap<QString, double> souvenirList) { _souvenirList = souvenirList; }
+    void toggleIsInTrip(bool isInTrip) { _isInTrip = isInTrip; }
 
 private:
     int _id;

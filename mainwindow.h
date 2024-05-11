@@ -1,17 +1,22 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 //hi
-#include <QMainWindow>
 #include <QAction>
-#include <QMenu>
-#include "team.h"
-#include "map.h"
-#include "logindialog.h"
-#include "stadiumdb.h"
-#include <QTableWidgetItem>
 #include <QListWidgetItem>
+#include <QMainWindow>
+#include <QMenu>
 #include <QMessageBox>
 #include <QRegularExpression>
+#include <QTableWidgetItem>
+#include <QFileDialog>
+#include <filesystem>
+
+#include "logindialog.h"
+#include "map.h"
+#include "stadiumdb.h"
+#include "team.h"
+#include "tripdialog.h"
+#include "SouvenirPurchase.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -30,7 +35,9 @@ public:
     void displayTeamNames();
     void displayTeamInfo();
     void displaySouvenirInfo();
+    void displayTripNames();
     void login();
+    void choose_file();
 
     void setCurrentSouvenir(const QString &newCurrentSouvenir);
 
@@ -51,6 +58,12 @@ private slots:
 
     void on_tableWidget_souvenirInfo_itemClicked(QTableWidgetItem *item);
 
+    void on_pushButton_go_clicked();
+
+    void on_checkBox_addToTrip_clicked(bool checked);
+
+    void on_comboBox_tripType_currentTextChanged(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
 
@@ -63,17 +76,25 @@ private:
     bool onlySmallestDistance = false;
 
     Map _teams;
+    QVector<Team> _teamsInTrip;
     QMap<QString, Property> propertyMap;
 
     LoginDialog *loginDialog;
+    TripDialog *tripDialog;
+
+    StadiumsDB database;
+
     QMenu *loginMenu;
     QAction *loginAct;
+    
+    QMenu *fileMenu;
+    QAction *openDBAct;
+
     Team *currentTeam = nullptr;
     QString currentSouvenirName;
     double currentSouvenirPrice;
     bool loggedIn = false;
     bool editFlag = true;
-
 };
 #endif // MAINWINDOW_H
 //test
