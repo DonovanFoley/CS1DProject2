@@ -286,6 +286,8 @@ void MainWindow::on_tableWidget_teamInfo_itemChanged()
     }
     displayTripNames
         ();
+
+    database.update_team_info(currentTeam);
 }
 
 //Edit team object info upon changing the souvenir table
@@ -315,6 +317,8 @@ void MainWindow::on_tableWidget_souvenirInfo_itemChanged()
     }
 
     currentTeam->setSouvenirList(souvenirList);
+
+    database.update_team_souvenir(currentTeam);
 }
 
 //Add souvenir button

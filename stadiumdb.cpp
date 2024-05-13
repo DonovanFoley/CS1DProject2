@@ -74,6 +74,7 @@ void StadiumsDB::modify_stadium_info(Team &stadium)
     stadium.setStadiumName(QString(reinterpret_cast<const char *>(sqlite3_column_text(state_, 2))));
     stadium.setSeatingCapacity(sqlite3_column_int(state_, 3));
     stadium.setLocation(QString(reinterpret_cast<const char *>(sqlite3_column_text(state_, 4))));
+    stadium.setState(QString(reinterpret_cast<const char *>(sqlite3_column_text(state_, 5))));
     stadium.setPlayingSurface(
         QString(reinterpret_cast<const char *>(sqlite3_column_text(state_, 6))));
     stadium.setLeague(QString(reinterpret_cast<const char *>(sqlite3_column_text(state_, 7))));
@@ -109,9 +110,39 @@ Graph StadiumsDB::make_graph(const Map& teams) {
   return teams_edges;
 }
 
+void StadiumsDB::update_team_info(Team* team)
+{
+  std::stringstream insert_state;
+
+  insert_state << "UPDATE stadium SET " <<
+	"team_name = '" <<    team->teamName().toStdString()        << "'," <<
+	"name = '" <<         team->stadiumName().toStdString()     << "'," <<
+  "seat_cap = '" <<     team->seatingCapacity()               << "'," <<
+	"city = '" <<         team->location().toStdString()        << "'," <<
+	"state = '" <<        team->state().toStdString()           << "'," <<
+	"play_surface = '" << team->playingSurface().toStdString()  << "'," <<
+	"league = '" <<       team->league().toStdString()          << "'," <<
+	"open_date = '" <<    team->dateOpened()                    << "'," <<
+	"center_dist = '" <<  team->distanceToField()               << "'," <<
+	"typology = '" <<     team->typology().toStdString()        << "'," <<
+	"roof_type = '" <<    team->rooftype().toStdString()        << "' " <<
+  "WHERE id = " << team->id() << ';';
+
+  change_info[team->id()] = std::move(insert_state);
+  //std::cout << insert_state.str() << '\n';
+
+}
+
+void StadiumsDB::update_team_souvenir(const Team* team)
+{
+  std::cout << "Team: " << team->id() << "got updated souvenirs!\n";
+}
+
 void StadiumsDB::save_changes()
 {
-  std::cout << "Making Save!\n";
+  for(const auto& [id, statement] : change_info) {
+    std::cout << "TEAM ID: " << id << " updated to: " << statement.str() << '\n';
+  }
 }
 
 void StadiumsDB::prepare_statement(std::string statement)

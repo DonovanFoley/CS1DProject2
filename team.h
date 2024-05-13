@@ -12,6 +12,7 @@ public:
          QString stadiumName,
          int seatingCapacity,
          QString location,
+         QString state,
          QString playingSurface,
          QString league,
          int dateOpened,
@@ -26,6 +27,7 @@ public:
     QString stadiumName() { return _stadiumName; }
     int seatingCapacity() { return _seatingCapacity; }
     QString location() { return _location; }
+    QString state() { return _state; }
     QString playingSurface() { return _playingSurface; }
     QString league() { return _league; }
     int dateOpened() { return _dateOpened; }
@@ -44,6 +46,7 @@ public:
     void setStadiumName(QString stadiumName) { _stadiumName = stadiumName; }
     void setSeatingCapacity(int seatingCapacity) { _seatingCapacity = seatingCapacity; }
     void setLocation(QString location) { _location = location; }
+    void setState(QString state) { _state = state; }
     void setPlayingSurface(QString playingSurface) { _playingSurface = playingSurface; }
     void setLeague(QString league) { _league = league; }
     void setDateOpened(int dateOpened) { _dateOpened = dateOpened; }
@@ -59,6 +62,7 @@ private:
     QString _stadiumName;
     int _seatingCapacity;
     QString _location;
+    QString _state;
     QString _playingSurface;
     QString _league;
     int _dateOpened;
