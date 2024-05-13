@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>753</width>
+    <height>781</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,9 +18,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>20</y>
+      <y>10</y>
       <width>311</width>
-      <height>521</height>
+      <height>541</height>
      </rect>
     </property>
     <property name="title">
@@ -29,30 +29,6 @@
     <layout class="QGridLayout" name="gridLayout">
      <item row="1" column="0" colspan="2">
       <widget class="QListWidget" name="listWidget_teamList"/>
-     </item>
-     <item row="0" column="0">
-      <widget class="QComboBox" name="comboBox_sort">
-       <item>
-        <property name="text">
-         <string>Team Name</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Stadium Name</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Park Typology</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Date Opened</string>
-        </property>
-       </item>
-      </widget>
      </item>
      <item row="0" column="1">
       <widget class="QComboBox" name="comboBox_exclude">
@@ -76,178 +52,428 @@
          <string>Open Roof</string>
         </property>
        </item>
+       <item>
+        <property name="text">
+         <string>Greatest Distance</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Smallest Distance</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QComboBox" name="comboBox_sort">
+       <item>
+        <property name="text">
+         <string>Team Name</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Stadium Name</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Park Typology</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Date Opened</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Seating Capacity</string>
+        </property>
+       </item>
       </widget>
      </item>
     </layout>
    </widget>
-   <widget class="QTableWidget" name="tableWidget_teamInfo">
+   <widget class="QGroupBox" name="groupBox_2">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>10</y>
+      <width>401</width>
+      <height>541</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Team Info</string>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_3">
+     <item row="1" column="0" colspan="2">
+      <widget class="QTableWidget" name="tableWidget_souvenirInfo">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="inputMethodHints">
+        <set>Qt::ImhNone</set>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Box</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Sunken</enum>
+       </property>
+       <property name="lineWidth">
+        <number>1</number>
+       </property>
+       <property name="editTriggers">
+        <set>QAbstractItemView::NoEditTriggers</set>
+       </property>
+       <property name="tabKeyNavigation">
+        <bool>true</bool>
+       </property>
+       <property name="alternatingRowColors">
+        <bool>false</bool>
+       </property>
+       <property name="rowCount">
+        <number>0</number>
+       </property>
+       <attribute name="horizontalHeaderVisible">
+        <bool>true</bool>
+       </attribute>
+       <attribute name="horizontalHeaderCascadingSectionResizes">
+        <bool>false</bool>
+       </attribute>
+       <attribute name="horizontalHeaderDefaultSectionSize">
+        <number>180</number>
+       </attribute>
+       <attribute name="horizontalHeaderHighlightSections">
+        <bool>true</bool>
+       </attribute>
+       <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+        <bool>false</bool>
+       </attribute>
+       <attribute name="verticalHeaderVisible">
+        <bool>false</bool>
+       </attribute>
+       <attribute name="verticalHeaderMinimumSectionSize">
+        <number>10</number>
+       </attribute>
+       <attribute name="verticalHeaderHighlightSections">
+        <bool>true</bool>
+       </attribute>
+       <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+        <bool>false</bool>
+       </attribute>
+       <attribute name="verticalHeaderStretchLastSection">
+        <bool>false</bool>
+       </attribute>
+       <column>
+        <property name="text">
+         <string>Souvenir</string>
+        </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Price</string>
+        </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+       </column>
+      </widget>
+     </item>
+     <item row="0" column="0" colspan="2">
+      <widget class="QTableWidget" name="tableWidget_teamInfo">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>304</height>
+        </size>
+       </property>
+       <property name="inputMethodHints">
+        <set>Qt::ImhNone</set>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Box</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Sunken</enum>
+       </property>
+       <property name="lineWidth">
+        <number>1</number>
+       </property>
+       <property name="editTriggers">
+        <set>QAbstractItemView::NoEditTriggers</set>
+       </property>
+       <property name="tabKeyNavigation">
+        <bool>true</bool>
+       </property>
+       <property name="alternatingRowColors">
+        <bool>false</bool>
+       </property>
+       <attribute name="horizontalHeaderVisible">
+        <bool>false</bool>
+       </attribute>
+       <attribute name="horizontalHeaderCascadingSectionResizes">
+        <bool>false</bool>
+       </attribute>
+       <attribute name="horizontalHeaderDefaultSectionSize">
+        <number>280</number>
+       </attribute>
+       <attribute name="verticalHeaderMinimumSectionSize">
+        <number>20</number>
+       </attribute>
+       <row>
+        <property name="text">
+         <string>Team Name</string>
+        </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>Stadium Name</string>
+        </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>Seating Capacity</string>
+        </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>Location</string>
+        </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>Playing Surface</string>
+        </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>League</string>
+        </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>Date Opened</string>
+        </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>Distance To Field</string>
+        </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>Typology</string>
+        </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>Roof Type</string>
+        </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+       </row>
+       <column>
+        <property name="text">
+         <string/>
+        </property>
+       </column>
+       <item row="0" column="0">
+        <property name="text">
+         <string/>
+        </property>
+       </item>
+       <item row="1" column="0">
+        <property name="text">
+         <string/>
+        </property>
+       </item>
+       <item row="2" column="0">
+        <property name="text">
+         <string/>
+        </property>
+       </item>
+       <item row="3" column="0">
+        <property name="text">
+         <string/>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QPushButton" name="pushButton_add">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Add</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QPushButton" name="pushButton_delete">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Delete</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QPushButton" name="pushButton_go">
     <property name="enabled">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="geometry">
      <rect>
-      <x>370</x>
-      <y>20</y>
-      <width>331</width>
-      <height>304</height>
+      <x>650</x>
+      <y>680</y>
+      <width>90</width>
+      <height>29</height>
      </rect>
     </property>
-    <property name="inputMethodHints">
-     <set>Qt::ImhNone</set>
+    <property name="text">
+     <string>Go!</string>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::Box</enum>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_addToTrip">
+    <property name="enabled">
+     <bool>false</bool>
     </property>
-    <property name="frameShadow">
-     <enum>QFrame::Sunken</enum>
+    <property name="geometry">
+     <rect>
+      <x>12</x>
+      <y>570</y>
+      <width>111</width>
+      <height>24</height>
+     </rect>
     </property>
-    <property name="lineWidth">
-     <number>1</number>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
     </property>
-    <property name="editTriggers">
-     <set>QAbstractItemView::NoEditTriggers</set>
+    <property name="text">
+     <string>Add To Trip</string>
     </property>
-    <property name="tabKeyNavigation">
+    <property name="tristate">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_tripNames">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>620</y>
+      <width>591</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="wordWrap">
      <bool>true</bool>
     </property>
-    <property name="alternatingRowColors">
-     <bool>false</bool>
+   </widget>
+   <widget class="QComboBox" name="comboBox_tripType">
+    <property name="geometry">
+     <rect>
+      <x>409</x>
+      <y>570</y>
+      <width>330</width>
+      <height>26</height>
+     </rect>
     </property>
-    <attribute name="horizontalHeaderVisible">
-     <bool>false</bool>
-    </attribute>
-    <attribute name="horizontalHeaderCascadingSectionResizes">
-     <bool>false</bool>
-    </attribute>
-    <attribute name="horizontalHeaderDefaultSectionSize">
-     <number>280</number>
-    </attribute>
-    <attribute name="verticalHeaderMinimumSectionSize">
-     <number>10</number>
-    </attribute>
-    <row>
+    <item>
      <property name="text">
-      <string>Team Name</string>
-     </property>
-     <property name="font">
-      <font>
-       <bold>true</bold>
-      </font>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Stadium Name</string>
-     </property>
-     <property name="font">
-      <font>
-       <bold>true</bold>
-      </font>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Seating Capacity</string>
-     </property>
-     <property name="font">
-      <font>
-       <bold>true</bold>
-      </font>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Location</string>
-     </property>
-     <property name="font">
-      <font>
-       <bold>true</bold>
-      </font>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Playing Surface</string>
-     </property>
-     <property name="font">
-      <font>
-       <bold>true</bold>
-      </font>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>League</string>
-     </property>
-     <property name="font">
-      <font>
-       <bold>true</bold>
-      </font>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Date Opened</string>
-     </property>
-     <property name="font">
-      <font>
-       <bold>true</bold>
-      </font>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Distance To Field</string>
-     </property>
-     <property name="font">
-      <font>
-       <bold>true</bold>
-      </font>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Typology</string>
-     </property>
-     <property name="font">
-      <font>
-       <bold>true</bold>
-      </font>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Roof Type</string>
-     </property>
-     <property name="font">
-      <font>
-       <bold>true</bold>
-      </font>
-     </property>
-    </row>
-    <column>
-     <property name="text">
-      <string/>
-     </property>
-    </column>
-    <item row="0" column="0">
-     <property name="text">
-      <string/>
+      <string>One Other Team Starting At Dodger Stadium</string>
      </property>
     </item>
-    <item row="1" column="0">
+    <item>
      <property name="text">
-      <string/>
+      <string>Order Specified Using Shortest Path</string>
      </property>
     </item>
-    <item row="2" column="0">
+    <item>
      <property name="text">
-      <string/>
+      <string>All Teams Starting At Marlins Park</string>
      </property>
     </item>
-    <item row="3" column="0">
+    <item>
      <property name="text">
-      <string/>
+      <string>Recursively Choose The Closest Team</string>
      </property>
     </item>
    </widget>
@@ -257,8 +483,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
-     <height>26</height>
+     <width>753</width>
+     <height>37</height>
     </rect>
    </property>
   </widget>

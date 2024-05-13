@@ -1,0 +1,8 @@
+*.o
+*.swp
+.qmake.stash
+Makefile
+Project2
+Project2.exe
+moc_*
+.DS_Store
