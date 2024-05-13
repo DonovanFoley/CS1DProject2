@@ -8,6 +8,9 @@
 #include <QMessageBox>
 #include <QRegularExpression>
 #include <QTableWidgetItem>
+#include <QFileDialog>
+#include <filesystem>
+
 #include "logindialog.h"
 #include "map.h"
 #include "stadiumdb.h"
@@ -34,6 +37,7 @@ public:
     void displaySouvenirInfo();
     void displayTripNames();
     void login();
+    void choose_file();
 
     void setCurrentSouvenir(const QString &newCurrentSouvenir);
 
@@ -78,8 +82,14 @@ private:
     LoginDialog *loginDialog;
     TripDialog *tripDialog;
 
+    StadiumsDB database;
+
     QMenu *loginMenu;
     QAction *loginAct;
+    
+    QMenu *fileMenu;
+    QAction *openDBAct;
+
     Team *currentTeam = nullptr;
     QString currentSouvenirName;
     double currentSouvenirPrice;

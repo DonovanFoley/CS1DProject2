@@ -17,10 +17,11 @@ public:
 
     void clear();
     //template <typename T> T compare(T p1, T p2);
-    int size();
+    int size() const;
 
     Team *operator[](QString teamName);
     Team *operator()(int index);
+    const Team *operator()(int index) const;
 
 private:
     QVector<Team> _teamsVector;

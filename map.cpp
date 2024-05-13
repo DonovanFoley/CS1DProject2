@@ -59,7 +59,7 @@ void Map::clear()
     _teamsVector.clear();
 }
 
-int Map::size()
+int Map::size() const
 {
     return _teamsVector.size();
 }
@@ -74,6 +74,11 @@ Team *Map::operator[](QString teamName)
 }
 
 Team *Map::operator()(int index)
+{
+    return &_teamsVector[index];
+}
+
+const Team *Map::operator()(int index) const
 {
     return &_teamsVector[index];
 }

@@ -1,4 +1,3 @@
-
 #include "graph.h"
 
 void Graph::addEdge(int originIndex, int destinationIndex, int weight)
@@ -7,11 +6,35 @@ void Graph::addEdge(int originIndex, int destinationIndex, int weight)
     graph[destinationIndex].emplace(Edge{originIndex, weight});
 }
 
-void Graph::recursiveDFS(GraphStructure graph, int current, vector<bool>& visited, const unordered_map<int, QString>& indexToStadium, int& totalDistance)
+void Graph::add_edge_one_way(int originIndex, int destinationIndex, int weight) 
+{
+  graph[originIndex].emplace(Edge{destinationIndex, weight});
+}
+
+void Graph::print_graph() 
+{
+  for (auto& [key, value]: graph) 
+  {
+    auto pq = value;
+
+    std::cerr << key << ':';
+
+    while(!pq.empty())
+    {
+      std::cerr << " {" << pq.top().destination << ", " << pq.top().weight << "}"; 
+      pq.pop();
+    }
+
+    std::cerr << '\n';
+  }
+}
+
+
+void Graph::recursiveDFS(GraphStructure graph, int current, std::vector<bool>& visited, const std::unordered_map<int, QString>& indexToStadium, int& totalDistance)
 {
 
     visited[current] = true;
-    std::cout << "Visiting " << indexToStadium.at(current).toStdString() << endl;
+    std::cout << "Visiting " << indexToStadium.at(current).toStdString() << std::endl;
 
     while (!graph[current].empty())
     {
@@ -31,10 +54,10 @@ void Graph::recursiveDFS(GraphStructure graph, int current, vector<bool>& visite
 }
 
 
-int Graph::BFS(GraphStructure graph, int startVertex, const unordered_map<int, QString>& indexToStadium) {
+int Graph::BFS(GraphStructure graph, int startVertex, const std::unordered_map<int, QString>& indexToStadium) {
     int totalDistance = 0;
-    queue<int> q;
-    vector<bool> visited(graph.size(), false);
+    std::queue<int> q;
+    std::vector<bool> visited(graph.size(), false);
 
     // Enqueue the start vertex and mark it as visited
     q.push(startVertex);
@@ -47,7 +70,7 @@ int Graph::BFS(GraphStructure graph, int startVertex, const unordered_map<int, Q
         q.pop();
 
         // Process the current vertex (for example, print it)
-        cout << "Visiting " << indexToStadium.at(currentVertex).toStdString() << endl;
+        std::cout << "Visiting " << indexToStadium.at(currentVertex).toStdString() << std::endl;
 
         // Traverse all adjacent vertices of the dequeued vertex
         while (!graph[currentVertex].empty())
@@ -65,19 +88,19 @@ int Graph::BFS(GraphStructure graph, int startVertex, const unordered_map<int, Q
         }
     }
 
-    cout << "The total distance travelled by BFS in mileage is: " << totalDistance << endl;
+    std::cout << "The total distance travelled by BFS in mileage is: " << totalDistance << std::endl;
     return totalDistance;
 }
 
 
 
-int Graph::DFS(int startVertex, vector<bool>& visited, const unordered_map<int, QString>&indexToStadium)
+int Graph::DFS(int startVertex, std::vector<bool>& visited, const std::unordered_map<int, QString>&indexToStadium)
 {
     int totalDistance = 0;
     visited.resize(graph.size(), false);
     recursiveDFS(graph, startVertex, visited, indexToStadium,totalDistance);
 
-    cout << "The total distance travelled by DFS in milage is: " << totalDistance << endl;
+    std::cout << "The total distance travelled by DFS in milage is: " << totalDistance << std::endl;
     return totalDistance;
 }
 
