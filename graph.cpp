@@ -109,3 +109,64 @@ GraphStructure& Graph::getGraph()
 {
     return graph;
 }
+
+
+std::unordered_map<int, double> Graph::dijkstra(int startVertex, GraphStructure graph)
+{
+    std::unordered_map<int, double> shortestPaths;
+    std::priority_queue<Edge, std::vector<Edge>, std::greater<Edge>> pq;
+    pq.push({startVertex, 0});
+    shortestPaths[startVertex] = 0;
+
+    while (!pq.empty())
+    {
+        int currentVertex = pq.top().destination;
+        double currentDistance = pq.top().weight;
+        pq.pop();
+
+        while (!graph[currentVertex].empty())
+        {
+            Edge edge = graph[currentVertex].top();
+            graph[currentVertex].pop();
+            int distance = currentDistance + edge.weight;
+            if (!shortestPaths.count(edge.destination) || distance < shortestPaths[edge.destination])
+            {
+                shortestPaths[edge.destination] = distance;
+                pq.push({edge.destination, distance});
+            }
+        }
+    }
+    return shortestPaths;
+}
+
+void Graph::recursivePlanTrip(int currentVertex, std::vector<int>& remainingStadiums, std::unordered_map<int, double>& shortestPaths, double& totalDistance, GraphStructure graph)
+{
+    if (remainingStadiums.empty())
+    {
+        return;
+    }
+
+    std::unordered_map<int, double> localShortestPaths = dijkstra(currentVertex, graph);
+    double minDistance = std::numeric_limits<double>::infinity();
+    int nextVertexIndex = -1;
+
+    for (int i = 0; i < remainingStadiums.size(); i++)
+    {
+        int stadium = remainingStadiums[i];
+        if (localShortestPaths[stadium] < minDistance)
+        {
+            minDistance = localShortestPaths[stadium];
+            //minDistance = shortestPaths[stadium];
+            nextVertexIndex = i;
+        }
+    }
+
+    int nextVertex = remainingStadiums[nextVertexIndex];
+    remainingStadiums.erase(remainingStadiums.begin() + nextVertexIndex);
+
+    totalDistance += minDistance;
+    std::cout << "Visiting: " << nextVertex << " Distance: " << minDistance << std::endl;
+
+    return recursivePlanTrip(nextVertex, remainingStadiums, localShortestPaths, totalDistance, graph);
+}
+

@@ -1,43 +1,45 @@
-#ifndef DBINTERFACE_H
-#define DBINTERFACE_H
+#ifndef STADIUMSDB_H
+#define STADIUMSDB_H
 
 #include "map.h"
-#include "sqlite3.h"
 #include "team.h"
 #include "graph.h"
-
-#include <iostream>
-#include <sstream>
+#include <sqlite3.h>
+#include <QString>
 #include <vector>
-//hi
-class StadiumsDB
-{
-public:
-    StadiumsDB(const char* dbfile);
-    StadiumsDB();
+#include <memory>  // Include for std::unique_ptr
 
-    void set_file(const char* dbfile);
-    void set_file(const QString dbfile);
+
+class StadiumsDB {
+public:
+    explicit StadiumsDB(const QString& dbfile);  // Constructor for QString
+    explicit StadiumsDB(const char* dbfile);  // Constructor for C-style string
+    StadiumsDB();
+    ~StadiumsDB();  // Destructor to handle cleanup
+
+    void set_file(const QString &dbfile);  // For setting the file using QString
+    void set_file(const char* dbfile);  // For setting the file using C-style string
 
     int num_stadiums();
 
-    void populate_teams(Map&);
-    void populate_souvenirs(Map&);
+    void populate_teams(Map& teams);
+    void populate_souvenirs(Map& teams);
 
-    void modify_stadium_info(Team&);
+    void modify_stadium_info(Team& team);
 
-    Graph make_graph(const Map&);
+    Graph make_graph(const Map& teams);
 
 protected:
-    void prepare_statement(std::string);
+    void prepare_statement(const std::string& statement);
     void finalize_statement();
 
 private:
-    sqlite3 *db_;
-    sqlite3_stmt *state_;
-    int status_;
+    sqlite3* db_ = nullptr;
+    sqlite3_stmt* state_ = nullptr;
+    std::unique_ptr<char, decltype(&free)> fileLoc_{nullptr, free}; // Smart pointer for automatic memory management
 
-    char *file_loc_;
+    int status_;  // Status of the last SQLite operation
+    QString trim(const QString &str);
 };
 
-#endif
+#endif // STADIUMSDB_H
