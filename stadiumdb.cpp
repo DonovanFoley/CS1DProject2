@@ -109,6 +109,11 @@ Graph StadiumsDB::make_graph(const Map& teams) {
   return teams_edges;
 }
 
+void StadiumsDB::save_changes()
+{
+  std::cout << "Making Save!\n";
+}
+
 void StadiumsDB::prepare_statement(std::string statement)
 {
     status_ = sqlite3_open(file_loc_, &db_);

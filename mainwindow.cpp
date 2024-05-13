@@ -15,7 +15,9 @@ MainWindow::MainWindow(QWidget *parent)
     //Set up actions
     loginAct = new QAction("Login to Admin", this);
 
-    openDBAct = new QAction("Open Databae...", this);
+    openDBAct = new QAction("Open Database...", this);
+
+    saveDBAct = new QAction("Save Changes", this);
 
     //Set up toolbar
     loginMenu = menuBar()->addMenu("&Login");
@@ -24,7 +26,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     fileMenu = menuBar()->addMenu("&File");
     fileMenu->addAction(openDBAct);
+    fileMenu->addAction(saveDBAct);
     connect(openDBAct, &QAction::triggered, this, &MainWindow::choose_file);
+    connect(saveDBAct, &QAction::triggered, this, &MainWindow::save_to_db);
 
     //Dummy teams for testing purposes
     QMap<QString, double> s;
@@ -163,6 +167,10 @@ void MainWindow::choose_file() {
 
   displayTeamNames();
   //displaySouvenirInfo();
+}
+
+void MainWindow::save_to_db() {
+  database.save_changes();  
 }
 
 //-----------------------------BEGINNING OF GO TO SLOT FUNCTIONS------------------------------------

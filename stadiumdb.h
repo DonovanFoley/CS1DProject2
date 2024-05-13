@@ -28,6 +28,8 @@ public:
 
     Graph make_graph(const Map&);
 
+    void save_changes();
+
 protected:
     void prepare_statement(std::string);
     void finalize_statement();

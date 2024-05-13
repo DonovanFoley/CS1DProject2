@@ -38,6 +38,7 @@ public:
     void displayTripNames();
     void login();
     void choose_file();
+    void save_to_db();
 
     void setCurrentSouvenir(const QString &newCurrentSouvenir);
 
@@ -89,6 +90,7 @@ private:
     
     QMenu *fileMenu;
     QAction *openDBAct;
+    QAction *saveDBAct;
 
     Team *currentTeam = nullptr;
     QString currentSouvenirName;
