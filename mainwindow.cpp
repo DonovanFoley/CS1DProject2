@@ -30,12 +30,13 @@ MainWindow::MainWindow(QWidget *parent)
     QMap<QString, double> s;
     s.insert("Souvenir item", 15.59);
     s.insert("Second Souvenir item", 10.05);
-  
+
     if(std::filesystem::exists("stadiums.db"))
     {
       database.set_file("stadiums.db");
       database.populate_teams(_teams);
       database.populate_souvenirs(_teams);
+      graph = database.make_graph(_teams);
     }
 
     propertyMap["Team Name"] = teamName;
@@ -390,15 +391,49 @@ void MainWindow::on_pushButton_go_clicked()
 //Checked or unchecked "Add To Trip" button
 void MainWindow::on_checkBox_addToTrip_clicked(bool checked)
 {
-    if (checked) {
-        currentTeam->toggleIsInTrip(true);
-        _teamsInTrip.append(*currentTeam);
-    } else {
-        currentTeam->toggleIsInTrip(false);
-        for (int i = 0; i < _teamsInTrip.size(); i++) {
-            if (_teamsInTrip[i].teamName() == currentTeam->teamName()) {
+    if (ui->comboBox_tripType->currentText() == "One Other Team Starting At Dodger Stadium"){
+        if (checked) {
+            for (int i = 0; i < _teams.size(); i++)
+            {
+                _teams(i)->toggleIsInTrip(false);
+            }
+            ui->label_tripNames->clear();
+            for (int i = 0; i < _teamsInTrip.size(); i++) {
                 _teamsInTrip.remove(i);
-                break;
+            }
+            _teamsInTrip.clear();
+
+            Team *dodgers = _teams["Los Angeles Dodgers"];
+            //dodgers->toggleIsInTrip(true);
+            //_teamsInTrip.append(*dodgers);
+
+            currentTeam->toggleIsInTrip(true);
+            _teamsInTrip.append(*currentTeam);
+
+            int distance = 0;
+            qDebug() << graph.dijkstra(currentTeam->id(), distance);
+            qDebug() << distance;//
+        } else {
+            currentTeam->toggleIsInTrip(false);
+            for (int i = 0; i < _teamsInTrip.size(); i++) {
+                if (_teamsInTrip[i].teamName() == currentTeam->teamName()) {
+                    _teamsInTrip.remove(i);
+                    break;
+                }
+            }
+        }
+    }
+    else {
+        if (checked) {
+            currentTeam->toggleIsInTrip(true);
+            _teamsInTrip.append(*currentTeam);
+        } else {
+            currentTeam->toggleIsInTrip(false);
+            for (int i = 0; i < _teamsInTrip.size(); i++) {
+                if (_teamsInTrip[i].teamName() == currentTeam->teamName()) {
+                    _teamsInTrip.remove(i);
+                    break;
+                }
             }
         }
     }

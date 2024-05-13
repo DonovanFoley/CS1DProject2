@@ -76,6 +76,7 @@ private:
     bool onlySmallestDistance = false;
 
     Map _teams;
+    Graph graph;
     QVector<Team> _teamsInTrip;
     QMap<QString, Property> propertyMap;
 
