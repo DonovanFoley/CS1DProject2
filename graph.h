@@ -43,15 +43,8 @@ public:
     void recursivePlanTrip(int currentVertex, std::vector<int>& remainingStadiums, std::unordered_map<int, double>& shortestPaths, double& totalDistance, GraphStructure graph);
     std::unordered_map<int, double> dijkstra(int startVertex, GraphStructure graph);
 
-    //int recursivePlanTrip(int currentVertex, std::vector<int> remainingStadiums, int currentDistance, int& minDistance);
-    //int recursivePlanTrip(int currentVertex, std::vector<int> remainingStadiums, int currentDistance, int& minDistance);
-    //int recursivePlanTrip(GraphStructure graph, std::vector<bool>& visited, int currentVertex, const std::vector<int>& remainingStadiums, int totalDistance);
-
-
 private:
     GraphStructure graph;
-    //std::map<std::pair<int, std::vector<int>>, int> memo; // Memoization storage
-    //int getDistance(int from, int to);
 };
 
 #endif // GRAPH_H
