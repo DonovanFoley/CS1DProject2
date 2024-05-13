@@ -11,11 +11,31 @@ CONFIG += c++17
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
+<<<<<<< Updated upstream
     team.cpp
+=======
+    map.cpp \
+    prim.cpp \
+    team.cpp \
+    tripdialog.cpp \
+    stadiumdb.cpp \
+    sqlite3.c \
+    graph.cpp
+>>>>>>> Stashed changes
 
 HEADERS += \
     mainwindow.h \
+<<<<<<< Updated upstream
     team.h
+=======
+    map.h \
+    prim.h \
+    team.h \
+    stadiumdb.h \
+    tripdialog.h \
+    sqlite3.h \
+    graph.h
+>>>>>>> Stashed changes
 
 FORMS += \
     mainwindow.ui
