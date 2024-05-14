@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'SouvenirPurchase.ui'
 **
-** Created by: Qt User Interface Compiler version 6.6.1
+** Created by: Qt User Interface Compiler version 6.6.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -63,17 +63,21 @@ public:
         souvenirAndPriceTable->setHorizontalHeaderItem(2, __qtablewidgetitem2);
         souvenirAndPriceTable->setObjectName("souvenirAndPriceTable");
         souvenirAndPriceTable->setGeometry(QRect(310, 91, 571, 191));
-        souvenirAndPriceTable->setFont(font);
+        QFont font1;
+        font1.setPointSize(12);
+        souvenirAndPriceTable->setFont(font1);
         souvenirAndPriceTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
         souvenirAndPriceTable->verticalHeader()->setVisible(false);
         summaryTable = new QTableWidget(SouvenirPurchase);
         if (summaryTable->columnCount() < 2)
             summaryTable->setColumnCount(2);
+        QFont font2;
+        font2.setPointSize(9);
         QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
-        __qtablewidgetitem3->setFont(font);
+        __qtablewidgetitem3->setFont(font2);
         summaryTable->setHorizontalHeaderItem(0, __qtablewidgetitem3);
         QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
-        __qtablewidgetitem4->setFont(font);
+        __qtablewidgetitem4->setFont(font2);
         summaryTable->setHorizontalHeaderItem(1, __qtablewidgetitem4);
         if (summaryTable->rowCount() < 1)
             summaryTable->setRowCount(1);
@@ -96,7 +100,7 @@ public:
         purchaseBtn = new QPushButton(SouvenirPurchase);
         purchaseBtn->setObjectName("purchaseBtn");
         purchaseBtn->setGeometry(QRect(530, 290, 131, 41));
-        purchaseBtn->setFont(font);
+        purchaseBtn->setFont(font1);
         pushButton_previous = new QPushButton(SouvenirPurchase);
         pushButton_previous->setObjectName("pushButton_previous");
         pushButton_previous->setGeometry(QRect(10, 490, 100, 32));
@@ -156,10 +160,10 @@ public:
         label_teamName = new QLabel(SouvenirPurchase);
         label_teamName->setObjectName("label_teamName");
         label_teamName->setGeometry(QRect(270, 10, 431, 71));
-        QFont font1;
-        font1.setPointSize(20);
-        font1.setBold(true);
-        label_teamName->setFont(font1);
+        QFont font3;
+        font3.setPointSize(20);
+        font3.setBold(true);
+        label_teamName->setFont(font3);
         label_teamName->setAlignment(Qt::AlignCenter);
 
         retranslateUi(SouvenirPurchase);
@@ -188,8 +192,8 @@ public:
         summaryTable->setSortingEnabled(__sortingEnabled);
 
         purchaseBtn->setText(QCoreApplication::translate("SouvenirPurchase", "Add to Cart", nullptr));
-        pushButton_previous->setText(QCoreApplication::translate("SouvenirPurchase", "previous", nullptr));
-        pushButton_next->setText(QCoreApplication::translate("SouvenirPurchase", "next", nullptr));
+        pushButton_previous->setText(QCoreApplication::translate("SouvenirPurchase", "Previous", nullptr));
+        pushButton_next->setText(QCoreApplication::translate("SouvenirPurchase", "Next", nullptr));
         groupBox_teamInfo->setTitle(QCoreApplication::translate("SouvenirPurchase", "Team Info", nullptr));
         label_stadiumName->setText(QCoreApplication::translate("SouvenirPurchase", "TextLabel", nullptr));
         label_seatingCapacity->setText(QCoreApplication::translate("SouvenirPurchase", "TextLabel", nullptr));
