@@ -28,6 +28,10 @@ public:
 
     Graph make_graph(const Map&);
 
+    void update_team_info(Team* team);
+
+    void save_changes();
+
 protected:
     void prepare_statement(std::string);
     void finalize_statement();
@@ -38,6 +42,8 @@ private:
     int status_;
 
     char *file_loc_;
+
+    std::map<int, std::stringstream> update_statements;
 };
 
 #endif

@@ -39,6 +39,7 @@ public:
     void displayTripNames();
     void login();
     void choose_file();
+    void save_to_db();
     void djikstras();
     void DFS();
     void BFS();
@@ -95,6 +96,7 @@ private:
     
     QMenu *fileMenu;
     QAction *openDBAct;
+    QAction *saveDBAct;
 
     QMenu *presetMenu;
     QAction *DFSAct;
