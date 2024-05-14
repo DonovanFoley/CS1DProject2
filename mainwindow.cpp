@@ -1,5 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "stadiummanager.h"
+using namespace std;
+
 //hi
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -31,12 +34,10 @@ MainWindow::MainWindow(QWidget *parent)
     s.insert("Souvenir item", 15.59);
     s.insert("Second Souvenir item", 10.05);
 
-    if(std::filesystem::exists("stadiums.db"))
-    {
-      database.set_file("stadiums.db");
-      database.populate_teams(_teams);
-      database.populate_souvenirs(_teams);
-      graph = database.make_graph(_teams);
+    if (std::filesystem::exists("/Users/celesterock/Qt Projects/CS1DProject2_testMain/stadiums.db")) {
+        database.set_file("/Users/celesterock/Qt Projects/CS1DProject2_testMain/stadiums.db");
+        database.populate_teams(_teams);
+        database.populate_souvenirs(_teams);
     }
 
     propertyMap["Team Name"] = teamName;
@@ -106,7 +107,8 @@ void MainWindow::displayTeamInfo()
 
 void MainWindow::displaySouvenirInfo()
 {
-    if(!currentTeam) return;
+    if (!currentTeam)
+        return;
 
     ui->tableWidget_souvenirInfo->clearContents();
     ui->tableWidget_souvenirInfo->setRowCount(0);
@@ -154,16 +156,25 @@ void MainWindow::login()
     loginDialog->reset();
 }
 
-void MainWindow::choose_file() {
-  QString filename = QFileDialog::getOpenFileName(this, "Open Database",
-                                                  "/home",
-                                                  "SQLite files (*.db *.sqlite *.sqlite3)");
-  database.set_file(filename);
-  database.populate_teams(_teams);
-  database.populate_souvenirs(_teams);
+void MainWindow::choose_file()
+{
+    QString filename = QFileDialog::getOpenFileName(this,
+                                                    "Open Database",
+                                                    "/home",
+                                                    "SQLite files (*.db *.sqlite *.sqlite3)");
+    database.set_file(filename);
+    database.populate_teams(_teams);
+    database.populate_souvenirs(_teams);
 
-  displayTeamNames();
-  //displaySouvenirInfo();
+    displayTeamNames();
+    //displaySouvenirInfo();
+}
+
+std::vector<QString> MainWindow::createTeamNameVec(QVector<Team> _teamsInTrip) {
+    for(Team team : _teamsInTrip) {
+        qDebug() << team.teamName();
+        teamNameInTrip.push_back(team.teamName());
+    }
 }
 
 //Djikstras from Dodger Stadium to one other selected team (instruction #1)
@@ -225,6 +236,8 @@ void MainWindow::on_comboBox_sort_currentTextChanged(const QString &arg1)
         }
     }
 }
+
+
 
 //Exclusion box changed
 void MainWindow::on_comboBox_exclude_currentTextChanged(const QString &arg1)
@@ -295,8 +308,7 @@ void MainWindow::on_tableWidget_teamInfo_itemChanged()
             }
         }
     }
-    displayTripNames
-        ();
+    displayTripNames();
 }
 
 //Edit team object info upon changing the souvenir table
@@ -441,15 +453,13 @@ void MainWindow::on_checkBox_addToTrip_clicked(bool checked)
 //Trip type box changed
 void MainWindow::on_comboBox_tripType_currentTextChanged(const QString &arg1)
 {
-    for (int i = 0; i < _teams.size(); i++)
-    {
+    for (int i = 0; i < _teams.size(); i++) {
         _teams(i)->toggleIsInTrip(false);
     }
     ui->checkBox_addToTrip->setChecked(false);
     ui->label_tripNames->clear();
     ui->pushButton_go->setEnabled(false);
     _teamsInTrip.clear();
-
     //if (arg1 == "One Other Team Starting At Dodger Stadium")
     //{
         //Algorithm 1
@@ -457,13 +467,58 @@ void MainWindow::on_comboBox_tripType_currentTextChanged(const QString &arg1)
     if (arg1 == "Order Specified Using Shortest Path")
     {
         //Algorithm 2
-    }
-    else if (arg1 == "All Teams Starting At Marlins Park")
-    {
+    } else if (arg1 == "All Teams Starting At Marlins Park") {
         //Algorithm 3
-    }
-    else if (arg1 == "Recursively Choose The Closest Team")
-    {
+    } else if (arg1 == "Recursively Choose The Closest Team") {
         //Algorithm 4
+        // ------------------------
+
+
+        std::cout << "Number of teams loaded: " << _teams.size() << std::endl;
+        Graph stadiumGraph = database.make_graph(_teams);
+
+        //stadiumGraph.print_graph();
+
+        StadiumManager stadiumManager(stadiumGraph, _teams);
+
+        vector <QString> NameInTrip;
+        NameInTrip.push_back("Los Angeles Angels");
+        NameInTrip.push_back("Pittsburgh Pirates");
+        NameInTrip.push_back("Philadelphia Phillies");
+        NameInTrip.push_back("Seattle Mariners");
+
+        // createTeamNameVec(_teamsInTrip);
+
+        for (Team team : _teamsInTrip) {
+            qDebug() << team.teamName();
+        }
+
+         qDebug() << "After For Loop";
+
+
+        std::vector<int> stadiumIndices = stadiumManager.convertTeamNamesToStadiumIndices(NameInTrip);
+
+        if (stadiumIndices.empty())
+        {
+            std::cerr << "No valid stadiums found for the provided team names." << std::endl;
+            // return -1;  // Exit if no valid indices found
+        }
+
+        int startStadiumIndex = stadiumIndices.front();
+        stadiumIndices.erase(stadiumIndices.begin());
+
+        double totalDistance;
+        //Graph stadiumGraph;
+        std::unordered_map <int, double> shortestPaths;
+
+
+
+        // stadiumManager.performDFS(&mainWindow);
+        // stadiumManager.performBFS(&mainWindow);
+
+        stadiumGraph.recursivePlanTrip(startStadiumIndex, stadiumIndices,shortestPaths, totalDistance, stadiumGraph.getGraph());
+        std::cout << "Minimum distance to visit all selected stadiums: " << totalDistance << std::endl;
+
+
     }
 }

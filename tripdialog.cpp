@@ -1,6 +1,6 @@
 #include "tripdialog.h"
-#include "ui_tripdialog.h"
 #include "iostream"
+#include "ui_tripdialog.h"
 TripDialog::TripDialog(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::TripDialog)

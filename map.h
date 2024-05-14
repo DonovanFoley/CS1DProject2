@@ -1,6 +1,8 @@
 #ifndef MAP_H
 #define MAP_H
 //hi
+#include <QHash>   // new
+#include <QString> //new
 #include <QVector>
 #include "team.h"
 
@@ -14,6 +16,7 @@ public:
     Team &insert(Team team);
     void remove(Team team);
     void sort(Property property);
+    int findStadiumIndex(const QString &teamName) const; //new
 
     void clear();
     //template <typename T> T compare(T p1, T p2);
@@ -25,6 +28,7 @@ public:
 
 private:
     QVector<Team> _teamsVector;
+    QHash<QString, int> _teamNameToIndex; //new
 };
 
 #endif // MAP_H

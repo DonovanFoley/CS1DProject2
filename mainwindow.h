@@ -2,21 +2,21 @@
 #define MAINWINDOW_H
 //hi
 #include <QAction>
+#include <QFileDialog>
 #include <QListWidgetItem>
 #include <QMainWindow>
 #include <QMenu>
 #include <QMessageBox>
 #include <QRegularExpression>
 #include <QTableWidgetItem>
-#include <QFileDialog>
 #include <filesystem>
 
+#include "SouvenirPurchase.h"
 #include "logindialog.h"
 #include "map.h"
 #include "stadiumdb.h"
 #include "team.h"
 #include "tripdialog.h"
-#include "SouvenirPurchase.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -41,6 +41,10 @@ public:
     void djikstras();
 
     void setCurrentSouvenir(const QString &newCurrentSouvenir);
+
+    // added 5/13
+    std::vector<QString> teamNameInTrip;
+    std::vector<QString> createTeamNameVec(QVector<Team> _teamsInTrip);
 
 private slots:
     //void on_listWidget_teamList_currentTextChanged(const QString &currentText);
@@ -88,7 +92,7 @@ private:
 
     QMenu *loginMenu;
     QAction *loginAct;
-    
+
     QMenu *fileMenu;
     QAction *openDBAct;
 
@@ -97,6 +101,8 @@ private:
     double currentSouvenirPrice;
     bool loggedIn = false;
     bool editFlag = true;
+
+
 };
 #endif // MAINWINDOW_H
 //test

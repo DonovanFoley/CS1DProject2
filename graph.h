@@ -1,11 +1,10 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
-#include <vector>
-#include <queue>
-#include <unordered_map>
+#include <QString>
 #include <functional> // For std::greater
 #include <iostream>
+
 #include <QString>
 #include <limits>
 #include <utility>
@@ -15,11 +14,16 @@
 
 const int INF = std::numeric_limits<int>::max(); // Represents infinite distance
 
+#include <memory> // For std::unique_ptr
+#include <queue>
+#include <unordered_map>
+#include <vector>
+
 struct Edge
 {
     int destination;
     int weight;
-    bool operator>(const Edge& other) const
+    bool operator>(const Edge &other) const
     {
         return weight > other.weight; // Greater comparison for min-heap
     }
@@ -43,10 +47,16 @@ public:
     std::vector<int> dijkstra(int startVertex, int& distance);
     GraphStructure& getGraph();
 
+
+    void recursivePlanTrip(int currentVertex,
+                           std::vector<int> &remainingStadiums,
+                           std::unordered_map<int, double> &shortestPaths,
+                           double &totalDistance,
+                           GraphStructure graph);
+    std::unordered_map<int, double> dijkstraVersion2(int startVertex, GraphStructure graph);
+
 private:
     GraphStructure graph;
 };
 
 #endif // GRAPH_H
-
-
