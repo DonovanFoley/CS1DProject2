@@ -38,6 +38,7 @@ public:
     void displayTripNames();
     void login();
     void choose_file();
+    void djikstras();
 
     void setCurrentSouvenir(const QString &newCurrentSouvenir);
 

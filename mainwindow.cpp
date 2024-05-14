@@ -166,6 +166,23 @@ void MainWindow::choose_file() {
   //displaySouvenirInfo();
 }
 
+//Djikstras from Dodger Stadium to one other selected team (instruction #1)
+void MainWindow::djikstras()
+{
+    //Team *dodgers = _teams["Los Angeles Dodgers"];
+    int distance = 0;
+    QString text;
+    text.append("Los Angeles Dodgers -> ");
+    graph.dijkstra(currentTeam->id(), distance);
+    //qDebug() << distance;//
+    text.append(currentTeam->teamName() + " (" + QString::number(distance) + ")");
+    ui->label_tripNames->setText(text);
+
+    //Reset
+    _teamsInTrip.clear();
+    ui->checkBox_addToTrip->setChecked(false);
+}
+
 //-----------------------------BEGINNING OF GO TO SLOT FUNCTIONS------------------------------------
 
 //Update display info when a team is clicked
@@ -391,54 +408,33 @@ void MainWindow::on_pushButton_go_clicked()
 //Checked or unchecked "Add To Trip" button
 void MainWindow::on_checkBox_addToTrip_clicked(bool checked)
 {
-    if (ui->comboBox_tripType->currentText() == "One Other Team Starting At Dodger Stadium"){
-        if (checked) {
-            for (int i = 0; i < _teams.size(); i++)
-            {
-                _teams(i)->toggleIsInTrip(false);
-            }
-            ui->label_tripNames->clear();
-            for (int i = 0; i < _teamsInTrip.size(); i++) {
+    //If the user is adding team to the trip
+    if (checked)
+    {
+        currentTeam->toggleIsInTrip(true);
+        _teamsInTrip.append(*currentTeam);
+    }
+    else //If user is removing team from the trip
+    {
+        currentTeam->toggleIsInTrip(false);
+        for (int i = 0; i < _teamsInTrip.size(); i++) {
+            if (_teamsInTrip[i].teamName() == currentTeam->teamName()) {
                 _teamsInTrip.remove(i);
-            }
-            _teamsInTrip.clear();
-
-            Team *dodgers = _teams["Los Angeles Dodgers"];
-            //dodgers->toggleIsInTrip(true);
-            //_teamsInTrip.append(*dodgers);
-
-            currentTeam->toggleIsInTrip(true);
-            _teamsInTrip.append(*currentTeam);
-
-            int distance = 0;
-            qDebug() << graph.dijkstra(currentTeam->id(), distance);
-            qDebug() << distance;//
-        } else {
-            currentTeam->toggleIsInTrip(false);
-            for (int i = 0; i < _teamsInTrip.size(); i++) {
-                if (_teamsInTrip[i].teamName() == currentTeam->teamName()) {
-                    _teamsInTrip.remove(i);
-                    break;
-                }
-            }
-        }
-    }
-    else {
-        if (checked) {
-            currentTeam->toggleIsInTrip(true);
-            _teamsInTrip.append(*currentTeam);
-        } else {
-            currentTeam->toggleIsInTrip(false);
-            for (int i = 0; i < _teamsInTrip.size(); i++) {
-                if (_teamsInTrip[i].teamName() == currentTeam->teamName()) {
-                    _teamsInTrip.remove(i);
-                    break;
-                }
+                break;
             }
         }
     }
 
-    displayTripNames();
+    //If we are doing djikstras from Dodger Stadium to one other selected team
+    if (_teamsInTrip.size() == 1 && ui->comboBox_tripType->currentText() == "One Other Team Starting At Dodger Stadium")
+    {
+        djikstras();
+    }
+    else
+    {
+        displayTripNames();
+    }
+
 }
 
 //Trip type box changed
@@ -453,11 +449,11 @@ void MainWindow::on_comboBox_tripType_currentTextChanged(const QString &arg1)
     ui->pushButton_go->setEnabled(false);
     _teamsInTrip.clear();
 
-    if (arg1 == "One Other Team Starting At Dodger Stadium")
-    {
+    //if (arg1 == "One Other Team Starting At Dodger Stadium")
+    //{
         //Algorithm 1
-    }
-    else if (arg1 == "Order Specified Using Shortest Path")
+    //}
+    if (arg1 == "Order Specified Using Shortest Path")
     {
         //Algorithm 2
     }
