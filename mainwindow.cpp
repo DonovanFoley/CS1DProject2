@@ -179,6 +179,7 @@ void MainWindow::djikstras()
     ui->label_tripNames->setText(text);
 
     //Reset
+    for (int i = 0; i < _teams.size(); i++) _teams(i)->toggleIsInTrip(false);
     _teamsInTrip.clear();
     ui->checkBox_addToTrip->setChecked(false);
 }
