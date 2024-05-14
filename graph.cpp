@@ -231,7 +231,7 @@ void Graph::shortestPath(int currentVertex, int targetVertex, double& totalDista
     std::cout << "Visited vertex " << targetVertex << " from vertex " << currentVertex << ". Distance: " << distanceToTarget << std::endl;
 }
 
-void Graph::visitAllStadiumsRecursive(int currentVertex, std::unordered_map<int, bool>& visitedStadiums, std::unordered_map<int, double>& shortestPaths, double& totalDistance, GraphStructure& graph)
+void Graph::visitAllStadiumsRecursive(int currentVertex, std::unordered_map<int, bool>& visitedStadiums, std::unordered_map<int, double>& shortestPaths, double& totalDistance, GraphStructure& graph, QVector<int>& vertices)
 {
 
     if (visitedStadiums[currentVertex])// If already visited, return
@@ -260,7 +260,8 @@ void Graph::visitAllStadiumsRecursive(int currentVertex, std::unordered_map<int,
     {
         totalDistance += minDistance;
         std::cout << "Visiting: " << nextVertex << " Distance: " << minDistance << std::endl;
-        visitAllStadiumsRecursive(nextVertex, visitedStadiums, localShortestPaths, totalDistance, graph);
+        vertices.push_back(nextVertex);
+        visitAllStadiumsRecursive(nextVertex, visitedStadiums, localShortestPaths, totalDistance, graph, vertices);
     }
     else
     {

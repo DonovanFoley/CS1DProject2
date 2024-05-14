@@ -145,10 +145,10 @@ void MainWindow::displayTripNames()
     ui->pushButton_go->setEnabled(true);
 
     QString names = "";
-    names.append(_teamsInTrip[0].teamName());
+    names.append(_teamsInTrip[0].stadiumName());
     for (int i = 1; i < _teamsInTrip.size(); i++) {
         names.append(" → ");
-        names.append(_teamsInTrip[i].teamName());
+        names.append(_teamsInTrip[i].stadiumName());
     }
     ui->label_tripNames->setText(names);
 }
@@ -210,13 +210,27 @@ void MainWindow::BFS()
 
 void MainWindow::marlinsPark()
 {
+    _teamsInTrip.clear();
     std::unordered_map<int, double> shortestPaths;
     std::unordered_map<int, bool> visitedStadiums;
     double totalDistance = 0;
-
+    QVector<int> vertices;
     // Assuming '15' is Marlins Park
-    graph.visitAllStadiumsRecursive(15, visitedStadiums, shortestPaths, totalDistance, graph.getGraph());
+    graph.visitAllStadiumsRecursive(15, visitedStadiums, shortestPaths, totalDistance, graph.getGraph(), vertices);
     std::cout << "Minimum distance to visit all stadiums starting from Marlins Park: " << totalDistance << std::endl;
+    _teamsInTrip.append(*_teams["Miami Marlins"]);
+    for (int i = 0; i < vertices.size(); i++)
+    {
+        for(int x = 0; x < _teams.size(); x++)
+        {
+            if (_teams(x)->id() == vertices[i])
+            {
+                _teamsInTrip.append(*_teams(x));
+            }
+        }
+    }
+    displayTripNames();
+
 }
 
 //-----------------------------BEGINNING OF GO TO SLOT FUNCTIONS------------------------------------
