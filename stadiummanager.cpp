@@ -135,24 +135,24 @@ std::vector<QString> StadiumManager::getUserInputTeamNames(QWidget *parentWidget
     return {};
 }
 
-// std::vector<int> StadiumManager::convertTeamNamesToStadiumIndices(
-//     const std::vector<QString> &teamNames)
-// {
-//     std::vector<int> indices;
+std::vector<int> StadiumManager::convertTeamNamesToStadiumIndices(
+    const std::vector<QString> &teamNames)
+{
+    std::vector<int> indices;
 
-//     for (const auto &name : teamNames) {
-//         int id = teams.findStadiumIndex(name);
-//         if (id != -1) {
-//             indices.push_back(id);
-//         } else {
-//             // Log or report an issue when a team name is not found
-//             qWarning() << "Warning: Team name" << name << "was not found in the map.";
-//         }
-//     }
+    for (const auto &name : teamNames) {
+        int id = teams.findStadiumIndex(name);
+        if (id != -1) {
+            indices.push_back(id);
+        } else {
+            // Log or report an issue when a team name is not found
+            qWarning() << "Warning: Team name" << name << "was not found in the map.";
+        }
+    }
 
-//     if (indices.empty()) {
-//         qWarning() << "No valid team names were found in the input list.";
-//     }
+    if (indices.empty()) {
+        qWarning() << "No valid team names were found in the input list.";
+    }
 
-//     return indices;
-// }
+    return indices;
+}

@@ -3,6 +3,7 @@
 //hi
 #include <QVector>
 #include "team.h"
+#include <QHash>
 
 enum Property { teamName, stadiumName, typology, dateOpened, seatingCapacity };
 
@@ -22,9 +23,11 @@ public:
     Team *operator[](QString teamName);
     Team *operator()(int index);
     const Team *operator()(int index) const;
+    int findStadiumIndex(const QString &teamName) const;
 
 private:
     QVector<Team> _teamsVector;
+    QHash<QString, int> _teamNameToIndex;
 };
 
 #endif // MAP_H
