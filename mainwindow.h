@@ -42,6 +42,7 @@ public:
     void djikstras();
     void DFS();
     void BFS();
+    void marlinsPark();
 
     void setCurrentSouvenir(const QString &newCurrentSouvenir);
 
@@ -98,6 +99,7 @@ private:
     QMenu *presetMenu;
     QAction *DFSAct;
     QAction *BFSAct;
+    QAction *marlinsParkAct;
 
     Team *currentTeam = nullptr;
     QString currentSouvenirName;
