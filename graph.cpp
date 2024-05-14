@@ -103,51 +103,6 @@ int Graph::DFS(int startVertex, std::vector<bool>& visited, const std::unordered
     return totalDistance;
 }
 
-/*
-int Graph::dijkstra(int endVertex) {
-    int numberOfVertices = graph.size();
-    int startVertex = 14; //Dodger Stadium
-
-    int distances[numberOfVertices];
-    bool visited[numberOfVertices];
-    for (int i = 0; i < numberOfVertices; ++i) {
-        distances[i] = INF;
-        visited[i] = false;
-    }
-    distances[startVertex] = 0;
-
-    std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<std::pair<int, int>>> pq;
-    pq.push({0, startVertex});
-
-    while (!pq.empty()) {
-        int currVertex = pq.top().second;
-        int currDistance = pq.top().first;
-        pq.pop();
-
-        // Skip if already visited
-        if (visited[currVertex])
-            continue;
-
-        // Mark current vertex as visited
-        visited[currVertex] = true;
-
-        auto& adjList = graph[currVertex];
-        while (!adjList.empty()) {
-            const Edge& edge = adjList.top();
-            int neighborVertex = edge.destination;
-            int neighborWeight = edge.weight;
-            int newDistance = currDistance + neighborWeight;
-            if (newDistance < distances[neighborVertex]) {
-                distances[neighborVertex] = newDistance;
-                pq.push({newDistance, neighborVertex});
-            }
-            adjList.pop(); // Remove the processed edge
-        }
-    }
-
-    return distances[endVertex];
-}
-*/
 
 std::vector<int> Graph::dijkstra(int endVertex, int &distance) {
     int numberOfVertices = graph.size();
