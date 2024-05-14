@@ -6,14 +6,14 @@ void Graph::addEdge(int originIndex, int destinationIndex, int weight)
     graph[destinationIndex].emplace(Edge{originIndex, weight});
 }
 
-void Graph::add_edge_one_way(int originIndex, int destinationIndex, int weight) 
+void Graph::add_edge_one_way(int originIndex, int destinationIndex, int weight)
 {
   graph[originIndex].emplace(Edge{destinationIndex, weight});
 }
 
-void Graph::print_graph() 
+void Graph::print_graph()
 {
-  for (auto& [key, value]: graph) 
+  for (auto& [key, value]: graph)
   {
     auto pq = value;
 
@@ -21,7 +21,7 @@ void Graph::print_graph()
 
     while(!pq.empty())
     {
-      std::cerr << " {" << pq.top().destination << ", " << pq.top().weight << "}"; 
+      std::cerr << " {" << pq.top().destination << ", " << pq.top().weight << "}";
       pq.pop();
     }
 
@@ -104,10 +104,9 @@ int Graph::DFS(int startVertex, std::vector<bool>& visited, const std::unordered
 }
 
 
-std::vector<int> Graph::dijkstra(int endVertex, int &distance) {
+std::vector<int> Graph::dijkstra(int start, int endVertex, int &distance) {
     int numberOfVertices = graph.size();
-    int startVertex = 14; // Dodger Stadium
-
+    int startVertex = 7; // Dodger Stadium
     // Initialize distances, visited arrays, and the path vector
     int distances[numberOfVertices];
     bool visited[numberOfVertices];
@@ -177,4 +176,57 @@ std::vector<int> Graph::dijkstra(int endVertex, int &distance) {
 GraphStructure& Graph::getGraph()
 {
     return graph;
+}
+
+std::unordered_map<int, double> Graph::dijkstra2(int startVertex, GraphStructure graph)
+{
+    std::unordered_map<int, double> shortestPaths;
+    std::priority_queue<Edge, std::vector<Edge>, std::greater<Edge>> pq;
+    pq.push({startVertex, 0});
+    shortestPaths[startVertex] = 0;
+
+    while (!pq.empty())
+    {
+        int currentVertex = pq.top().destination;
+        double currentDistance = pq.top().weight;
+        pq.pop();
+
+        while (!graph[currentVertex].empty())
+        {
+            Edge edge = graph[currentVertex].top();
+            graph[currentVertex].pop();
+            int distance = currentDistance + edge.weight;
+            if (!shortestPaths.count(edge.destination) || distance < shortestPaths[edge.destination])
+            {
+                shortestPaths[edge.destination] = distance;
+                pq.push({edge.destination, distance});
+            }
+        }
+    }
+    return shortestPaths;
+}
+
+void Graph::recursivePlanTrip(int currentVertex, int targetVertex, double& totalDistance, GraphStructure& graph)
+{
+    // Initialize shortest paths map with infinity for all vertices
+    std::unordered_map<int, double> shortestPaths;
+    for (const auto& node : graph) {
+        shortestPaths[node.first] = std::numeric_limits<double>::infinity();
+    }
+
+    // Run Dijkstra's algorithm to find shortest paths from the current vertex
+    shortestPaths = dijkstra2(currentVertex, graph);
+
+    // Check if a path exists to the target vertex
+    if (shortestPaths[targetVertex] == std::numeric_limits<double>::infinity()) {
+        std::cout << "No path exists from vertex " << currentVertex << " to vertex " << targetVertex << std::endl;
+        return;
+    }
+
+    // Get the distance to the target vertex
+    double distanceToTarget = shortestPaths[targetVertex];
+
+    // Update the total distance with the distance to the target vertex
+    totalDistance += distanceToTarget;
+    std::cout << "Visited vertex " << targetVertex << " from vertex " << currentVertex << ". Distance: " << distanceToTarget << std::endl;
 }

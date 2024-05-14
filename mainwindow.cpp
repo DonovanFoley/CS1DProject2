@@ -182,7 +182,7 @@ void MainWindow::djikstras()
     int distance = 0;
     QString text;
     text.append("Los Angeles Dodgers -> ");
-    graph.dijkstra(currentTeam->id(), distance);
+    //graph.dijkstra(currentTeam->id(), distance);
     //qDebug() << distance;//
     text.append(currentTeam->teamName() + " (" + QString::number(distance) + ")");
     ui->label_tripNames->setText(text);
@@ -430,6 +430,7 @@ void MainWindow::on_pushButton_go_clicked()
 //Checked or unchecked "Add To Trip" button
 void MainWindow::on_checkBox_addToTrip_clicked(bool checked)
 {
+    int totalDistance = 0;
     //If the user is adding team to the trip
     if (checked)
     {
@@ -448,9 +449,9 @@ void MainWindow::on_checkBox_addToTrip_clicked(bool checked)
     }
 
     //If we are doing djikstras from Dodger Stadium to one other selected team
-    if (_teamsInTrip.size() == 1 && ui->comboBox_tripType->currentText() == "One Other Team Starting At Dodger Stadium")
+    if (_teamsInTrip.size() > 1 && ui->comboBox_tripType->currentText() == "One Other Team Starting At Dodger Stadium")
     {
-        djikstras();
+        //graph.recursivePlanTrip(3, 5, totalDistance, );
     }
     else
     {
