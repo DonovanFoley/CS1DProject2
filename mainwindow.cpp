@@ -195,12 +195,14 @@ void MainWindow::djikstras()
 
 void MainWindow::DFS()
 {
-    StadiumManager stadiumManager()
+    StadiumManager stadiumManager(graph, _teams);
+    stadiumManager.performDFS(this);
 }
 
 void MainWindow::BFS()
 {
-
+    StadiumManager stadiumManager(graph, _teams);
+    stadiumManager.performBFS(this);
 }
 
 //-----------------------------BEGINNING OF GO TO SLOT FUNCTIONS------------------------------------
