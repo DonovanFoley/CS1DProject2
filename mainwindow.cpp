@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     DFSAct = new QAction("Perform DFS", this);
     BFSAct = new QAction("Perform BFS", this);
+    marlinsParkAct = new QAction("Marlins Park Preset", this);
 
     //Set up toolbar
     loginMenu = menuBar()->addMenu("&Login");
@@ -32,8 +33,10 @@ MainWindow::MainWindow(QWidget *parent)
     presetMenu = menuBar()->addMenu("&Presets");
     presetMenu->addAction(DFSAct);
     presetMenu->addAction(BFSAct);
+    presetMenu->addAction(marlinsParkAct);
     connect(DFSAct, &QAction::triggered, this, &MainWindow::DFS);
     connect(BFSAct, &QAction::triggered, this, &MainWindow::BFS);
+    connect(marlinsParkAct, &QAction::triggered, this, &MainWindow::marlinsPark);
 
     //Dummy teams for testing purposes
     QMap<QString, double> s;
@@ -203,6 +206,11 @@ void MainWindow::BFS()
 {
     StadiumManager stadiumManager(graph, _teams);
     stadiumManager.performBFS(this);
+}
+
+void MainWindow::marlinsPark()
+{
+
 }
 
 //-----------------------------BEGINNING OF GO TO SLOT FUNCTIONS------------------------------------
