@@ -38,6 +38,7 @@ public:
     void displayTripNames();
     void login();
     void choose_file();
+    void djikstras();
 
     void setCurrentSouvenir(const QString &newCurrentSouvenir);
 
@@ -76,6 +77,7 @@ private:
     bool onlySmallestDistance = false;
 
     Map _teams;
+    Graph graph;
     QVector<Team> _teamsInTrip;
     QMap<QString, Property> propertyMap;
 

@@ -7,9 +7,13 @@
 #include <functional> // For std::greater
 #include <iostream>
 #include <QString>
+#include <limits>
+#include <utility>
+#include <stack>
 
 #include "team.h"
 
+const int INF = std::numeric_limits<int>::max(); // Represents infinite distance
 
 struct Edge
 {
@@ -36,6 +40,7 @@ public:
     void recursiveDFS(GraphStructure graph, int current, std::vector<bool>& visited, const std::unordered_map<int, QString>& indexToStadium, int& totalDistance);
     int DFS(int startVertex, std::vector<bool>& visited, const std::unordered_map<int, QString>&indexToStadium);
     int BFS(GraphStructure graph, int startVertex, const std::unordered_map<int, QString>& indexToStadium);
+    std::vector<int> dijkstra(int startVertex, int& distance);
     GraphStructure& getGraph();
 
 private:
