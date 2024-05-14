@@ -17,6 +17,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     openDBAct = new QAction("Open Databae...", this);
 
+    DFSAct = new QAction("Perform DFS", this);
+    BFSAct = new QAction("Perform BFS", this);
+
     //Set up toolbar
     loginMenu = menuBar()->addMenu("&Login");
     loginMenu->addAction(loginAct);
@@ -25,6 +28,12 @@ MainWindow::MainWindow(QWidget *parent)
     fileMenu = menuBar()->addMenu("&File");
     fileMenu->addAction(openDBAct);
     connect(openDBAct, &QAction::triggered, this, &MainWindow::choose_file);
+
+    presetMenu = menuBar()->addMenu("&Presets");
+    presetMenu->addAction(DFSAct);
+    presetMenu->addAction(BFSAct);
+    connect(DFSAct, &QAction::triggered, this, &MainWindow::DFS);
+    connect(BFSAct, &QAction::triggered, this, &MainWindow::BFS);
 
     //Dummy teams for testing purposes
     QMap<QString, double> s;
@@ -182,6 +191,16 @@ void MainWindow::djikstras()
     for (int i = 0; i < _teams.size(); i++) _teams(i)->toggleIsInTrip(false);
     _teamsInTrip.clear();
     ui->checkBox_addToTrip->setChecked(false);
+}
+
+void MainWindow::DFS()
+{
+    StadiumManager stadiumManager()
+}
+
+void MainWindow::BFS()
+{
+
 }
 
 //-----------------------------BEGINNING OF GO TO SLOT FUNCTIONS------------------------------------

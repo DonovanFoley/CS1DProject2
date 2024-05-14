@@ -15,7 +15,7 @@ class StadiumManager: public QObject
 {
      Q_OBJECT
 public:
-    void loadStadiums();
+    //void loadStadiums();
     void performDFS(QWidget *parentWidget);
     void performBFS(QWidget *parentWidget);
 
