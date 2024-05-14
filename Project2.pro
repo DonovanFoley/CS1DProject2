@@ -17,6 +17,7 @@ SOURCES += \
     team.cpp \
     tripdialog.cpp \
     stadiumdb.cpp \
+    stadiummanager.cpp \
     sqlite3.c \
     graph.cpp
 
@@ -27,6 +28,7 @@ HEADERS += \
     map.h \
     team.h \
     stadiumdb.h \
+    stadiummanager.h \
     tripdialog.h \
     sqlite3.h \
     graph.h

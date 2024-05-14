@@ -17,6 +17,7 @@
 #include "team.h"
 #include "tripdialog.h"
 #include "SouvenirPurchase.h"
+#include "stadiummanager.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -39,6 +40,8 @@ public:
     void login();
     void choose_file();
     void djikstras();
+    void DFS();
+    void BFS();
 
     void setCurrentSouvenir(const QString &newCurrentSouvenir);
 
@@ -91,6 +94,10 @@ private:
     
     QMenu *fileMenu;
     QAction *openDBAct;
+
+    QMenu *presetMenu;
+    QAction *DFSAct;
+    QAction *BFSAct;
 
     Team *currentTeam = nullptr;
     QString currentSouvenirName;

@@ -458,32 +458,12 @@
     </property>
     <item>
      <property name="text">
-      <string>One Other Team Starting At Dodger Stadium</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
       <string>Order Specified Using Shortest Path</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>All Teams Starting At Marlins Park</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
       <string>Recursively Choose The Closest Team</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>DFS Starting at Oracle Park</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>BFS Starting at Target Field</string>
      </property>
     </item>
    </widget>

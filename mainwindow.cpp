@@ -17,6 +17,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     openDBAct = new QAction("Open Databae...", this);
 
+    DFSAct = new QAction("Perform DFS", this);
+    BFSAct = new QAction("Perform BFS", this);
+
     //Set up toolbar
     loginMenu = menuBar()->addMenu("&Login");
     loginMenu->addAction(loginAct);
@@ -25,6 +28,12 @@ MainWindow::MainWindow(QWidget *parent)
     fileMenu = menuBar()->addMenu("&File");
     fileMenu->addAction(openDBAct);
     connect(openDBAct, &QAction::triggered, this, &MainWindow::choose_file);
+
+    presetMenu = menuBar()->addMenu("&Presets");
+    presetMenu->addAction(DFSAct);
+    presetMenu->addAction(BFSAct);
+    connect(DFSAct, &QAction::triggered, this, &MainWindow::DFS);
+    connect(BFSAct, &QAction::triggered, this, &MainWindow::BFS);
 
     //Dummy teams for testing purposes
     QMap<QString, double> s;
@@ -173,7 +182,7 @@ void MainWindow::djikstras()
     int distance = 0;
     QString text;
     text.append("Los Angeles Dodgers -> ");
-    graph.dijkstra(currentTeam->id(), distance);
+    //graph.dijkstra(currentTeam->id(), distance);
     //qDebug() << distance;//
     text.append(currentTeam->teamName() + " (" + QString::number(distance) + ")");
     ui->label_tripNames->setText(text);
@@ -182,6 +191,18 @@ void MainWindow::djikstras()
     for (int i = 0; i < _teams.size(); i++) _teams(i)->toggleIsInTrip(false);
     _teamsInTrip.clear();
     ui->checkBox_addToTrip->setChecked(false);
+}
+
+void MainWindow::DFS()
+{
+    StadiumManager stadiumManager(graph, _teams);
+    stadiumManager.performDFS(this);
+}
+
+void MainWindow::BFS()
+{
+    StadiumManager stadiumManager(graph, _teams);
+    stadiumManager.performBFS(this);
 }
 
 //-----------------------------BEGINNING OF GO TO SLOT FUNCTIONS------------------------------------
@@ -409,6 +430,7 @@ void MainWindow::on_pushButton_go_clicked()
 //Checked or unchecked "Add To Trip" button
 void MainWindow::on_checkBox_addToTrip_clicked(bool checked)
 {
+    double totalDistance = 0;
     //If the user is adding team to the trip
     if (checked)
     {
@@ -427,9 +449,19 @@ void MainWindow::on_checkBox_addToTrip_clicked(bool checked)
     }
 
     //If we are doing djikstras from Dodger Stadium to one other selected team
-    if (_teamsInTrip.size() == 1 && ui->comboBox_tripType->currentText() == "One Other Team Starting At Dodger Stadium")
+    if (_teamsInTrip.size() > 1 && ui->comboBox_tripType->currentText() == "Order Specified Using Shortest Path")
     {
-        djikstras();
+        displayTripNames();
+
+        for (int i = 0; i < _teamsInTrip.size() - 1; i++)
+        {
+            double distance = 0;
+            graph.shortestPath(_teamsInTrip[i].id(), _teamsInTrip[i+1].id(), distance, graph.getGraph());
+            totalDistance += distance;
+        }
+        QString text = ui->label_tripNames->text();
+        text.append(" (" + QString::number(totalDistance) + ")");
+        ui->label_tripNames->setText(text);
     }
     else
     {

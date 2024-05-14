@@ -6,14 +6,14 @@ void Graph::addEdge(int originIndex, int destinationIndex, int weight)
     graph[destinationIndex].emplace(Edge{originIndex, weight});
 }
 
-void Graph::add_edge_one_way(int originIndex, int destinationIndex, int weight) 
+void Graph::add_edge_one_way(int originIndex, int destinationIndex, int weight)
 {
   graph[originIndex].emplace(Edge{destinationIndex, weight});
 }
 
-void Graph::print_graph() 
+void Graph::print_graph()
 {
-  for (auto& [key, value]: graph) 
+  for (auto& [key, value]: graph)
   {
     auto pq = value;
 
@@ -21,7 +21,7 @@ void Graph::print_graph()
 
     while(!pq.empty())
     {
-      std::cerr << " {" << pq.top().destination << ", " << pq.top().weight << "}"; 
+      std::cerr << " {" << pq.top().destination << ", " << pq.top().weight << "}";
       pq.pop();
     }
 
@@ -104,77 +104,129 @@ int Graph::DFS(int startVertex, std::vector<bool>& visited, const std::unordered
 }
 
 
-std::vector<int> Graph::dijkstra(int endVertex, int &distance) {
-    int numberOfVertices = graph.size();
-    int startVertex = 14; // Dodger Stadium
+// std::vector<int> Graph::dijkstra(int start, int endVertex, int &distance) {
+//     int numberOfVertices = graph.size();
+//     int startVertex = 7; // Dodger Stadium
+//     // Initialize distances, visited arrays, and the path vector
+//     int distances[numberOfVertices];
+//     bool visited[numberOfVertices];
+//     for (int i = 0; i < numberOfVertices; ++i) {
+//         distances[i] = INF;
+//         visited[i] = false;
+//     }
+//     distances[startVertex] = 0;
 
-    // Initialize distances, visited arrays, and the path vector
-    int distances[numberOfVertices];
-    bool visited[numberOfVertices];
-    for (int i = 0; i < numberOfVertices; ++i) {
-        distances[i] = INF;
-        visited[i] = false;
-    }
-    distances[startVertex] = 0;
+//     // Priority queue to store vertices with their distances
+//     std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<std::pair<int, int>>> pq;
+//     pq.push({0, startVertex});
 
-    // Priority queue to store vertices with their distances
-    std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<std::pair<int, int>>> pq;
-    pq.push({0, startVertex});
+//     // Vector to store the path taken
+//     std::vector<int> path(numberOfVertices, -1); // Initialize with -1 indicating no path
 
-    // Vector to store the path taken
-    std::vector<int> path(numberOfVertices, -1); // Initialize with -1 indicating no path
+//     while (!pq.empty()) {
+//         int currVertex = pq.top().second;
+//         int currDistance = pq.top().first;
+//         pq.pop();
 
-    while (!pq.empty()) {
-        int currVertex = pq.top().second;
-        int currDistance = pq.top().first;
-        pq.pop();
+//         // Skip if already visited
+//         if (visited[currVertex])
+//             continue;
 
-        // Skip if already visited
-        if (visited[currVertex])
-            continue;
+//         // Mark current vertex as visited
+//         visited[currVertex] = true;
 
-        // Mark current vertex as visited
-        visited[currVertex] = true;
+//         // Update distances of adjacent vertices
+//         auto adjList = graph[currVertex];
+//         while (!adjList.empty()) {
+//             const Edge& edge = adjList.top();
+//             int neighborVertex = edge.destination;
+//             int neighborWeight = edge.weight;
+//             int newDistance = currDistance + neighborWeight;
+//             if (newDistance < distances[neighborVertex]) {
+//                 distances[neighborVertex] = newDistance;
+//                 pq.push({newDistance, neighborVertex});
+//                 // Update the path to the neighbor vertex
+//                 path[neighborVertex] = currVertex; // Store the current vertex as the parent of the neighbor
+//             }
+//             adjList.pop(); // Remove the processed edge
+//         }
+//     }
 
-        // Update distances of adjacent vertices
-        auto adjList = graph[currVertex];
-        while (!adjList.empty()) {
-            const Edge& edge = adjList.top();
-            int neighborVertex = edge.destination;
-            int neighborWeight = edge.weight;
-            int newDistance = currDistance + neighborWeight;
-            if (newDistance < distances[neighborVertex]) {
-                distances[neighborVertex] = newDistance;
-                pq.push({newDistance, neighborVertex});
-                // Update the path to the neighbor vertex
-                path[neighborVertex] = currVertex; // Store the current vertex as the parent of the neighbor
-            }
-            adjList.pop(); // Remove the processed edge
-        }
-    }
+//     distance = distances[endVertex];
 
-    distance = distances[endVertex];
+//     // Construct the path from the end vertex to the start vertex using the stored path information
+//     std::stack<int> shortestPath;
+//     int current = endVertex;
+//     while (current != -1) {
+//         shortestPath.push(current);
+//         current = path[current];
+//     }
 
-    // Construct the path from the end vertex to the start vertex using the stored path information
-    std::stack<int> shortestPath;
-    int current = endVertex;
-    while (current != -1) {
-        shortestPath.push(current);
-        current = path[current];
-    }
+//     // Convert the stack to a vector to maintain the correct order of vertices
+//     std::vector<int> resultPath;
+//     while (!shortestPath.empty()) {
+//         resultPath.push_back(shortestPath.top());
+//         shortestPath.pop();
+//     }
 
-    // Convert the stack to a vector to maintain the correct order of vertices
-    std::vector<int> resultPath;
-    while (!shortestPath.empty()) {
-        resultPath.push_back(shortestPath.top());
-        shortestPath.pop();
-    }
-
-    return resultPath;
-}
+//     return resultPath;
+// }
 
 
 GraphStructure& Graph::getGraph()
 {
     return graph;
+}
+
+std::unordered_map<int, double> Graph::dijkstra(int startVertex, GraphStructure graph)
+{
+    std::unordered_map<int, double> shortestPaths;
+    std::priority_queue<Edge, std::vector<Edge>, std::greater<Edge>> pq;
+    pq.push({startVertex, 0});
+    shortestPaths[startVertex] = 0;
+
+    while (!pq.empty())
+    {
+        int currentVertex = pq.top().destination;
+        double currentDistance = pq.top().weight;
+        pq.pop();
+
+        while (!graph[currentVertex].empty())
+        {
+            Edge edge = graph[currentVertex].top();
+            graph[currentVertex].pop();
+            int distance = currentDistance + edge.weight;
+            if (!shortestPaths.count(edge.destination) || distance < shortestPaths[edge.destination])
+            {
+                shortestPaths[edge.destination] = distance;
+                pq.push({edge.destination, distance});
+            }
+        }
+    }
+    return shortestPaths;
+}
+
+void Graph::shortestPath(int currentVertex, int targetVertex, double& totalDistance, GraphStructure& graph)
+{
+    // Initialize shortest paths map with infinity for all vertices
+    std::unordered_map<int, double> shortestPaths;
+    for (const auto& node : graph) {
+        shortestPaths[node.first] = std::numeric_limits<double>::infinity();
+    }
+
+    // Run Dijkstra's algorithm to find shortest paths from the current vertex
+    shortestPaths = dijkstra(currentVertex, graph);
+
+    // Check if a path exists to the target vertex
+    if (shortestPaths[targetVertex] == std::numeric_limits<double>::infinity()) {
+        std::cout << "No path exists from vertex " << currentVertex << " to vertex " << targetVertex << std::endl;
+        return;
+    }
+
+    // Get the distance to the target vertex
+    double distanceToTarget = shortestPaths[targetVertex];
+
+    // Update the total distance with the distance to the target vertex
+    totalDistance += distanceToTarget;
+    std::cout << "Visited vertex " << targetVertex << " from vertex " << currentVertex << ". Distance: " << distanceToTarget << std::endl;
 }

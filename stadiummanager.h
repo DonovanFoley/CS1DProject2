@@ -1,30 +1,38 @@
 #ifndef STADIUMMANAGER_H
 #define STADIUMMANAGER_H
 
-#include "graph.h"
-#include <QObject>
-#include <QMessageBox>
 #include <QFile>
-#include <QTextStream>
+#include <QInputDialog>
+#include <QMessageBox>
+#include <QObject>
 #include <QStringList>
+#include <QTextStream>
+#include <QWidget>
+#include "graph.h"
+#include "map.h"
 #include <unordered_map>
 
 using namespace std;
 
-class StadiumManager: public QObject
+class StadiumManager : public QObject
 {
-     Q_OBJECT
+    Q_OBJECT
 public:
-    void loadStadiums();
+    StadiumManager(Graph &graph, Map &teams); //new
+
+    //void loadStadiums();
     void performDFS(QWidget *parentWidget);
     void performBFS(QWidget *parentWidget);
 
+    //std::vector<int> convertTeamNamesToStadiumIndices(const std::vector<QString> &teamNames); //new
+    std::vector<QString> getUserInputTeamNames(QWidget *parentWidget);                        //new
+
 private:
-    Graph graph;
+    Graph &graph;
+    Map &teams;
+
     unordered_map<QString, int> StadiumToIndex;
     unordered_map<int, QString> indexToStadium;
 };
 
 #endif // STADIUMMANAGER_H
-
-
