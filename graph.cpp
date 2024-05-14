@@ -231,7 +231,7 @@ void Graph::shortestPath(int currentVertex, int targetVertex, double& totalDista
     std::cout << "Visited vertex " << targetVertex << " from vertex " << currentVertex << ". Distance: " << distanceToTarget << std::endl;
 }
 
-void Graph::visitAllStadiumsRecursive(int currentVertex, std::unordered_map<int, bool>& visitedStadiums, std::unordered_map<int, double>& shortestPaths, double& totalDistance, GraphStructure& graph, QVector<int>& vertices)
+void Graph::visitAllStadiumsRecursive(int currentVertex, std::unordered_map<int, bool>& visitedStadiums, std::unordered_map<int, double>& shortestPaths, double& totalDistance, GraphStructure& graph, QVector<int>& vertices, QVector<int> verticesInTrip)
 {
 
     if (visitedStadiums[currentVertex])// If already visited, return
@@ -251,8 +251,14 @@ void Graph::visitAllStadiumsRecursive(int currentVertex, std::unordered_map<int,
     {
         if (!visitedStadiums[vertex] && distance < minDistance)
         {
-            minDistance = distance;
-            nextVertex = vertex;
+            for (int i = 0; i < verticesInTrip.size(); i++)
+            {
+                if (vertex == verticesInTrip[i])
+                {
+                    minDistance = distance;
+                    nextVertex = vertex;
+                }
+            }
         }
     }
 
@@ -261,10 +267,42 @@ void Graph::visitAllStadiumsRecursive(int currentVertex, std::unordered_map<int,
         totalDistance += minDistance;
         std::cout << "Visiting: " << nextVertex << " Distance: " << minDistance << std::endl;
         vertices.push_back(nextVertex);
-        visitAllStadiumsRecursive(nextVertex, visitedStadiums, localShortestPaths, totalDistance, graph, vertices);
+        visitAllStadiumsRecursive(nextVertex, visitedStadiums, localShortestPaths, totalDistance, graph, vertices, verticesInTrip);
     }
     else
     {
         std::cout << "Completed visiting all accessible stadiums. Total distance: " << totalDistance << std::endl;
     }
+}
+
+void Graph::recursivePlanTrip(int currentVertex, std::vector<int>& remainingStadiums, std::unordered_map<int, double>& shortestPaths, double& totalDistance, GraphStructure graph, QVector<int>& vertices)
+{
+    if (remainingStadiums.empty())
+    {
+        return;
+    }
+
+    std::unordered_map<int, double> localShortestPaths = dijkstra(currentVertex, graph);
+    double minDistance = std::numeric_limits<double>::infinity();
+    int nextVertexIndex = -1;
+
+    for (int i = 0; i < remainingStadiums.size(); i++)
+    {
+        int stadium = remainingStadiums[i];
+        if (localShortestPaths[stadium] < minDistance)
+        {
+            minDistance = localShortestPaths[stadium];
+            //minDistance = shortestPaths[stadium];
+            nextVertexIndex = i;
+        }
+    }
+
+    int nextVertex = remainingStadiums[nextVertexIndex];
+    remainingStadiums.erase(remainingStadiums.begin() + nextVertexIndex);
+
+    totalDistance += minDistance;
+    std::cout << "Visiting: " << nextVertex << " Distance: " << minDistance << std::endl;
+    vertices.append(nextVertex);
+
+    return recursivePlanTrip(nextVertex, remainingStadiums, localShortestPaths, totalDistance, graph, vertices);
 }

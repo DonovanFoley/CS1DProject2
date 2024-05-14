@@ -210,13 +210,19 @@ void MainWindow::BFS()
 
 void MainWindow::marlinsPark()
 {
+    QVector<int> verticesToChoose;
+    for (int i = 0; i < _teams.size(); i++)
+    {
+        verticesToChoose.append(_teams(i)->id());
+        _teams(i)->toggleIsInTrip(true);
+    }
     _teamsInTrip.clear();
     std::unordered_map<int, double> shortestPaths;
     std::unordered_map<int, bool> visitedStadiums;
     double totalDistance = 0;
     QVector<int> vertices;
     // Assuming '15' is Marlins Park
-    graph.visitAllStadiumsRecursive(15, visitedStadiums, shortestPaths, totalDistance, graph.getGraph(), vertices);
+    graph.visitAllStadiumsRecursive(15, visitedStadiums, shortestPaths, totalDistance, graph.getGraph(), vertices, verticesToChoose);
     std::cout << "Minimum distance to visit all stadiums starting from Marlins Park: " << totalDistance << std::endl;
     _teamsInTrip.append(*_teams["Miami Marlins"]);
     for (int i = 0; i < vertices.size(); i++)
@@ -230,6 +236,10 @@ void MainWindow::marlinsPark()
         }
     }
     displayTripNames();
+    QString text;
+    text = ui->label_tripNames->text();
+    text.append(" (" + QString::number(totalDistance) + ")");
+    ui->label_tripNames->setText(text);
 
 }
 
@@ -490,6 +500,77 @@ void MainWindow::on_checkBox_addToTrip_clicked(bool checked)
         QString text = ui->label_tripNames->text();
         text.append(" (" + QString::number(totalDistance) + ")");
         ui->label_tripNames->setText(text);
+    }
+    else if (_teamsInTrip.size() > 1 && ui->comboBox_tripType->currentText() == "Recursively Choose The Closest Team")
+    {
+        QVector<int> teamsToChoose;
+        QVector<Team> teamsCopy;
+        teamsCopy.append(_teamsInTrip[0]);
+        for (int i = 0; i < _teamsInTrip.size(); i++)
+        {
+            teamsToChoose.append(_teamsInTrip[i].id());
+        }
+
+        //_teamsInTrip.clear();
+        std::unordered_map<int, double> shortestPaths;
+        std::unordered_map<int, bool> visitedStadiums;
+        double totalDistance = 0;
+        QVector<int> vertices;
+        // Assuming '15' is Marlins Park
+        graph.visitAllStadiumsRecursive(_teamsInTrip[0].id(), visitedStadiums, shortestPaths, totalDistance, graph.getGraph(), vertices, teamsToChoose);
+        std::cout << "Minimum distance to visit all stadiums starting from Marlins Park: " << totalDistance << std::endl;
+        //_teamsInTrip.clear();
+        // for (int i = 0; i < vertices.size(); i++)
+        // {
+        //     std::cout << vertices[i] << "\n";
+        // }
+        for (int i = 0; i < vertices.size(); i++)
+        {
+            for(int x = 0; x < _teams.size(); x++)
+            {
+                if (_teams(x)->id() == vertices[i])
+                {
+                    teamsCopy.append(*_teams(x));
+                }
+            }
+        }
+        _teamsInTrip = teamsCopy;
+        displayTripNames();
+        QString text;
+        text = ui->label_tripNames->text();
+        text.append(" (" + QString::number(totalDistance) + ")");
+        ui->label_tripNames->setText(text);
+        // std::vector<QString> teamNames;
+        // QVector<int> vertices;
+        // for (int i = 0; i < _teamsInTrip.size(); i++)
+        // {
+        //     teamNames.push_back(_teamsInTrip[i].teamName());
+        // }
+        // _teamsInTrip.clear();
+
+        // StadiumManager stadiumManager(graph, _teams);
+        // std::vector<int> stadiumIndices = stadiumManager.convertTeamNamesToStadiumIndices(teamNames);
+        // int startStadiumIndex = stadiumIndices.front();
+        // stadiumIndices.erase(stadiumIndices.begin());
+        // double totalDistance = 0;
+        // std::unordered_map <int, double> shortestPaths;
+        // std::unordered_map<int, bool> visitedStadiums;
+        // graph.recursivePlanTrip(startStadiumIndex, stadiumIndices, shortestPaths, totalDistance, graph.getGraph(), vertices);
+        // for (int i = 0; i < vertices.size(); i++)
+        // {
+        //     std::cout << vertices[i] << "\n";
+        // }
+        // for (int i = 0; i < vertices.size(); i++)
+        // {
+        //     for(int x = 0; x < _teams.size(); x++)
+        //     {
+        //         if (_teams(x)->id() == vertices[i])
+        //         {
+        //             _teamsInTrip.append(*_teams(x));
+        //         }
+        //     }
+        // }
+        // displayTripNames();
     }
     else
     {

@@ -45,8 +45,10 @@ public:
     GraphStructure& getGraph();
     std::unordered_map<int, double> dijkstra(int startVertex, GraphStructure graph);
     void shortestPath(int currentVertex, int targetVertex, double& totalDistance, GraphStructure& graph);
-    void visitAllStadiumsRecursive(int currentVertex, std::unordered_map<int, bool>& visitedStadiums, std::unordered_map<int, double>& shortestPaths, double& totalDistance, GraphStructure& graph, QVector<int>& vertices);
-    std::unordered_map<int, Team*> indexToTeamMap; void loadTeamsIntoGraph(Map& teams);
+    void visitAllStadiumsRecursive(int currentVertex, std::unordered_map<int, bool>& visitedStadiums, std::unordered_map<int, double>& shortestPaths, double& totalDistance, GraphStructure& graph, QVector<int>& vertices, QVector<int> verticesInTrip);
+    std::unordered_map<int, Team*> indexToTeamMap;
+    void loadTeamsIntoGraph(Map& teams);
+    void recursivePlanTrip(int currentVertex, std::vector<int>& remainingStadiums, std::unordered_map<int, double>& shortestPaths, double& totalDistance, GraphStructure graph, QVector<int>& vertices);
 
 private:
     GraphStructure graph;

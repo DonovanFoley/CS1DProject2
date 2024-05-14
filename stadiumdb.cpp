@@ -32,16 +32,27 @@ int StadiumsDB::num_stadiums()
 void StadiumsDB::populate_teams(Map &teams)
 {
     teams.clear();
-    prepare_statement("SELECT * FROM stadium"); //make table of all stadiums
+    prepare_statement("SELECT * FROM stadium"); // Prepare to select all stadiums
 
-    status_ = sqlite3_step(state_); //do until out of rows in table
-    while (status_ != SQLITE_DONE) {
-        QVector<Team>::reference ref = teams.insert(Team()); //insert new team
-        modify_stadium_info(ref);                            //populate it with data
-        status_ = sqlite3_step(state_);
+    std::cout << "Populating teams from database..." << std::endl;
+
+    status_ = sqlite3_step(state_); // Execute the SQL query
+    while (status_ == SQLITE_ROW) {  // Continue until all rows have been processed
+        Team team;
+        modify_stadium_info(team);  // Populate team information from the current row
+        teams.insert(team);         // Insert the team into the map
+        std::cout << "Loaded team: " << team.teamName().toStdString() << std::endl; // Output the team name to the console
+
+        status_ = sqlite3_step(state_); // Move to the next row
     }
 
-    finalize_statement();
+    if (status_ == SQLITE_DONE) {
+        std::cout << "All teams populated successfully." << std::endl;
+    } else {
+        std::cerr << "Error populating teams: " << sqlite3_errmsg(db_) << std::endl; // Print any errors encountered
+    }
+
+    finalize_statement(); // Clean up the prepared statement
 }
 
 void StadiumsDB::populate_souvenirs(Map &teams)
@@ -98,7 +109,7 @@ Graph StadiumsDB::make_graph(const Map& teams) {
       int origin = sqlite3_column_int(state_, 0);
       int dest =   sqlite3_column_int(state_, 1);
       int w =      sqlite3_column_int(state_, 2);
-      
+
       teams_edges.add_edge_one_way(origin, dest, w);
       status_ = sqlite3_step(state_);
     }

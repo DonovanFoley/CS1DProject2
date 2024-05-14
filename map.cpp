@@ -5,7 +5,14 @@ Map::Map() {}
 Team &Map::insert(Team team)
 {
     _teamsVector.append(team);
+    _teamNameToIndex[team.teamName()] = team.id(); // new
     return _teamsVector.back();
+}
+
+// new method
+int Map::findStadiumIndex(const QString &teamName) const
+{
+    return _teamNameToIndex.value(teamName, -1);
 }
 
 void Map::remove(Team team)

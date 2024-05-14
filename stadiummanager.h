@@ -24,7 +24,7 @@ public:
     void performDFS(QWidget *parentWidget);
     void performBFS(QWidget *parentWidget);
 
-    //std::vector<int> convertTeamNamesToStadiumIndices(const std::vector<QString> &teamNames); //new
+    std::vector<int> convertTeamNamesToStadiumIndices(const std::vector<QString> &teamNames); //new
     std::vector<QString> getUserInputTeamNames(QWidget *parentWidget);                        //new
 
 private:
