@@ -145,10 +145,10 @@ void MainWindow::displayTripNames()
     ui->pushButton_go->setEnabled(true);
 
     QString names = "";
-    names.append(_teamsInTrip[0].stadiumName());
+    names.append(_teamsInTrip[0].teamName());
     for (int i = 1; i < _teamsInTrip.size(); i++) {
         names.append(" → ");
-        names.append(_teamsInTrip[i].stadiumName());
+        names.append(_teamsInTrip[i].teamName());
     }
     ui->label_tripNames->setText(names);
 }
