@@ -354,8 +354,7 @@ void MainWindow::on_tableWidget_teamInfo_itemChanged()
             }
         }
     }
-    displayTripNames
-        ();
+    displayTripNames();
 }
 
 //Edit team object info upon changing the souvenir table
@@ -385,6 +384,15 @@ void MainWindow::on_tableWidget_souvenirInfo_itemChanged()
     }
 
     currentTeam->setSouvenirList(souvenirList);
+
+    //Update trip teams in real time if the data is changed after they've been added
+    if (currentTeam->isInTrip()) {
+        for (int i = 0; i < _teamsInTrip.size(); i++) {
+            if (_teamsInTrip[i].id() == currentTeam->id()) {
+                _teamsInTrip[i] = *currentTeam;
+            }
+        }
+    }
 }
 
 //Add souvenir button
@@ -395,6 +403,15 @@ void MainWindow::on_pushButton_add_clicked()
     ui->tableWidget_souvenirInfo->setItem(0, 0, new QTableWidgetItem("Item"));
     editFlag = true;
     ui->tableWidget_souvenirInfo->setItem(0, 1, new QTableWidgetItem("0.00"));
+
+    //Update trip teams in real time if the data is changed after they've been added
+    if (currentTeam->isInTrip()) {
+        for (int i = 0; i < _teamsInTrip.size(); i++) {
+            if (_teamsInTrip[i].id() == currentTeam->id()) {
+                _teamsInTrip[i] = *currentTeam;
+            }
+        }
+    }
 }
 
 //Delete souvenir buttons
@@ -438,6 +455,15 @@ void MainWindow::on_pushButton_delete_clicked()
 
     editFlag = true;
     ui->pushButton_delete->setEnabled(false);
+
+    //Update trip teams in real time if the data is changed after they've been added
+    if (currentTeam->isInTrip()) {
+        for (int i = 0; i < _teamsInTrip.size(); i++) {
+            if (_teamsInTrip[i].id() == currentTeam->id()) {
+                _teamsInTrip[i] = *currentTeam;
+            }
+        }
+    }
 }
 
 //Clicked on a souvenir (Helper function for delete)
