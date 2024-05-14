@@ -1,9 +1,9 @@
 #ifndef MAP_H
 #define MAP_H
 //hi
-#include <QVector>
-#include <QHash>  // new
+#include <QHash>   // new
 #include <QString> //new
+#include <QVector>
 #include "team.h"
 
 enum Property { teamName, stadiumName, typology, dateOpened, seatingCapacity };

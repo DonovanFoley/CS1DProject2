@@ -82,7 +82,9 @@ public:
         summaryTable->setVerticalHeaderItem(0, __qtablewidgetitem5);
         QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
         __qtablewidgetitem6->setTextAlignment(Qt::AlignCenter);
-        __qtablewidgetitem6->setFlags(Qt::ItemIsEditable|Qt::ItemIsDragEnabled|Qt::ItemIsDropEnabled|Qt::ItemIsUserCheckable|Qt::ItemIsEnabled);
+        __qtablewidgetitem6->setFlags(Qt::ItemIsEditable | Qt::ItemIsDragEnabled
+                                      | Qt::ItemIsDropEnabled | Qt::ItemIsUserCheckable
+                                      | Qt::ItemIsEnabled);
         summaryTable->setItem(0, 0, __qtablewidgetitem6);
         QTableWidgetItem *__qtablewidgetitem7 = new QTableWidgetItem();
         __qtablewidgetitem7->setTextAlignment(Qt::AlignCenter);
@@ -169,44 +171,63 @@ public:
 
     void retranslateUi(QDialog *SouvenirPurchase)
     {
-        SouvenirPurchase->setWindowTitle(QCoreApplication::translate("SouvenirPurchase", "Dialog", nullptr));
+        SouvenirPurchase->setWindowTitle(
+            QCoreApplication::translate("SouvenirPurchase", "Dialog", nullptr));
         QTableWidgetItem *___qtablewidgetitem = souvenirAndPriceTable->horizontalHeaderItem(0);
-        ___qtablewidgetitem->setText(QCoreApplication::translate("SouvenirPurchase", "New Column", nullptr));
+        ___qtablewidgetitem->setText(
+            QCoreApplication::translate("SouvenirPurchase", "New Column", nullptr));
         QTableWidgetItem *___qtablewidgetitem1 = souvenirAndPriceTable->horizontalHeaderItem(1);
-        ___qtablewidgetitem1->setText(QCoreApplication::translate("SouvenirPurchase", "New Column", nullptr));
+        ___qtablewidgetitem1->setText(
+            QCoreApplication::translate("SouvenirPurchase", "New Column", nullptr));
         QTableWidgetItem *___qtablewidgetitem2 = souvenirAndPriceTable->horizontalHeaderItem(2);
-        ___qtablewidgetitem2->setText(QCoreApplication::translate("SouvenirPurchase", "New Column", nullptr));
+        ___qtablewidgetitem2->setText(
+            QCoreApplication::translate("SouvenirPurchase", "New Column", nullptr));
         QTableWidgetItem *___qtablewidgetitem3 = summaryTable->horizontalHeaderItem(0);
-        ___qtablewidgetitem3->setText(QCoreApplication::translate("SouvenirPurchase", "New Column", nullptr));
+        ___qtablewidgetitem3->setText(
+            QCoreApplication::translate("SouvenirPurchase", "New Column", nullptr));
         QTableWidgetItem *___qtablewidgetitem4 = summaryTable->horizontalHeaderItem(1);
-        ___qtablewidgetitem4->setText(QCoreApplication::translate("SouvenirPurchase", "New Column", nullptr));
+        ___qtablewidgetitem4->setText(
+            QCoreApplication::translate("SouvenirPurchase", "New Column", nullptr));
         QTableWidgetItem *___qtablewidgetitem5 = summaryTable->verticalHeaderItem(0);
-        ___qtablewidgetitem5->setText(QCoreApplication::translate("SouvenirPurchase", "New Row", nullptr));
+        ___qtablewidgetitem5->setText(
+            QCoreApplication::translate("SouvenirPurchase", "New Row", nullptr));
 
         const bool __sortingEnabled = summaryTable->isSortingEnabled();
         summaryTable->setSortingEnabled(false);
         summaryTable->setSortingEnabled(__sortingEnabled);
 
-        purchaseBtn->setText(QCoreApplication::translate("SouvenirPurchase", "Add to Cart", nullptr));
-        pushButton_previous->setText(QCoreApplication::translate("SouvenirPurchase", "previous", nullptr));
+        purchaseBtn->setText(
+            QCoreApplication::translate("SouvenirPurchase", "Add to Cart", nullptr));
+        pushButton_previous->setText(
+            QCoreApplication::translate("SouvenirPurchase", "previous", nullptr));
         pushButton_next->setText(QCoreApplication::translate("SouvenirPurchase", "next", nullptr));
-        groupBox_teamInfo->setTitle(QCoreApplication::translate("SouvenirPurchase", "Team Info", nullptr));
-        label_stadiumName->setText(QCoreApplication::translate("SouvenirPurchase", "TextLabel", nullptr));
-        label_seatingCapacity->setText(QCoreApplication::translate("SouvenirPurchase", "TextLabel", nullptr));
-        label_location->setText(QCoreApplication::translate("SouvenirPurchase", "TextLabel", nullptr));
-        label_playingSurface->setText(QCoreApplication::translate("SouvenirPurchase", "TextLabel", nullptr));
+        groupBox_teamInfo->setTitle(
+            QCoreApplication::translate("SouvenirPurchase", "Team Info", nullptr));
+        label_stadiumName->setText(
+            QCoreApplication::translate("SouvenirPurchase", "TextLabel", nullptr));
+        label_seatingCapacity->setText(
+            QCoreApplication::translate("SouvenirPurchase", "TextLabel", nullptr));
+        label_location->setText(
+            QCoreApplication::translate("SouvenirPurchase", "TextLabel", nullptr));
+        label_playingSurface->setText(
+            QCoreApplication::translate("SouvenirPurchase", "TextLabel", nullptr));
         label_league->setText(QCoreApplication::translate("SouvenirPurchase", "TextLabel", nullptr));
-        label_dateOpened->setText(QCoreApplication::translate("SouvenirPurchase", "TextLabel", nullptr));
-        label_distanceToField->setText(QCoreApplication::translate("SouvenirPurchase", "TextLabel", nullptr));
-        label_typology->setText(QCoreApplication::translate("SouvenirPurchase", "TextLabel", nullptr));
-        label_rooftype->setText(QCoreApplication::translate("SouvenirPurchase", "TextLabel", nullptr));
-        label_teamName->setText(QCoreApplication::translate("SouvenirPurchase", "Team name", nullptr));
+        label_dateOpened->setText(
+            QCoreApplication::translate("SouvenirPurchase", "TextLabel", nullptr));
+        label_distanceToField->setText(
+            QCoreApplication::translate("SouvenirPurchase", "TextLabel", nullptr));
+        label_typology->setText(
+            QCoreApplication::translate("SouvenirPurchase", "TextLabel", nullptr));
+        label_rooftype->setText(
+            QCoreApplication::translate("SouvenirPurchase", "TextLabel", nullptr));
+        label_teamName->setText(
+            QCoreApplication::translate("SouvenirPurchase", "Team name", nullptr));
     } // retranslateUi
-
 };
 
 namespace Ui {
-    class SouvenirPurchase: public Ui_SouvenirPurchase {};
+class SouvenirPurchase : public Ui_SouvenirPurchase
+{};
 } // namespace Ui
 
 QT_END_NAMESPACE

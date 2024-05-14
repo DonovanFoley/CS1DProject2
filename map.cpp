@@ -89,4 +89,3 @@ const Team *Map::operator()(int index) const
 {
     return &_teamsVector[index];
 }
-
