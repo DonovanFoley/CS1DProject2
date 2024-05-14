@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 6.6.1
+** Created by: Qt User Interface Compiler version 6.6.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -203,9 +203,8 @@ public:
 
         pushButton_go = new QPushButton(centralwidget);
         pushButton_go->setObjectName("pushButton_go");
-        pushButton_go->setGeometry(QRect(650, 680, 90, 29));
         pushButton_go->setEnabled(false);
-        pushButton_go->setGeometry(QRect(630, 640, 93, 29));
+        pushButton_go->setGeometry(QRect(650, 680, 90, 29));
         checkBox_addToTrip = new QCheckBox(centralwidget);
         checkBox_addToTrip->setObjectName("checkBox_addToTrip");
         checkBox_addToTrip->setEnabled(false);
@@ -222,14 +221,12 @@ public:
         comboBox_tripType = new QComboBox(centralwidget);
         comboBox_tripType->addItem(QString());
         comboBox_tripType->addItem(QString());
-        comboBox_tripType->addItem(QString());
-        comboBox_tripType->addItem(QString());
         comboBox_tripType->setObjectName("comboBox_tripType");
         comboBox_tripType->setGeometry(QRect(409, 570, 330, 26));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 753, 37));
+        menubar->setGeometry(QRect(0, 0, 753, 26));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
@@ -292,10 +289,8 @@ public:
         pushButton_go->setText(QCoreApplication::translate("MainWindow", "Go!", nullptr));
         checkBox_addToTrip->setText(QCoreApplication::translate("MainWindow", "Add To Trip", nullptr));
         label_tripNames->setText(QString());
-        comboBox_tripType->setItemText(0, QCoreApplication::translate("MainWindow", "One Other Team Starting At Dodger Stadium", nullptr));
-        comboBox_tripType->setItemText(1, QCoreApplication::translate("MainWindow", "Order Specified Using Shortest Path", nullptr));
-        comboBox_tripType->setItemText(2, QCoreApplication::translate("MainWindow", "All Teams Starting At Marlins Park", nullptr));
-        comboBox_tripType->setItemText(3, QCoreApplication::translate("MainWindow", "Recursively Choose The Closest Team", nullptr));
+        comboBox_tripType->setItemText(0, QCoreApplication::translate("MainWindow", "Order Specified Using Shortest Path", nullptr));
+        comboBox_tripType->setItemText(1, QCoreApplication::translate("MainWindow", "Recursively Choose The Closest Team", nullptr));
 
     } // retranslateUi
 

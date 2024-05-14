@@ -40,10 +40,10 @@ public:
     void recursiveDFS(GraphStructure graph, int current, std::vector<bool>& visited, const std::unordered_map<int, QString>& indexToStadium, int& totalDistance);
     int DFS(int startVertex, std::vector<bool>& visited, const std::unordered_map<int, QString>&indexToStadium);
     int BFS(GraphStructure graph, int startVertex, const std::unordered_map<int, QString>& indexToStadium);
-    std::vector<int> dijkstra(int start, int startVertex, int& distance);
+    //std::vector<int> dijkstra(int start, int startVertex, int& distance);
     GraphStructure& getGraph();
-    std::unordered_map<int, double> dijkstra2(int startVertex, GraphStructure graph);
-    void recursivePlanTrip(int currentVertex, int targetVertex, double& totalDistance, GraphStructure& graph);
+    std::unordered_map<int, double> dijkstra(int startVertex, GraphStructure graph);
+    void shortestPath(int currentVertex, int targetVertex, double& totalDistance, GraphStructure& graph);
 
 private:
     GraphStructure graph;

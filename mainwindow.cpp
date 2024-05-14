@@ -430,7 +430,7 @@ void MainWindow::on_pushButton_go_clicked()
 //Checked or unchecked "Add To Trip" button
 void MainWindow::on_checkBox_addToTrip_clicked(bool checked)
 {
-    int totalDistance = 0;
+    double totalDistance = 0;
     //If the user is adding team to the trip
     if (checked)
     {
@@ -449,9 +449,19 @@ void MainWindow::on_checkBox_addToTrip_clicked(bool checked)
     }
 
     //If we are doing djikstras from Dodger Stadium to one other selected team
-    if (_teamsInTrip.size() > 1 && ui->comboBox_tripType->currentText() == "One Other Team Starting At Dodger Stadium")
+    if (_teamsInTrip.size() > 1 && ui->comboBox_tripType->currentText() == "Order Specified Using Shortest Path")
     {
-        //graph.recursivePlanTrip(3, 5, totalDistance, );
+        displayTripNames();
+
+        for (int i = 0; i < _teamsInTrip.size() - 1; i++)
+        {
+            double distance = 0;
+            graph.shortestPath(_teamsInTrip[i].id(), _teamsInTrip[i+1].id(), distance, graph.getGraph());
+            totalDistance += distance;
+        }
+        QString text = ui->label_tripNames->text();
+        text.append(" (" + QString::number(totalDistance) + ")");
+        ui->label_tripNames->setText(text);
     }
     else
     {
