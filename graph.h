@@ -48,10 +48,12 @@ public:
     GraphStructure &getGraph();
 
     void recursivePlanTrip(int currentVertex,
-                           std::vector<int> &remainingStadiums,
-                           std::unordered_map<int, double> &shortestPaths,
-                           double &totalDistance,
-                           GraphStructure graph);
+                                  std::vector<int> &remainingStadiums,
+                                  std::unordered_map<int, double> &shortestPaths,
+                                  double &totalDistance,
+                                  GraphStructure graph,
+                                  std::vector<int> &tripOrder);
+
     std::unordered_map<int, double> dijkstra(int startVertex, GraphStructure graph);
 
 private:

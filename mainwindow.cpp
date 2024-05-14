@@ -48,6 +48,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     _teams.sort(teamName);
     displayTeamNames();
+
+    stadiumGraph = database.make_graph(_teams);
 }
 
 MainWindow::~MainWindow()
@@ -170,10 +172,17 @@ void MainWindow::choose_file()
     //displaySouvenirInfo();
 }
 
-std::vector<QString> MainWindow::createTeamNameVec(QVector<Team> _teamsInTrip) {
+void MainWindow::createTeamNameVec(QVector<Team> _teamsInTrip) {
+    teamNameInTrip.clear();
+
+    qDebug() << "Inside createTeamNameVec";
     for(Team team : _teamsInTrip) {
         qDebug() << team.teamName();
         teamNameInTrip.push_back(team.teamName());
+    }
+    qDebug() << "-------------------------";
+    for (QString name : teamNameInTrip) {
+        qDebug() << name;
     }
 }
 
@@ -417,6 +426,31 @@ void MainWindow::on_checkBox_addToTrip_clicked(bool checked)
     }
 
     displayTripNames();
+    // if we are doing recursive trip to any other stadiums
+    if(ui->comboBox_tripType->currentText() == "Recursively Choose The Closest Team") {
+        // Graph stadiumGraph = database.make_graph(_teams);
+        StadiumManager stadiumManager(stadiumGraph, _teams);
+
+        createTeamNameVec(_teamsInTrip);
+        qDebug() << "----------- after createTeamNameVec--------------";
+        for (QString name : teamNameInTrip) {
+            qDebug() << name;
+        }
+        std::vector<int> stadiumIndices = stadiumManager.convertTeamNamesToStadiumIndices(teamNameInTrip);
+
+        int startStadiumIndex = stadiumIndices.front();
+        stadiumIndices.erase(stadiumIndices.begin());
+
+        double totalDistance = 0;
+        //Graph stadiumGraph;
+        std::unordered_map <int, double> shortestPaths;
+
+        std::vector<int> tripOrder;
+        stadiumGraph.recursivePlanTrip(startStadiumIndex, stadiumIndices,shortestPaths, totalDistance, stadiumGraph.getGraph(), tripOrder);
+        std::cout << "Minimum distance to visit all selected stadiums: " << totalDistance << std::endl;
+        // After calling the recursivePlanTrip function
+
+    }
 }
 
 //Trip type box changed
@@ -442,49 +476,51 @@ void MainWindow::on_comboBox_tripType_currentTextChanged(const QString &arg1)
 
 
         std::cout << "Number of teams loaded: " << _teams.size() << std::endl;
-        Graph stadiumGraph = database.make_graph(_teams);
+        // Graph stadiumGraph = database.make_graph(_teams);
+        // stadiumGraph = database.make_graph(_teams);
 
-        //stadiumGraph.print_graph();
 
-        StadiumManager stadiumManager(stadiumGraph, _teams);
+        // //stadiumGraph.print_graph();
 
-        vector <QString> NameInTrip;
-        NameInTrip.push_back("Los Angeles Angels");
-        NameInTrip.push_back("Pittsburgh Pirates");
-        NameInTrip.push_back("Philadelphia Phillies");
-        NameInTrip.push_back("Seattle Mariners");
+        // StadiumManager stadiumManager(stadiumGraph, _teams);
+
+        // vector <QString> NameInTrip;
+        // NameInTrip.push_back("Los Angeles Angels");
+        // NameInTrip.push_back("Pittsburgh Pirates");
+        // NameInTrip.push_back("Philadelphia Phillies");
+        // NameInTrip.push_back("Seattle Mariners");
+
+
+        // for (Team team : _teamsInTrip) {
+        //     qDebug() << team.teamName();
+        // }
+
+         // qDebug() << "After For Loop";
 
         // createTeamNameVec(_teamsInTrip);
 
-        for (Team team : _teamsInTrip) {
-            qDebug() << team.teamName();
-        }
+        // std::vector<int> stadiumIndices = stadiumManager.convertTeamNamesToStadiumIndices(teamNameInTrip);
 
-         qDebug() << "After For Loop";
+        // if (stadiumIndices.empty())
+        // {
+        //     std::cerr << "No valid stadiums found for the provided team names." << std::endl;
+        //     // return -1;  // Exit if no valid indices found
+        // }
 
+        // int startStadiumIndex = stadiumIndices.front();
+        // stadiumIndices.erase(stadiumIndices.begin());
 
-        std::vector<int> stadiumIndices = stadiumManager.convertTeamNamesToStadiumIndices(NameInTrip);
-
-        if (stadiumIndices.empty())
-        {
-            std::cerr << "No valid stadiums found for the provided team names." << std::endl;
-            // return -1;  // Exit if no valid indices found
-        }
-
-        int startStadiumIndex = stadiumIndices.front();
-        stadiumIndices.erase(stadiumIndices.begin());
-
-        double totalDistance;
-        //Graph stadiumGraph;
-        std::unordered_map <int, double> shortestPaths;
+        // double totalDistance;
+        // //Graph stadiumGraph;
+        // std::unordered_map <int, double> shortestPaths;
 
 
 
-        // stadiumManager.performDFS(&mainWindow);
-        // stadiumManager.performBFS(&mainWindow);
+        // // stadiumManager.performDFS(&mainWindow);
+        // // stadiumManager.performBFS(&mainWindow);
 
-        stadiumGraph.recursivePlanTrip(startStadiumIndex, stadiumIndices,shortestPaths, totalDistance, stadiumGraph.getGraph());
-        std::cout << "Minimum distance to visit all selected stadiums: " << totalDistance << std::endl;
+        // stadiumGraph.recursivePlanTrip(startStadiumIndex, stadiumIndices,shortestPaths, totalDistance, stadiumGraph.getGraph());
+        // std::cout << "Minimum distance to visit all selected stadiums: " << totalDistance << std::endl;
 
 
     }

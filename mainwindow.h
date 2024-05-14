@@ -43,7 +43,11 @@ public:
 
     // added 5/13
     std::vector<QString> teamNameInTrip;
-    std::vector<QString> createTeamNameVec(QVector<Team> _teamsInTrip);
+    void createTeamNameVec(QVector<Team> _teamsInTrip);
+    Graph stadiumGraph;
+    QVector<Team> _teamsInRecursiveTrip;
+
+
 
 private slots:
     //void on_listWidget_teamList_currentTextChanged(const QString &currentText);

@@ -139,11 +139,15 @@ void Graph::recursivePlanTrip(int currentVertex,
                               std::vector<int> &remainingStadiums,
                               std::unordered_map<int, double> &shortestPaths,
                               double &totalDistance,
-                              GraphStructure graph)
+                              GraphStructure graph,
+                              std::vector<int> &tripOrder)
 {
     if (remainingStadiums.empty()) {
         return;
     }
+
+    // Record the current vertex in the trip order
+    tripOrder.push_back(currentVertex);
 
     std::unordered_map<int, double> localShortestPaths = dijkstra(currentVertex, graph);
     double minDistance = std::numeric_limits<double>::infinity();
@@ -161,8 +165,9 @@ void Graph::recursivePlanTrip(int currentVertex,
     int nextVertex = remainingStadiums[nextVertexIndex];
     remainingStadiums.erase(remainingStadiums.begin() + nextVertexIndex);
 
+
     totalDistance += minDistance;
     std::cout << "Visiting: " << nextVertex << " Distance: " << minDistance << std::endl;
 
-    return recursivePlanTrip(nextVertex, remainingStadiums, localShortestPaths, totalDistance, graph);
+    return recursivePlanTrip(nextVertex, remainingStadiums, localShortestPaths, totalDistance, graph, tripOrder);
 }
