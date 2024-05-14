@@ -476,6 +476,16 @@
       <string>Recursively Choose The Closest Team</string>
      </property>
     </item>
+    <item>
+     <property name="text">
+      <string>DFS Starting at Oracle Park</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>BFS Starting at Target Field</string>
+     </property>
+    </item>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -484,7 +494,7 @@
      <x>0</x>
      <y>0</y>
      <width>753</width>
-     <height>37</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>
