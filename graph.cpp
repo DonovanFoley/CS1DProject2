@@ -230,3 +230,40 @@ void Graph::shortestPath(int currentVertex, int targetVertex, double& totalDista
     totalDistance += distanceToTarget;
     std::cout << "Visited vertex " << targetVertex << " from vertex " << currentVertex << ". Distance: " << distanceToTarget << std::endl;
 }
+
+void Graph::visitAllStadiumsRecursive(int currentVertex, std::unordered_map<int, bool>& visitedStadiums, std::unordered_map<int, double>& shortestPaths, double& totalDistance, GraphStructure& graph)
+{
+
+    if (visitedStadiums[currentVertex])// If already visited, return
+    {
+        return;
+    }
+
+    // Mark the current vertex as visited
+    visitedStadiums[currentVertex] = true;
+
+    // Your existing logic to choose the next vertex and update the total distance
+    std::unordered_map<int, double> localShortestPaths = dijkstra(currentVertex, graph);
+    double minDistance = std::numeric_limits<double>::infinity();
+    int nextVertex = -1;
+
+    for (const auto& [vertex, distance] : localShortestPaths)
+    {
+        if (!visitedStadiums[vertex] && distance < minDistance)
+        {
+            minDistance = distance;
+            nextVertex = vertex;
+        }
+    }
+
+    if (nextVertex != -1)
+    {
+        totalDistance += minDistance;
+        std::cout << "Visiting: " << nextVertex << " Distance: " << minDistance << std::endl;
+        visitAllStadiumsRecursive(nextVertex, visitedStadiums, localShortestPaths, totalDistance, graph);
+    }
+    else
+    {
+        std::cout << "Completed visiting all accessible stadiums. Total distance: " << totalDistance << std::endl;
+    }
+}

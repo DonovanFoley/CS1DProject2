@@ -210,7 +210,13 @@ void MainWindow::BFS()
 
 void MainWindow::marlinsPark()
 {
+    std::unordered_map<int, double> shortestPaths;
+    std::unordered_map<int, bool> visitedStadiums;
+    double totalDistance = 0;
 
+    // Assuming '15' is Marlins Park
+    graph.visitAllStadiumsRecursive(15, visitedStadiums, shortestPaths, totalDistance, graph.getGraph());
+    std::cout << "Minimum distance to visit all stadiums starting from Marlins Park: " << totalDistance << std::endl;
 }
 
 //-----------------------------BEGINNING OF GO TO SLOT FUNCTIONS------------------------------------
