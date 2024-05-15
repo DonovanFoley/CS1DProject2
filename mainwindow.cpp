@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
     DFSAct = new QAction("Perform DFS", this);
     BFSAct = new QAction("Perform BFS", this);
     marlinsParkAct = new QAction("Marlins Park Preset", this);
+    MSTAct = new QAction("Perform MST", this);
 
     //Set up toolbar
     loginMenu = menuBar()->addMenu("&Login");
@@ -38,9 +39,11 @@ MainWindow::MainWindow(QWidget *parent)
     presetMenu->addAction(DFSAct);
     presetMenu->addAction(BFSAct);
     presetMenu->addAction(marlinsParkAct);
+    presetMenu->addAction(MSTAct);
     connect(DFSAct, &QAction::triggered, this, &MainWindow::DFS);
     connect(BFSAct, &QAction::triggered, this, &MainWindow::BFS);
     connect(marlinsParkAct, &QAction::triggered, this, &MainWindow::marlinsPark);
+    connect(MSTAct, &QAction::triggered, this, &MainWindow::MST);
 
     //Dummy teams for testing purposes
     QMap<QString, double> s;
@@ -252,6 +255,11 @@ void MainWindow::marlinsPark()
     text = ui->label_tripNames->text();
     text.append(" (" + QString::number(totalDistance) + ")");
     ui->label_tripNames->setText(text);
+}
+
+void MainWindow::MST() {
+    StadiumManager stadiumManager(graph, _teams);
+    stadiumManager.performMST(this);
 }
 
 void MainWindow::save_to_db()

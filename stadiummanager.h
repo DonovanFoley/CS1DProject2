@@ -23,6 +23,7 @@ public:
     //void loadStadiums();
     void performDFS(QWidget *parentWidget);
     void performBFS(QWidget *parentWidget);
+    int performMST(QWidget *parentWidget);
 
     std::vector<int> convertTeamNamesToStadiumIndices(const std::vector<QString> &teamNames); //new
     std::vector<QString> getUserInputTeamNames(QWidget *parentWidget);                        //new
