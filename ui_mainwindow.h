@@ -118,13 +118,11 @@ public:
         tableWidget_souvenirInfo->horizontalHeader()->setCascadingSectionResizes(false);
         tableWidget_souvenirInfo->horizontalHeader()->setDefaultSectionSize(180);
         tableWidget_souvenirInfo->horizontalHeader()->setHighlightSections(true);
-        tableWidget_souvenirInfo->horizontalHeader()->setProperty("showSortIndicator",
-                                                                  QVariant(false));
+        tableWidget_souvenirInfo->horizontalHeader()->setProperty("showSortIndicator", QVariant(false));
         tableWidget_souvenirInfo->verticalHeader()->setVisible(false);
         tableWidget_souvenirInfo->verticalHeader()->setMinimumSectionSize(10);
         tableWidget_souvenirInfo->verticalHeader()->setHighlightSections(true);
-        tableWidget_souvenirInfo->verticalHeader()->setProperty("showSortIndicator",
-                                                                QVariant(false));
+        tableWidget_souvenirInfo->verticalHeader()->setProperty("showSortIndicator", QVariant(false));
         tableWidget_souvenirInfo->verticalHeader()->setStretchLastSection(false);
 
         gridLayout_3->addWidget(tableWidget_souvenirInfo, 1, 0, 1, 2);
@@ -244,33 +242,17 @@ public:
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         groupBox->setTitle(QCoreApplication::translate("MainWindow", "Team Names", nullptr));
         comboBox_exclude->setItemText(0, QCoreApplication::translate("MainWindow", "All", nullptr));
-        comboBox_exclude
-            ->setItemText(1, QCoreApplication::translate("MainWindow", "American League", nullptr));
-        comboBox_exclude
-            ->setItemText(2, QCoreApplication::translate("MainWindow", "National League", nullptr));
-        comboBox_exclude
-            ->setItemText(3, QCoreApplication::translate("MainWindow", "Open Roof", nullptr));
-        comboBox_exclude->setItemText(4,
-                                      QCoreApplication::translate("MainWindow",
-                                                                  "Greatest Distance",
-                                                                  nullptr));
-        comboBox_exclude->setItemText(5,
-                                      QCoreApplication::translate("MainWindow",
-                                                                  "Smallest Distance",
-                                                                  nullptr));
+        comboBox_exclude->setItemText(1, QCoreApplication::translate("MainWindow", "American League", nullptr));
+        comboBox_exclude->setItemText(2, QCoreApplication::translate("MainWindow", "National League", nullptr));
+        comboBox_exclude->setItemText(3, QCoreApplication::translate("MainWindow", "Open Roof", nullptr));
+        comboBox_exclude->setItemText(4, QCoreApplication::translate("MainWindow", "Greatest Distance", nullptr));
+        comboBox_exclude->setItemText(5, QCoreApplication::translate("MainWindow", "Smallest Distance", nullptr));
 
-        comboBox_sort->setItemText(0,
-                                   QCoreApplication::translate("MainWindow", "Team Name", nullptr));
-        comboBox_sort
-            ->setItemText(1, QCoreApplication::translate("MainWindow", "Stadium Name", nullptr));
-        comboBox_sort
-            ->setItemText(2, QCoreApplication::translate("MainWindow", "Park Typology", nullptr));
-        comboBox_sort
-            ->setItemText(3, QCoreApplication::translate("MainWindow", "Date Opened", nullptr));
-        comboBox_sort->setItemText(4,
-                                   QCoreApplication::translate("MainWindow",
-                                                               "Seating Capacity",
-                                                               nullptr));
+        comboBox_sort->setItemText(0, QCoreApplication::translate("MainWindow", "Team Name", nullptr));
+        comboBox_sort->setItemText(1, QCoreApplication::translate("MainWindow", "Stadium Name", nullptr));
+        comboBox_sort->setItemText(2, QCoreApplication::translate("MainWindow", "Park Typology", nullptr));
+        comboBox_sort->setItemText(3, QCoreApplication::translate("MainWindow", "Date Opened", nullptr));
+        comboBox_sort->setItemText(4, QCoreApplication::translate("MainWindow", "Seating Capacity", nullptr));
 
         groupBox_2->setTitle(QCoreApplication::translate("MainWindow", "Team Info", nullptr));
         QTableWidgetItem *___qtablewidgetitem = tableWidget_souvenirInfo->horizontalHeaderItem(0);
@@ -278,34 +260,25 @@ public:
         QTableWidgetItem *___qtablewidgetitem1 = tableWidget_souvenirInfo->horizontalHeaderItem(1);
         ___qtablewidgetitem1->setText(QCoreApplication::translate("MainWindow", "Price", nullptr));
         QTableWidgetItem *___qtablewidgetitem2 = tableWidget_teamInfo->verticalHeaderItem(0);
-        ___qtablewidgetitem2->setText(
-            QCoreApplication::translate("MainWindow", "Team Name", nullptr));
+        ___qtablewidgetitem2->setText(QCoreApplication::translate("MainWindow", "Team Name", nullptr));
         QTableWidgetItem *___qtablewidgetitem3 = tableWidget_teamInfo->verticalHeaderItem(1);
-        ___qtablewidgetitem3->setText(
-            QCoreApplication::translate("MainWindow", "Stadium Name", nullptr));
+        ___qtablewidgetitem3->setText(QCoreApplication::translate("MainWindow", "Stadium Name", nullptr));
         QTableWidgetItem *___qtablewidgetitem4 = tableWidget_teamInfo->verticalHeaderItem(2);
-        ___qtablewidgetitem4->setText(
-            QCoreApplication::translate("MainWindow", "Seating Capacity", nullptr));
+        ___qtablewidgetitem4->setText(QCoreApplication::translate("MainWindow", "Seating Capacity", nullptr));
         QTableWidgetItem *___qtablewidgetitem5 = tableWidget_teamInfo->verticalHeaderItem(3);
-        ___qtablewidgetitem5->setText(
-            QCoreApplication::translate("MainWindow", "Location", nullptr));
+        ___qtablewidgetitem5->setText(QCoreApplication::translate("MainWindow", "Location", nullptr));
         QTableWidgetItem *___qtablewidgetitem6 = tableWidget_teamInfo->verticalHeaderItem(4);
-        ___qtablewidgetitem6->setText(
-            QCoreApplication::translate("MainWindow", "Playing Surface", nullptr));
+        ___qtablewidgetitem6->setText(QCoreApplication::translate("MainWindow", "Playing Surface", nullptr));
         QTableWidgetItem *___qtablewidgetitem7 = tableWidget_teamInfo->verticalHeaderItem(5);
         ___qtablewidgetitem7->setText(QCoreApplication::translate("MainWindow", "League", nullptr));
         QTableWidgetItem *___qtablewidgetitem8 = tableWidget_teamInfo->verticalHeaderItem(6);
-        ___qtablewidgetitem8->setText(
-            QCoreApplication::translate("MainWindow", "Date Opened", nullptr));
+        ___qtablewidgetitem8->setText(QCoreApplication::translate("MainWindow", "Date Opened", nullptr));
         QTableWidgetItem *___qtablewidgetitem9 = tableWidget_teamInfo->verticalHeaderItem(7);
-        ___qtablewidgetitem9->setText(
-            QCoreApplication::translate("MainWindow", "Distance To Field", nullptr));
+        ___qtablewidgetitem9->setText(QCoreApplication::translate("MainWindow", "Distance To Field", nullptr));
         QTableWidgetItem *___qtablewidgetitem10 = tableWidget_teamInfo->verticalHeaderItem(8);
-        ___qtablewidgetitem10->setText(
-            QCoreApplication::translate("MainWindow", "Typology", nullptr));
+        ___qtablewidgetitem10->setText(QCoreApplication::translate("MainWindow", "Typology", nullptr));
         QTableWidgetItem *___qtablewidgetitem11 = tableWidget_teamInfo->verticalHeaderItem(9);
-        ___qtablewidgetitem11->setText(
-            QCoreApplication::translate("MainWindow", "Roof Type", nullptr));
+        ___qtablewidgetitem11->setText(QCoreApplication::translate("MainWindow", "Roof Type", nullptr));
 
         const bool __sortingEnabled = tableWidget_teamInfo->isSortingEnabled();
         tableWidget_teamInfo->setSortingEnabled(false);
@@ -314,26 +287,17 @@ public:
         pushButton_add->setText(QCoreApplication::translate("MainWindow", "Add", nullptr));
         pushButton_delete->setText(QCoreApplication::translate("MainWindow", "Delete", nullptr));
         pushButton_go->setText(QCoreApplication::translate("MainWindow", "Go!", nullptr));
-        checkBox_addToTrip->setText(
-            QCoreApplication::translate("MainWindow", "Add To Trip", nullptr));
+        checkBox_addToTrip->setText(QCoreApplication::translate("MainWindow", "Add To Trip", nullptr));
         label_tripNames->setText(QString());
-        comboBox_tripType
-            ->setItemText(0,
-                          QCoreApplication::translate("MainWindow",
-                                                      "Order Specified Using Shortest Path",
-                                                      nullptr));
-        comboBox_tripType
-            ->setItemText(1,
-                          QCoreApplication::translate("MainWindow",
-                                                      "Recursively Choose The Closest Team",
-                                                      nullptr));
+        comboBox_tripType->setItemText(0, QCoreApplication::translate("MainWindow", "Order Specified Using Shortest Path", nullptr));
+        comboBox_tripType->setItemText(1, QCoreApplication::translate("MainWindow", "Recursively Choose The Closest Team", nullptr));
 
     } // retranslateUi
+
 };
 
 namespace Ui {
-class MainWindow : public Ui_MainWindow
-{};
+    class MainWindow: public Ui_MainWindow {};
 } // namespace Ui
 
 QT_END_NAMESPACE
