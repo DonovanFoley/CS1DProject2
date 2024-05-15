@@ -2,10 +2,10 @@
 #define SOUVENIRPURCHASE_H
 
 #include <QDialog>
-#include <team.h>
 #include "QSpinBox"
 #include "QTableWidget"
 #include "ui_SouvenirPurchase.h"
+#include <team.h>
 
 namespace Ui {
 class SouvenirPurchase;
@@ -24,7 +24,7 @@ public:
 
     void getTeams(QVector<Team> teams);
     QVector<int> totalSouvenirsPurchased; // parallel vector to _teams
-    QVector<double> totalCostPerTeam; // parallel vector to _teams
+    QVector<double> totalCostPerTeam;     // parallel vector to _teams
 
 private slots:
     void on_purchaseBtn_clicked();

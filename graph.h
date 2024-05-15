@@ -1,16 +1,16 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
-#include <vector>
-#include <queue>
-#include <unordered_map>
+#include <QString>
+#include "map.h"
 #include <functional> // For std::greater
 #include <iostream>
-#include <QString>
 #include <limits>
-#include <utility>
+#include <queue>
 #include <stack>
-#include "map.h"
+#include <unordered_map>
+#include <utility>
+#include <vector>
 
 #include "team.h"
 
@@ -20,7 +20,7 @@ struct Edge
 {
     int destination;
     int weight;
-    bool operator>(const Edge& other) const
+    bool operator>(const Edge &other) const
     {
         return weight > other.weight; // Greater comparison for min-heap
     }
@@ -38,17 +38,39 @@ public:
 
     void print_graph();
 
-    void recursiveDFS(GraphStructure graph, int current, std::vector<bool>& visited, const std::unordered_map<int, QString>& indexToStadium, int& totalDistance);
-    int DFS(int startVertex, std::vector<bool>& visited, const std::unordered_map<int, QString>&indexToStadium);
-    int BFS(GraphStructure graph, int startVertex, const std::unordered_map<int, QString>& indexToStadium);
+    void recursiveDFS(GraphStructure graph,
+                      int current,
+                      std::vector<bool> &visited,
+                      const std::unordered_map<int, QString> &indexToStadium,
+                      int &totalDistance);
+    int DFS(int startVertex,
+            std::vector<bool> &visited,
+            const std::unordered_map<int, QString> &indexToStadium);
+    int BFS(GraphStructure graph,
+            int startVertex,
+            const std::unordered_map<int, QString> &indexToStadium);
     //std::vector<int> dijkstra(int start, int startVertex, int& distance);
-    GraphStructure& getGraph();
+    GraphStructure &getGraph();
     std::unordered_map<int, double> dijkstra(int startVertex, GraphStructure graph);
-    void shortestPath(int currentVertex, int targetVertex, double& totalDistance, GraphStructure& graph);
-    void visitAllStadiumsRecursive(int currentVertex, std::unordered_map<int, bool>& visitedStadiums, std::unordered_map<int, double>& shortestPaths, double& totalDistance, GraphStructure& graph, QVector<int>& vertices, QVector<int> verticesInTrip);
-    std::unordered_map<int, Team*> indexToTeamMap;
-    void loadTeamsIntoGraph(Map& teams);
-    void recursivePlanTrip(int currentVertex, std::vector<int>& remainingStadiums, std::unordered_map<int, double>& shortestPaths, double& totalDistance, GraphStructure graph, QVector<int>& vertices);
+    void shortestPath(int currentVertex,
+                      int targetVertex,
+                      double &totalDistance,
+                      GraphStructure &graph);
+    void visitAllStadiumsRecursive(int currentVertex,
+                                   std::unordered_map<int, bool> &visitedStadiums,
+                                   std::unordered_map<int, double> &shortestPaths,
+                                   double &totalDistance,
+                                   GraphStructure &graph,
+                                   QVector<int> &vertices,
+                                   QVector<int> verticesInTrip);
+    std::unordered_map<int, Team *> indexToTeamMap;
+    void loadTeamsIntoGraph(Map &teams);
+    void recursivePlanTrip(int currentVertex,
+                           std::vector<int> &remainingStadiums,
+                           std::unordered_map<int, double> &shortestPaths,
+                           double &totalDistance,
+                           GraphStructure graph,
+                           QVector<int> &vertices);
 
 private:
     GraphStructure graph;
@@ -56,5 +78,3 @@ private:
 };
 
 #endif // GRAPH_H
-
-
