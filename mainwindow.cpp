@@ -419,6 +419,8 @@ void MainWindow::on_tableWidget_souvenirInfo_itemChanged()
             }
         }
     }
+
+    database.update_souvenirs(currentTeam);
 }
 
 //Add souvenir button
@@ -438,6 +440,8 @@ void MainWindow::on_pushButton_add_clicked()
             }
         }
     }
+    
+    database.update_souvenirs(currentTeam);
 }
 
 //Delete souvenir buttons
@@ -490,6 +494,8 @@ void MainWindow::on_pushButton_delete_clicked()
             }
         }
     }
+    
+    database.update_souvenirs(currentTeam);
 }
 
 //Clicked on a souvenir (Helper function for delete)

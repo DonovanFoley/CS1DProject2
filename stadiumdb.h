@@ -29,6 +29,7 @@ public:
     Graph make_graph(const Map &);
 
     void update_team_info(Team *team);
+    void update_souvenirs(Team *team);
 
     void save_changes();
 
@@ -44,6 +45,8 @@ private:
     char *file_loc_;
 
     std::map<int, std::stringstream> update_statements;
+
+    std::map<int, std::vector<std::stringstream> > update_souv;
 };
 
 #endif
