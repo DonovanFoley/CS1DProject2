@@ -6,7 +6,6 @@ Team::Team(QString teamName,
            QString stadiumName,
            int seatingCapacity,
            QString location,
-           QString state,
            QString playingSurface,
            QString league,
            int dateOpened,
@@ -19,7 +18,6 @@ Team::Team(QString teamName,
     _stadiumName = stadiumName;
     _seatingCapacity = seatingCapacity;
     _location = location;
-    _state = state;
     _playingSurface = playingSurface;
     _league = league;
     _dateOpened = dateOpened;

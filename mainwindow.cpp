@@ -17,8 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     openDBAct = new QAction("Open Databae...", this);
 
-    saveDBAct = new QAction("Save Changes", this);
-
+    MSTAct = new QAction("Perform MST", this);
     DFSAct = new QAction("Perform DFS", this);
     BFSAct = new QAction("Perform BFS", this);
     marlinsParkAct = new QAction("Marlins Park Preset", this);
@@ -29,15 +28,15 @@ MainWindow::MainWindow(QWidget *parent)
     connect(loginAct, &QAction::triggered, this, &MainWindow::login);
 
     fileMenu = menuBar()->addMenu("&File");
-    fileMenu->addAction(saveDBAct);
-    connect(saveDBAct, &QAction::triggered, this, &MainWindow::save_to_db);
     fileMenu->addAction(openDBAct);
     connect(openDBAct, &QAction::triggered, this, &MainWindow::choose_file);
 
     presetMenu = menuBar()->addMenu("&Presets");
+    presetMenu->addAction(MSTAct);
     presetMenu->addAction(DFSAct);
     presetMenu->addAction(BFSAct);
     presetMenu->addAction(marlinsParkAct);
+    connect(MSTAct, &QAction::triggered, this, &MainWindow::MST);
     connect(DFSAct, &QAction::triggered, this, &MainWindow::DFS);
     connect(BFSAct, &QAction::triggered, this, &MainWindow::BFS);
     connect(marlinsParkAct, &QAction::triggered, this, &MainWindow::marlinsPark);
@@ -62,6 +61,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     _teams.sort(teamName);
     displayTeamNames();
+
 }
 
 MainWindow::~MainWindow()
@@ -179,9 +179,7 @@ void MainWindow::choose_file()
     database.set_file(filename);
     database.populate_teams(_teams);
     database.populate_souvenirs(_teams);
-    graph = database.make_graph(_teams);
 
-    ui->listWidget_teamList->clear();
     displayTeamNames();
     //displaySouvenirInfo();
 }
@@ -203,6 +201,11 @@ void MainWindow::djikstras()
         _teams(i)->toggleIsInTrip(false);
     _teamsInTrip.clear();
     ui->checkBox_addToTrip->setChecked(false);
+}
+
+void MainWindow::MST() {
+    StadiumManager stadiumManager(graph, _teams);
+    stadiumManager.performMST(this);
 }
 
 void MainWindow::DFS()
@@ -252,11 +255,6 @@ void MainWindow::marlinsPark()
     text = ui->label_tripNames->text();
     text.append(" (" + QString::number(totalDistance) + ")");
     ui->label_tripNames->setText(text);
-}
-
-void MainWindow::save_to_db()
-{
-    database.save_changes();
 }
 
 //-----------------------------BEGINNING OF GO TO SLOT FUNCTIONS------------------------------------
@@ -371,8 +369,6 @@ void MainWindow::on_tableWidget_teamInfo_itemChanged()
         }
     }
     displayTripNames();
-
-    database.update_team_info(currentTeam);
 }
 
 //Edit team object info upon changing the souvenir table
