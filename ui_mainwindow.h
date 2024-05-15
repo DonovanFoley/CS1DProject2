@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 6.6.2
+** Created by: Qt User Interface Compiler version 6.6.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -46,6 +46,8 @@ public:
     QCheckBox *checkBox_addToTrip;
     QLabel *label_tripNames;
     QComboBox *comboBox_tripType;
+    QLabel *label_1;
+    QLabel *label_2;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -223,10 +225,18 @@ public:
         comboBox_tripType->addItem(QString());
         comboBox_tripType->setObjectName("comboBox_tripType");
         comboBox_tripType->setGeometry(QRect(409, 570, 330, 26));
+        label_1 = new QLabel(centralwidget);
+        label_1->setObjectName("label_1");
+        label_1->setEnabled(true);
+        label_1->setGeometry(QRect(120, 570, 211, 20));
+        label_2 = new QLabel(centralwidget);
+        label_2->setObjectName("label_2");
+        label_2->setEnabled(true);
+        label_2->setGeometry(QRect(330, 570, 71, 21));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 753, 26));
+        menubar->setGeometry(QRect(0, 0, 753, 24));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
@@ -292,6 +302,8 @@ public:
         comboBox_tripType->setItemText(0, QCoreApplication::translate("MainWindow", "Order Specified Using Shortest Path", nullptr));
         comboBox_tripType->setItemText(1, QCoreApplication::translate("MainWindow", "Recursively Choose The Closest Team", nullptr));
 
+        label_1->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
+        label_2->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
     } // retranslateUi
 
 };

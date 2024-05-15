@@ -65,6 +65,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     _teams.sort(teamName);
     displayTeamNames();
+
+    ui->label_1->setHidden(true);
+    ui->label_2->setHidden(true);
 }
 
 MainWindow::~MainWindow()
@@ -307,6 +310,22 @@ void MainWindow::on_comboBox_sort_currentTextChanged(const QString &arg1)
             }
         }
     }
+
+    if (ui->comboBox_sort->currentText() == "Seating Capacity"){
+        int totalCapacity = 0;
+        for (int i = 0; i < _teams.size(); i++) {
+            totalCapacity = totalCapacity + _teams(i)->seatingCapacity();
+        }
+
+        ui->label_1->setHidden(false);
+        ui->label_2->setHidden(false);
+        ui->label_1->setText("total capacity of all teams: ");
+        ui->label_2->setText(QString::number(totalCapacity));
+    }
+    else {
+        ui->label_1->setHidden(true);
+        ui->label_2->setHidden(true);
+    }
 }
 
 //Exclusion box changed
@@ -330,6 +349,26 @@ void MainWindow::on_comboBox_exclude_currentTextChanged(const QString &arg1)
             }
         }
     }
+
+
+    if (onlyOpenRoof == 1){
+        int numberOfOpenRoof = 0;
+        for (int i = 0; i < _teams.size(); i++) {
+            if (_teams(i)->rooftype() == "Open"){
+                numberOfOpenRoof++;
+            }
+        }
+
+        ui->label_1->setHidden(false);
+        ui->label_2->setHidden(false);
+        ui->label_1->setText("number of teams with open roof: ");
+        ui->label_2->setText(QString::number(numberOfOpenRoof));
+    }
+    else {
+        ui->label_1->setHidden(true);
+        ui->label_2->setHidden(true);
+    }
+
 }
 
 //Edit team info upon changing the table
