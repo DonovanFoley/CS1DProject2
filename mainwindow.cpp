@@ -17,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     openDBAct = new QAction("Open Databae...", this);
 
+    saveDBAct = new QAction("Save Changes", this);
+
     DFSAct = new QAction("Perform DFS", this);
     BFSAct = new QAction("Perform BFS", this);
     marlinsParkAct = new QAction("Marlins Park Preset", this);
@@ -27,6 +29,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(loginAct, &QAction::triggered, this, &MainWindow::login);
 
     fileMenu = menuBar()->addMenu("&File");
+    fileMenu->addAction(saveDBAct);
+    connect(saveDBAct, &QAction::triggered, this, &MainWindow::save_to_db);
     fileMenu->addAction(openDBAct);
     connect(openDBAct, &QAction::triggered, this, &MainWindow::choose_file);
 
@@ -243,6 +247,8 @@ void MainWindow::marlinsPark()
 
 }
 
+void MainWindow::save_to_db() { database.save_changes(); }
+
 //-----------------------------BEGINNING OF GO TO SLOT FUNCTIONS------------------------------------
 
 //Update display info when a team is clicked
@@ -355,6 +361,8 @@ void MainWindow::on_tableWidget_teamInfo_itemChanged()
         }
     }
     displayTripNames();
+
+    database.update_team_info(currentTeam);
 }
 
 //Edit team object info upon changing the souvenir table
