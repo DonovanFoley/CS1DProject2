@@ -2,22 +2,22 @@
 #define MAINWINDOW_H
 //hi
 #include <QAction>
+#include <QFileDialog>
 #include <QListWidgetItem>
 #include <QMainWindow>
 #include <QMenu>
 #include <QMessageBox>
 #include <QRegularExpression>
 #include <QTableWidgetItem>
-#include <QFileDialog>
 #include <filesystem>
 
+#include "SouvenirPurchase.h"
 #include "logindialog.h"
 #include "map.h"
 #include "stadiumdb.h"
+#include "stadiummanager.h"
 #include "team.h"
 #include "tripdialog.h"
-#include "SouvenirPurchase.h"
-#include "stadiummanager.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -93,7 +93,7 @@ private:
 
     QMenu *loginMenu;
     QAction *loginAct;
-    
+
     QMenu *fileMenu;
     QAction *openDBAct;
     QAction *saveDBAct;

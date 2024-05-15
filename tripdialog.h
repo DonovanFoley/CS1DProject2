@@ -2,8 +2,8 @@
 #define TRIPDIALOG_H
 
 #include <QDialog>
-#include "map.h"
 #include "SouvenirPurchase.h"
+#include "map.h"
 
 namespace Ui {
 class TripDialog;

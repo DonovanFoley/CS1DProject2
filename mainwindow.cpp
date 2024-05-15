@@ -47,12 +47,11 @@ MainWindow::MainWindow(QWidget *parent)
     s.insert("Souvenir item", 15.59);
     s.insert("Second Souvenir item", 10.05);
 
-    if(std::filesystem::exists("stadiums.db"))
-    {
-      database.set_file("stadiums.db");
-      database.populate_teams(_teams);
-      database.populate_souvenirs(_teams);
-      graph = database.make_graph(_teams);
+    if (std::filesystem::exists("stadiums.db")) {
+        database.set_file("stadiums.db");
+        database.populate_teams(_teams);
+        database.populate_souvenirs(_teams);
+        graph = database.make_graph(_teams);
     }
 
     propertyMap["Team Name"] = teamName;
@@ -122,7 +121,8 @@ void MainWindow::displayTeamInfo()
 
 void MainWindow::displaySouvenirInfo()
 {
-    if(!currentTeam) return;
+    if (!currentTeam)
+        return;
 
     ui->tableWidget_souvenirInfo->clearContents();
     ui->tableWidget_souvenirInfo->setRowCount(0);
@@ -170,16 +170,20 @@ void MainWindow::login()
     loginDialog->reset();
 }
 
-void MainWindow::choose_file() {
-  QString filename = QFileDialog::getOpenFileName(this, "Open Database",
-                                                  "/home",
-                                                  "SQLite files (*.db *.sqlite *.sqlite3)");
-  database.set_file(filename);
-  database.populate_teams(_teams);
-  database.populate_souvenirs(_teams);
+void MainWindow::choose_file()
+{
+    QString filename = QFileDialog::getOpenFileName(this,
+                                                    "Open Database",
+                                                    "/home",
+                                                    "SQLite files (*.db *.sqlite *.sqlite3)");
+    database.set_file(filename);
+    database.populate_teams(_teams);
+    database.populate_souvenirs(_teams);
+    graph = database.make_graph(_teams);
 
-  displayTeamNames();
-  //displaySouvenirInfo();
+    ui->listWidget_teamList->clear();
+    displayTeamNames();
+    //displaySouvenirInfo();
 }
 
 //Djikstras from Dodger Stadium to one other selected team (instruction #1)
@@ -195,7 +199,8 @@ void MainWindow::djikstras()
     ui->label_tripNames->setText(text);
 
     //Reset
-    for (int i = 0; i < _teams.size(); i++) _teams(i)->toggleIsInTrip(false);
+    for (int i = 0; i < _teams.size(); i++)
+        _teams(i)->toggleIsInTrip(false);
     _teamsInTrip.clear();
     ui->checkBox_addToTrip->setChecked(false);
 }
@@ -215,8 +220,7 @@ void MainWindow::BFS()
 void MainWindow::marlinsPark()
 {
     QVector<int> verticesToChoose;
-    for (int i = 0; i < _teams.size(); i++)
-    {
+    for (int i = 0; i < _teams.size(); i++) {
         verticesToChoose.append(_teams(i)->id());
         _teams(i)->toggleIsInTrip(true);
     }
@@ -226,15 +230,19 @@ void MainWindow::marlinsPark()
     double totalDistance = 0;
     QVector<int> vertices;
     // Assuming '15' is Marlins Park
-    graph.visitAllStadiumsRecursive(15, visitedStadiums, shortestPaths, totalDistance, graph.getGraph(), vertices, verticesToChoose);
-    std::cout << "Minimum distance to visit all stadiums starting from Marlins Park: " << totalDistance << std::endl;
+    graph.visitAllStadiumsRecursive(15,
+                                    visitedStadiums,
+                                    shortestPaths,
+                                    totalDistance,
+                                    graph.getGraph(),
+                                    vertices,
+                                    verticesToChoose);
+    std::cout << "Minimum distance to visit all stadiums starting from Marlins Park: "
+              << totalDistance << std::endl;
     _teamsInTrip.append(*_teams["Miami Marlins"]);
-    for (int i = 0; i < vertices.size(); i++)
-    {
-        for(int x = 0; x < _teams.size(); x++)
-        {
-            if (_teams(x)->id() == vertices[i])
-            {
+    for (int i = 0; i < vertices.size(); i++) {
+        for (int x = 0; x < _teams.size(); x++) {
+            if (_teams(x)->id() == vertices[i]) {
                 _teamsInTrip.append(*_teams(x));
             }
         }
@@ -244,10 +252,12 @@ void MainWindow::marlinsPark()
     text = ui->label_tripNames->text();
     text.append(" (" + QString::number(totalDistance) + ")");
     ui->label_tripNames->setText(text);
-
 }
 
-void MainWindow::save_to_db() { database.save_changes(); }
+void MainWindow::save_to_db()
+{
+    database.save_changes();
+}
 
 //-----------------------------BEGINNING OF GO TO SLOT FUNCTIONS------------------------------------
 
@@ -504,12 +514,10 @@ void MainWindow::on_checkBox_addToTrip_clicked(bool checked)
 {
     double totalDistance = 0;
     //If the user is adding team to the trip
-    if (checked)
-    {
+    if (checked) {
         currentTeam->toggleIsInTrip(true);
         _teamsInTrip.append(*currentTeam);
-    }
-    else //If user is removing team from the trip
+    } else //If user is removing team from the trip
     {
         currentTeam->toggleIsInTrip(false);
         for (int i = 0; i < _teamsInTrip.size(); i++) {
@@ -521,27 +529,27 @@ void MainWindow::on_checkBox_addToTrip_clicked(bool checked)
     }
 
     //If we are doing djikstras from Dodger Stadium to one other selected team
-    if (_teamsInTrip.size() > 1 && ui->comboBox_tripType->currentText() == "Order Specified Using Shortest Path")
-    {
+    if (_teamsInTrip.size() > 1
+        && ui->comboBox_tripType->currentText() == "Order Specified Using Shortest Path") {
         displayTripNames();
 
-        for (int i = 0; i < _teamsInTrip.size() - 1; i++)
-        {
+        for (int i = 0; i < _teamsInTrip.size() - 1; i++) {
             double distance = 0;
-            graph.shortestPath(_teamsInTrip[i].id(), _teamsInTrip[i+1].id(), distance, graph.getGraph());
+            graph.shortestPath(_teamsInTrip[i].id(),
+                               _teamsInTrip[i + 1].id(),
+                               distance,
+                               graph.getGraph());
             totalDistance += distance;
         }
         QString text = ui->label_tripNames->text();
         text.append(" (" + QString::number(totalDistance) + ")");
         ui->label_tripNames->setText(text);
-    }
-    else if (_teamsInTrip.size() > 1 && ui->comboBox_tripType->currentText() == "Recursively Choose The Closest Team")
-    {
+    } else if (_teamsInTrip.size() > 1
+               && ui->comboBox_tripType->currentText() == "Recursively Choose The Closest Team") {
         QVector<int> teamsToChoose;
         QVector<Team> teamsCopy;
         teamsCopy.append(_teamsInTrip[0]);
-        for (int i = 0; i < _teamsInTrip.size(); i++)
-        {
+        for (int i = 0; i < _teamsInTrip.size(); i++) {
             teamsToChoose.append(_teamsInTrip[i].id());
         }
 
@@ -551,19 +559,23 @@ void MainWindow::on_checkBox_addToTrip_clicked(bool checked)
         double totalDistance = 0;
         QVector<int> vertices;
         // Assuming '15' is Marlins Park
-        graph.visitAllStadiumsRecursive(_teamsInTrip[0].id(), visitedStadiums, shortestPaths, totalDistance, graph.getGraph(), vertices, teamsToChoose);
-        std::cout << "Minimum distance to visit all stadiums starting from Marlins Park: " << totalDistance << std::endl;
+        graph.visitAllStadiumsRecursive(_teamsInTrip[0].id(),
+                                        visitedStadiums,
+                                        shortestPaths,
+                                        totalDistance,
+                                        graph.getGraph(),
+                                        vertices,
+                                        teamsToChoose);
+        std::cout << "Minimum distance to visit all stadiums starting from Marlins Park: "
+                  << totalDistance << std::endl;
         //_teamsInTrip.clear();
         // for (int i = 0; i < vertices.size(); i++)
         // {
         //     std::cout << vertices[i] << "\n";
         // }
-        for (int i = 0; i < vertices.size(); i++)
-        {
-            for(int x = 0; x < _teams.size(); x++)
-            {
-                if (_teams(x)->id() == vertices[i])
-                {
+        for (int i = 0; i < vertices.size(); i++) {
+            for (int x = 0; x < _teams.size(); x++) {
+                if (_teams(x)->id() == vertices[i]) {
                     teamsCopy.append(*_teams(x));
                 }
             }
@@ -605,19 +617,15 @@ void MainWindow::on_checkBox_addToTrip_clicked(bool checked)
         //     }
         // }
         // displayTripNames();
-    }
-    else
-    {
+    } else {
         displayTripNames();
     }
-
 }
 
 //Trip type box changed
 void MainWindow::on_comboBox_tripType_currentTextChanged(const QString &arg1)
 {
-    for (int i = 0; i < _teams.size(); i++)
-    {
+    for (int i = 0; i < _teams.size(); i++) {
         _teams(i)->toggleIsInTrip(false);
     }
     ui->checkBox_addToTrip->setChecked(false);
@@ -627,18 +635,13 @@ void MainWindow::on_comboBox_tripType_currentTextChanged(const QString &arg1)
 
     //if (arg1 == "One Other Team Starting At Dodger Stadium")
     //{
-        //Algorithm 1
+    //Algorithm 1
     //}
-    if (arg1 == "Order Specified Using Shortest Path")
-    {
+    if (arg1 == "Order Specified Using Shortest Path") {
         //Algorithm 2
-    }
-    else if (arg1 == "All Teams Starting At Marlins Park")
-    {
+    } else if (arg1 == "All Teams Starting At Marlins Park") {
         //Algorithm 3
-    }
-    else if (arg1 == "Recursively Choose The Closest Team")
-    {
+    } else if (arg1 == "Recursively Choose The Closest Team") {
         //Algorithm 4
     }
 }

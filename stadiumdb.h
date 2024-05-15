@@ -1,10 +1,10 @@
 #ifndef DBINTERFACE_H
 #define DBINTERFACE_H
 
+#include "graph.h"
 #include "map.h"
 #include "sqlite3.h"
 #include "team.h"
-#include "graph.h"
 
 #include <iostream>
 #include <sstream>
@@ -13,22 +13,22 @@
 class StadiumsDB
 {
 public:
-    StadiumsDB(const char* dbfile);
+    StadiumsDB(const char *dbfile);
     StadiumsDB();
 
-    void set_file(const char* dbfile);
+    void set_file(const char *dbfile);
     void set_file(const QString dbfile);
 
     int num_stadiums();
 
-    void populate_teams(Map&);
-    void populate_souvenirs(Map&);
+    void populate_teams(Map &);
+    void populate_souvenirs(Map &);
 
-    void modify_stadium_info(Team&);
+    void modify_stadium_info(Team &);
 
-    Graph make_graph(const Map&);
+    Graph make_graph(const Map &);
 
-    void update_team_info(Team* team);
+    void update_team_info(Team *team);
 
     void save_changes();
 
