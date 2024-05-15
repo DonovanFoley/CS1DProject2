@@ -115,6 +115,24 @@ void StadiumManager::performBFS(QWidget *parentWidget)
     }
 }
 
+int StadiumManager::performMST(QWidget *parentWidget) {
+    int totalDistance = 0;
+    GraphStructure graphCopy = graph.getGraph();
+
+    if (graphCopy.empty()) {
+        QMessageBox::information(parentWidget, "Error", "Graph is empty, cannot perform MST.");
+        return 0; // Early exit if graph is empty
+    }
+
+    // Find a valid starting vertex (the first key in the graph's map)
+    auto it = graphCopy.begin();
+    int startVertex = it->first;
+
+    totalDistance = graph.findMSTTotalWeight(graphCopy, startVertex);
+    QMessageBox::information(parentWidget, "MST Total Distance", "Total Distance: " + QString::number(totalDistance));
+    return totalDistance;
+}
+
 std::vector<QString> StadiumManager::getUserInputTeamNames(QWidget *parentWidget)
 {
     bool ok;

@@ -71,6 +71,8 @@ public:
                            double &totalDistance,
                            GraphStructure graph,
                            QVector<int> &vertices);
+    int findMSTTotalWeight(const GraphStructure& graph, int startVertex);
+    std::vector<Edge> extractEdges(const GraphStructure& graph, int vertex);
 
 private:
     GraphStructure graph;

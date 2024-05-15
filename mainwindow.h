@@ -44,6 +44,7 @@ public:
     void DFS();
     void BFS();
     void marlinsPark();
+    void MST();
 
     void setCurrentSouvenir(const QString &newCurrentSouvenir);
 
@@ -102,6 +103,7 @@ private:
     QAction *DFSAct;
     QAction *BFSAct;
     QAction *marlinsParkAct;
+    QAction *MSTAct;
 
     Team *currentTeam = nullptr;
     QString currentSouvenirName;
