@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // graph.h
 
 #ifndef GRAPH_H
@@ -73,6 +72,3 @@ private:
 };
 
 #endif // GRAPH_H
-
-
->>>>>>> 1b8e45f3ac0d908b1bc28eb08542d7df5cf0bd11

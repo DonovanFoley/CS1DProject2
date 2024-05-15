@@ -1,4 +1,3 @@
-#include "prim.h"
 #include "stadiumdb.h"  // Ensure stadium class is included
 
 // You can now use the PrimGraph class and its methods

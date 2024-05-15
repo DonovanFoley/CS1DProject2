@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // graph.cpp
 
 #include "graph.h"
@@ -169,4 +168,3 @@ GraphStructure& Graph::getGraph()
 {
     return graph;
 }
->>>>>>> 1b8e45f3ac0d908b1bc28eb08542d7df5cf0bd11
