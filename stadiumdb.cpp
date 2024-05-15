@@ -145,13 +145,44 @@ void StadiumsDB::update_team_info(Team *team)
     //std::cout << insert_state.str() << '\n';
 }
 
+void StadiumsDB::update_souvenirs(Team *team)
+{
+  update_souv[team->id()].clear();
+
+  for (const auto [souv_name, souv_price] : team->souvenirListRef().asKeyValueRange()) {
+    std::stringstream insert_souv;
+    insert_souv << "INSERT INTO souvenir (\"stadium_id\", \"name\", \"price\") VALUES ("
+                << "'" << team->id() << "', "
+                << "'" << souv_name.toStdString() << "', "
+                << "'" << souv_price << "');";
+     
+    update_souv[team->id()].push_back(std::move(insert_souv));
+  }
+}
+
 void StadiumsDB::save_changes()
 {
+    //write updated team infomation
     for (const auto &[id, statement] : update_statements) {
-        std::cout << "TEAM ID: " << id << " updated to: " << statement.str() << '\n';
-
+        //std::cout << "TEAM ID: " << id << " updated to: " << statement.str() << '\n';
         prepare_statement(statement.str());
         finalize_statement();
+    }
+
+    //write updated team souvenirs
+    for (const auto &[id, statements] : update_souv) {
+      //std::cout << "Remove all souvenirs for team: " << id << '\n';
+
+      std::stringstream remove_rows;
+      remove_rows << "DELETE FROM souvenir WHERE stadium_id = " << id << ";";
+      prepare_statement(remove_rows.str());
+      finalize_statement();
+
+      //for all updated souvenirs of team: id
+      for (auto &state : statements) {
+        prepare_statement(state.str());
+        finalize_statement();
+      }
     }
 }
 
